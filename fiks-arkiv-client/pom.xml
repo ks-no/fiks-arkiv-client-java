@@ -34,7 +34,7 @@
                             <overwrite>true</overwrite>
                             <resources>
                                 <resource>
-                                    <directory>../../fiks-arkiv-specification/Schema/V1</directory>
+                                    <directory>../fiks-arkiv-specification/Schema/V1</directory>
                                 </resource>
                             </resources>
                         </configuration>
