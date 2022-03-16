@@ -37,6 +37,11 @@ pipeline {
                     env.GIT_SHA = sh(returnStdout: true, script: 'git rev-parse HEAD').substring(0, 7)
                     env.REPO_NAME = scm.getUserRemoteConfigs()[0].getUrl().tokenize('/').last().split("\\.")[0]
                     env.PROFILE_EXTRA = ""
+                    if(pipelineParams.apiVersion?.trim()) {
+                        env.API_VERSION = "${pipelineParams.apiVersion}"
+                    } else {
+                        env.API_VERSION = ""
+                    }
                 }
                 sh '''
                  echo "PATH = ${PATH}"
@@ -44,7 +49,7 @@ pipeline {
                 '''
                 sh 'git submodule  update --init --recursive --remote'
                 dir('fiks-arkiv-spsification') {
-                    sh 'git checkout ${params.apiVersion}'
+                    sh 'git checkout ${API_VERSION}'
                 }
                 rtMavenDeployer (
                         id: "MAVEN_DEPLOYER",
