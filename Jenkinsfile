@@ -21,6 +21,7 @@ pipeline {
     parameters {
         booleanParam(name: 'isRelease', defaultValue: false, description: 'Skal prosjektet releases? Alle andre parametere ignoreres ved snapshot-bygg.')
         string(name: "specifiedVersion", defaultValue: "", description: "Hva er det nye versjonsnummeret (X.X.X)? Som default releases snapshot-versjonen")
+        string(name: "apiVersion", defaultValue: "", description: "Tag for fiks-arkiv-specification")
         text(name: "releaseNotes", defaultValue: "Ingen endringer utført", description: "Hva er endret i denne releasen?")
         string(name: "reviewer", defaultValue: "Endringene krever ikke review", description: "Hvem har gjort review?")
     }
@@ -43,7 +44,7 @@ pipeline {
                 '''
                 sh 'git submodule  update --init --recursive --remote'
                 dir('fiks-arkiv-spsification') {
-                    sh 'git checkout'
+                    sh 'git checkout ${params.apiVersion}'
                 }
                 rtMavenDeployer (
                         id: "MAVEN_DEPLOYER",
