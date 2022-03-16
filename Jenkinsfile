@@ -37,8 +37,8 @@ pipeline {
                     env.GIT_SHA = sh(returnStdout: true, script: 'git rev-parse HEAD').substring(0, 7)
                     env.REPO_NAME = scm.getUserRemoteConfigs()[0].getUrl().tokenize('/').last().split("\\.")[0]
                     env.PROFILE_EXTRA = ""
-                    if(pipelineParams.apiVersion?.trim()) {
-                        env.API_VERSION = "${pipelineParams.apiVersion}"
+                    if(params.apiVersion?.trim()) {
+                        env.API_VERSION = "${params.apiVersion}"
                     } else {
                         env.API_VERSION = ""
                     }
