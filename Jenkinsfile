@@ -42,6 +42,9 @@ pipeline {
                  echo "M2_HOME = ${M2_HOME}"
                 '''
                 sh 'git submodule update --init --recursive'
+                dir('fiks-arkiv-spsification') {
+                    sh 'git checkout latest'
+                }
                 rtMavenDeployer (
                         id: "MAVEN_DEPLOYER",
                         serverId: "KS Artifactory",
