@@ -40,7 +40,7 @@ pipeline {
                     if(params.apiVersion?.trim()) {
                         env.API_VERSION = "${params.apiVersion}"
                     } else {
-                        env.API_VERSION = ""
+                        env.API_VERSION = "main"
                     }
                 }
                 sh '''
@@ -49,6 +49,7 @@ pipeline {
                 '''
                 sh 'git submodule  update --init --recursive --remote'
                 dir('fiks-arkiv-spsification') {
+                    sh 'git fetch'
                     sh 'git checkout ${API_VERSION}'
                 }
                 rtMavenDeployer (
