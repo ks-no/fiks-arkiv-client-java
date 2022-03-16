@@ -41,7 +41,7 @@ pipeline {
                  echo "PATH = ${PATH}"
                  echo "M2_HOME = ${M2_HOME}"
                 '''
-                sh 'git submodule update --init --recursive'
+                sh 'git submodule  update --init --recursive --remote'
                 dir('fiks-arkiv-spsification') {
                     sh 'git checkout'
                 }
