@@ -43,7 +43,7 @@ pipeline {
                 '''
                 sh 'git submodule update --init --recursive'
                 dir('fiks-arkiv-spsification') {
-                    sh 'git checkout latest'
+                    sh 'git checkout'
                 }
                 rtMavenDeployer (
                         id: "MAVEN_DEPLOYER",
