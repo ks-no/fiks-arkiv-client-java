@@ -48,7 +48,7 @@ pipeline {
                  echo "M2_HOME = ${M2_HOME}"
                 '''
                 sh 'git submodule  update --init --recursive --remote'
-                dir('fiks-arkiv-spsification') {
+                dir('fiks-arkiv-specification') {
                     sh 'git fetch'
                     sh 'git checkout ${API_VERSION}'
                 }
