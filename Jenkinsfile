@@ -49,6 +49,8 @@ pipeline {
                 '''
                 sh 'git submodule  update --init --recursive --remote'
 
+                sh 'ls -l fiks-arkiv-specification'
+
                 rtMavenDeployer (
                         id: "MAVEN_DEPLOYER",
                         serverId: "KS Artifactory",
