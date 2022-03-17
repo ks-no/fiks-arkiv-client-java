@@ -48,9 +48,7 @@ pipeline {
                  echo "M2_HOME = ${M2_HOME}"
                 '''
                 sh 'git submodule  update --init --recursive --remote'
-                dir('fiks-arkiv-specification') {
-                    sh 'git checkout ${API_VERSION}'
-                }
+
                 rtMavenDeployer (
                         id: "MAVEN_DEPLOYER",
                         serverId: "KS Artifactory",
