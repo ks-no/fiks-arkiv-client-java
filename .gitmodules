@@ -1,0 +1,4 @@
+[submodule "fiks-arkiv-specification"]
+	path = fiks-arkiv-specification
+	url = https://github.com/ks-no/fiks-arkiv-specification.git
+	branch = main
