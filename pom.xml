@@ -8,11 +8,11 @@
     <artifactId>fiks-arkiv</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Fiks arkiv clienter for java</name>
+    <name>Fiks arkiv klienter for java</name>
     <url>https://github.com/ks-no/fiks-arkiv-client-java</url>
 
     <modules>
-        <module>fiks-arkiv-client</module>
+        <module>fiks-arkiv-api</module>
     </modules>
 
     <properties>
@@ -41,6 +41,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>no.ks.fiks</groupId>
+                <artifactId>fiks-arkiv</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>

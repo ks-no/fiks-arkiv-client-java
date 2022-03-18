@@ -9,8 +9,8 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>fiks-arkiv-client</artifactId>
-    <name>Fiks arkiv client</name>
+    <artifactId>fiks-arkiv-api</artifactId>
+    <name>Fiks arkiv API</name>
     <dependencies>
         <dependency>
             <groupId>org.codehaus.mojo</groupId>
