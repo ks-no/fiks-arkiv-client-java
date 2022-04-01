@@ -21,6 +21,7 @@ pipeline {
     parameters {
         booleanParam(name: 'isRelease', defaultValue: false, description: 'Skal prosjektet releases? Alle andre parametere ignoreres ved snapshot-bygg.')
         string(name: "specifiedVersion", defaultValue: "", description: "Hva er det nye versjonsnummeret (X.X.X)? Som default releases snapshot-versjonen")
+        string(name: "apiVersion", defaultValue: "main", description: "Hva er API versjon som skal brukes under bygg? Default er main")
         text(name: "releaseNotes", defaultValue: "Ingen endringer utført", description: "Hva er endret i denne releasen?")
         string(name: "reviewer", defaultValue: "Endringene krever ikke review", description: "Hvem har gjort review?")
     }
@@ -39,7 +40,7 @@ pipeline {
                     if(params.apiVersion?.trim()) {
                         env.API_VERSION = "${params.apiVersion}"
                     } else {
-                        env.API_VERSION = ""
+                        env.API_VERSION = "main"
                     }
                 }
                 sh '''
@@ -47,6 +48,11 @@ pipeline {
                  echo "M2_HOME = ${M2_HOME}"
                 '''
                 sh 'git submodule  update --init --recursive --remote'
+
+                dir("fiks-arkiv-specification") {
+                    sh "git fetch"
+                    sh "git checkout ${API_VERSION}"
+                }
 
                 rtMavenDeployer (
                         id: "MAVEN_DEPLOYER",

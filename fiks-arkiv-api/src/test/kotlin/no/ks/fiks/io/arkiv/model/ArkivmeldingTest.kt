@@ -4,6 +4,8 @@ import io.kotest.assertions.throwables.shouldNotThrowAny
 import org.junit.jupiter.api.Test
 import java.io.File
 import java.io.StringWriter
+import java.math.BigInteger
+import java.time.ZonedDateTime
 import java.util.*
 import javax.xml.XMLConstants
 import javax.xml.bind.util.JAXBSource
@@ -15,38 +17,39 @@ class ArkivmeldingTest {
     @Test
     fun `Valider Mappe mot xsd`() {
         val mappe =
-            Mappe(
-                systemID = SystemID(value = UUID.randomUUID(), label = "label"),
-                mappeId = "mappeId",
-                referanseForeldermappe = SystemID(value = UUID.randomUUID(), label = "label"),
-                tittel = "tittel"
-            )
+            MappeBuilder()
+                .systemID(SystemIDBuilder().value(UUID.randomUUID()).label("label"))
+                .mappeId("mappeId")
+                .referanseForeldermappe(SystemIDBuilder().value(UUID.randomUUID()).label("label"))
+                .tittel("tittel")
 
         val registrering =
-            Journalpost(
-                systemID = SystemID(value = UUID.randomUUID(), label = "registreringLabel"),
-                tittel = "Reg tittel",
-                opprettetDato = Date(),
-                opprettetAv = "Tester",
-                arkivertDato = Date(),
-                arkivertAv = "Mr. Arkiv",
-                referanseForelderMappe = mappe.systemID,
-                referanseEksternNoekkel = EksternNoekkel("Faglig", "key"),
-                journalposttype = "journalposttype",
-                journalstatus = "journalstatus",
-                korrespondanseparts = listOf(Korrespondansepart(
-                    korrespondansepartType ="korrespondansepartType",
-                    korrespondansepartNavn = "korrespondansepartNavn",
-                    organisasjonId = "organisasjonId",
-                    postadresse = emptyList(),
-                    postnummer = "1234",
-                    poststed = "poststed",
-                    saksbehandler = "saksbehandler",
-                    administrativEnhet = "administrativEnhet"
+            JournalpostBuilder()
+                .journaldato(ZonedDateTime.now())
+                .journalpostnummer(BigInteger.valueOf(42213))
+                .journalsekvensnummer(BigInteger.valueOf(1234))
+                .journalaar(2022)
+                .systemID(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel"))
+                .tittel("Reg tittel")
+                .opprettetDato(ZonedDateTime.now())
+                .opprettetAv("Tester")
+                .arkivertDato(ZonedDateTime.now())
+                .arkivertAv("Mr. Arkiv")
+                .referanseForelderMappe(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel"))
+                .referanseEksternNoekkel(EksternNoekkelBuilder().fagstystem("Faglig").noekkel("key"))
+                .journalposttype(JournalPostTypeBuilder().kode("kode").beskrivelse("beskrivelse"))
+                .journalstatus(JournalstatusBuilder().kode("kode").beskrivelse("beskrivelse"))
+                .korrespondanseparts(listOf(KorrespondansepartBuilder()
+                    .korrespondansepartType(KorrespondansepartTypeBuilder().kode("kode").beskrivelse("Beskrivelse"))
+                    .korrespondansepartNavn("korrespondansepartNavn")
+                    .postadresse(emptyList())
+                    .postnummer("1234")
+                    .poststed("poststed")
+                    .saksbehandler("saksbehandler")
+                    .administrativEnhet("administrativEnhet")
                 ))
-            )
 
-        val arkivmelding = Arkivmelding("systemA", "meldingsId", Date(), emptyList(), listOf(registrering))
+        val arkivmelding = Arkivmelding().system("systemA").meldingId("meldingsId").tidspunkt(ZonedDateTime.now()).mapper(emptyList()).registrering(listOf(registrering))
 
         val sw = StringWriter()
         arkivmelding.marshal(sw)

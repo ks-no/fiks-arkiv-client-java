@@ -1,32 +1,48 @@
 package no.ks.fiks.io.arkiv.model
 
-import no.ks.fiks.io.arkiv.v1.client.models.arkivering.arkivmelding.Arkivmelding
+import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Arkivmelding
 import org.w3c.dom.Node
 import org.xml.sax.ContentHandler
 import java.io.File
 import java.io.OutputStream
 import java.io.StringWriter
 import java.io.Writer
-import java.util.*
+import java.time.ZonedDateTime
 import javax.xml.bind.JAXBContext
 import javax.xml.bind.JAXBElement
 import javax.xml.bind.Marshaller
-import javax.xml.datatype.DatatypeFactory
 import javax.xml.namespace.QName
 import javax.xml.stream.XMLEventWriter
 import javax.xml.stream.XMLStreamWriter
 
 
-class Arkivmelding (val system: String, val meldingId: String, val tidspunkt: Date, val mapper: List<Mappe>? = emptyList(), val registrering: List<Registrering<*>>? = emptyList()) {
-    fun buildApiModel(): Arkivmelding {
+class Arkivmelding {
+    var system: String? = null
+        private set
+    var meldingId: String? = null
+        private set
+    var tidspunkt: ZonedDateTime? = null
+        private set
+    var mapper: List<MappeBuilder>? = emptyList()
+        private set
+    var registrering: List<IRegistrering>? = emptyList()
+        private set
+
+    fun build(): Arkivmelding {
         return Arkivmelding().also {
             it.system = system
             it.meldingId = meldingId
-            it.tidspunkt = DatatypeFactory.newInstance().newXMLGregorianCalendar(GregorianCalendar().also { it.time = tidspunkt })
-            it.mappe.addAll( mapper?.map { m -> m.buildApiModel() }?.toList() ?: emptyList() )
-            it.registrering.addAll( registrering?.map { m -> m.buildApiModel() }?.toList() ?: emptyList() )
+            it.tidspunkt = tidspunkt
+            it.mappes.addAll( mapper?.map { m -> m.build() }?.toList() ?: emptyList() )
+            it.registrerings.addAll( registrering?.map { m -> m.buildApiModel() }?.toList() ?: emptyList() )
         }
     }
+
+    fun system(system: String) = apply { this.system = system }
+    fun meldingId(meldingId: String) = apply { this.meldingId = meldingId }
+    fun tidspunkt(tidspunkt: ZonedDateTime) = apply { this.tidspunkt = tidspunkt }
+    fun mapper(mapper: List<MappeBuilder>) = apply { this.mapper = mapper }
+    fun registrering(registrering: List<IRegistrering>) = apply { this.registrering = registrering }
 
     fun marshal(stringWriter: StringWriter) =
         marshaller(jaxbContext()).marshal(JAXBElement(), stringWriter)
@@ -64,7 +80,7 @@ class Arkivmelding (val system: String, val meldingId: String, val tidspunkt: Da
         return JAXBElement(
             QName("http://www.arkivverket.no/standarder/noark5/arkivmelding/v2", "arkivmelding"),
             Arkivmelding::class.java,
-            buildApiModel()
+            build()
         )
     }
 }
