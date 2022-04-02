@@ -41,8 +41,8 @@ class Arkivmelding {
     fun system(system: String) = apply { this.system = system }
     fun meldingId(meldingId: String) = apply { this.meldingId = meldingId }
     fun tidspunkt(tidspunkt: ZonedDateTime) = apply { this.tidspunkt = tidspunkt }
-    fun mapper(mapper: List<MappeBuilder>) = apply { if (this.registrering?.isEmpty() == true ) this.mapper = mapper else throw IllegalArgumentException("Arkivmelding kan enten inneholde Mappe(r) eller Registreringe(r), men ikke begge.") }
-    fun registrering(registrering: List<IRegistrering>) = apply { if (this.mapper?.isEmpty() == true) this.registrering = registrering else throw IllegalArgumentException("Arkivmelding kan enten inneholde Mappe(r) eller Registreringe(r), men ikke begge.") }
+    fun mapper(mapper: List<MappeBuilder>) = apply { if (this.registrering?.isEmpty() == true || mapper.isEmpty() ) this.mapper = mapper else throw IllegalArgumentException("Arkivmelding kan enten inneholde Mappe(r) eller Registreringe(r), men ikke begge.") }
+    fun registrering(registrering: List<IRegistrering>) = apply { if (this.mapper?.isEmpty() == true || registrering.isEmpty()) this.registrering = registrering else throw IllegalArgumentException("Arkivmelding kan enten inneholde Mappe(r) eller Registreringe(r), men ikke begge.") }
 
     fun marshal(stringWriter: StringWriter) =
         marshaller(jaxbContext()).marshal(JAXBElement(), stringWriter)
