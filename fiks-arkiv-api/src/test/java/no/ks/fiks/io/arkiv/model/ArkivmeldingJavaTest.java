@@ -31,7 +31,7 @@ public class ArkivmeldingJavaTest {
         System.out.println(xmlContent);
 
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = schemaFactory.newSchema(new File("/home/audun/ks/fiks-arkiv-client-java/fiks-arkiv-api/target/schemas/v1/arkivmelding.xsd"));
+        Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/arkivmelding.xsd"));
         Validator validator = schema.newValidator();
 
         Assertions.assertDoesNotThrow(() -> validator.validate(new JAXBSource(arkivmelding.jaxbContext(), arkivmelding.JAXBElement())));

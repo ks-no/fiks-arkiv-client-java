@@ -57,7 +57,7 @@ class ArkivmeldingTest {
         println(xmlContent)
 
         val schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
-        val schema = schemaFactory.newSchema(File("/home/audun/ks/fiks-arkiv-client-java/fiks-arkiv-api/target/schemas/v1/arkivmelding.xsd"))
+        val schema = schemaFactory.newSchema(File("target/schemas/v1/arkivmelding.xsd"))
         val validator = schema.newValidator()
 
         shouldNotThrowAny {
