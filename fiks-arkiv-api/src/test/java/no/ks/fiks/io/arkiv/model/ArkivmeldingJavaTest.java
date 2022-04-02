@@ -36,4 +36,5 @@ public class ArkivmeldingJavaTest {
 
         Assertions.assertDoesNotThrow(() -> validator.validate(new JAXBSource(arkivmelding.jaxbContext(), arkivmelding.JAXBElement())));
     }
+
 }

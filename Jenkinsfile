@@ -40,7 +40,7 @@ pipeline {
                     if(params.apiVersion?.trim()) {
                         env.API_VERSION = "${params.apiVersion}"
                     } else {
-                        env.API_VERSION = "main"
+                        env.API_VERSION = "audun/refaktorering"
                     }
                 }
                 sh '''
