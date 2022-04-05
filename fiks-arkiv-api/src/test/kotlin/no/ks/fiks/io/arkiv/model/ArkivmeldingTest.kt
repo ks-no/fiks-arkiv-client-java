@@ -6,7 +6,6 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import java.io.File
 import java.io.StringWriter
-import java.math.BigInteger
 import java.time.ZonedDateTime
 import java.util.*
 import javax.xml.XMLConstants
@@ -21,8 +20,8 @@ class ArkivmeldingTest {
         val registrering =
             JournalpostBuilder()
                 .journaldato(ZonedDateTime.now())
-                .journalpostnummer(BigInteger.valueOf(42213))
-                .journalsekvensnummer(BigInteger.valueOf(1234))
+                .journalpostnummer(42213L)
+                .journalsekvensnummer(1234L)
                 .journalaar(2022)
                 .systemID(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel"))
                 .tittel("Reg tittel")
@@ -32,8 +31,6 @@ class ArkivmeldingTest {
                 .arkivertAv("Mr. Arkiv")
                 .referanseForelderMappe(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel"))
                 .referanseEksternNoekkel(EksternNoekkelBuilder().fagstystem("Faglig").noekkel("key"))
-                .journalposttype(JournalPostTypeBuilder().kode("kode").beskrivelse("beskrivelse"))
-                .journalstatus(JournalstatusBuilder().kode("kode").beskrivelse("beskrivelse"))
                 .korrespondanseparts(listOf(KorrespondansepartBuilder()
                     .korrespondansepartType(KorrespondansepartTypeBuilder().kode("kode").beskrivelse("Beskrivelse"))
                     .korrespondansepartNavn("korrespondansepartNavn")
@@ -60,7 +57,7 @@ class ArkivmeldingTest {
     }
 
     @Test
-    fun `Test at vi får feilmelding om vi oppretter arkivmelding med Mappe og Registrering`(){
+    fun `Test at vi far feilmelding om vi oppretter arkivmelding med Mappe og Registrering`(){
         val mappe =
             MappeBuilder()
                 .systemID(SystemIDBuilder().value(UUID.randomUUID()).label("label"))
@@ -71,8 +68,8 @@ class ArkivmeldingTest {
         val registrering =
             JournalpostBuilder()
                 .journaldato(ZonedDateTime.now())
-                .journalpostnummer(BigInteger.valueOf(42213))
-                .journalsekvensnummer(BigInteger.valueOf(1234))
+                .journalpostnummer(42213L)
+                .journalsekvensnummer(1234L)
                 .journalaar(2022)
                 .systemID(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel"))
                 .tittel("Reg tittel")
@@ -82,8 +79,7 @@ class ArkivmeldingTest {
                 .arkivertAv("Mr. Arkiv")
                 .referanseForelderMappe(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel"))
                 .referanseEksternNoekkel(EksternNoekkelBuilder().fagstystem("Faglig").noekkel("key"))
-                .journalposttype(JournalPostTypeBuilder().kode("kode").beskrivelse("beskrivelse"))
-                .journalstatus(JournalstatusBuilder().kode("kode").beskrivelse("beskrivelse"))
+                .journalposttype(JournalpostType.ORGANINTERT_DOKUMENT_FOR_OPPFOLGING)
                 .korrespondanseparts(listOf(KorrespondansepartBuilder()
                     .korrespondansepartType(KorrespondansepartTypeBuilder().kode("kode").beskrivelse("Beskrivelse"))
                     .korrespondansepartNavn("korrespondansepartNavn")
