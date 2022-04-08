@@ -1,5 +1,7 @@
 package no.ks.fiks.io.arkiv.model;
 
+import no.ks.fiks.io.arkiv.model.arkivstruktur.MappeBuilder;
+import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +13,6 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.StringWriter;
-import java.math.BigInteger;
 import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.UUID;
@@ -73,7 +74,8 @@ public class ArkivmeldingJavaTest {
                 .system("System A")
                 .meldingId("MeldingsId")
                 .tidspunkt(ZonedDateTime.now())
-                .registrering(Collections.singletonList(journalPostBuilder));
+                .registrering(Collections.singletonList(journalPostBuilder))
+                .antallFiler(1);
 
         StringWriter sw = new StringWriter();
         arkivmelding.marshal(sw);

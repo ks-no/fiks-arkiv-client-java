@@ -1,5 +1,6 @@
 package no.ks.fiks.io.arkiv.model
 
+import no.ks.fiks.io.arkiv.model.arkivstruktur.MappeBuilder
 import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Arkivmelding
 import org.w3c.dom.Node
 import org.xml.sax.ContentHandler
@@ -21,7 +22,9 @@ class Arkivmelding {
         private set
     var meldingId: String? = null
         private set
-    var tidspunkt: ZonedDateTime? = null
+    var antallFiler: Int? = null
+        private set
+    var tidspunkt: ZonedDateTime = ZonedDateTime.now()
         private set
     var mapper: List<MappeBuilder>? = emptyList()
         private set
@@ -30,9 +33,10 @@ class Arkivmelding {
 
     fun build(): Arkivmelding {
         return Arkivmelding().also {
-            it.system = system
-            it.meldingId = meldingId
+            it.system = checkNotNull(system) {"System er påkrevd felt for Arkivmelding"}
+            it.meldingId = checkNotNull(meldingId) {"MeldingId er påkrevd felt for Arkivmelding"}
             it.tidspunkt = tidspunkt
+            it.antallFiler = if(mapper?.isEmpty() == false) 0 else checkNotNull(antallFiler) {"Antall er påkrevd felt for Arkivmelding"}
             it.mappes.addAll( mapper?.map { m -> m.build() }?.toList() ?: emptyList() )
             it.registrerings.addAll( registrering?.map { m -> m.buildApiModel() }?.toList() ?: emptyList() )
         }
@@ -41,6 +45,7 @@ class Arkivmelding {
     fun system(system: String) = apply { this.system = system }
     fun meldingId(meldingId: String) = apply { this.meldingId = meldingId }
     fun tidspunkt(tidspunkt: ZonedDateTime) = apply { this.tidspunkt = tidspunkt }
+    fun antallFiler(antallFiler: Int) = apply { this.antallFiler = antallFiler }
     fun mapper(mapper: List<MappeBuilder>) = apply { if (this.registrering?.isEmpty() == true || mapper.isEmpty() ) this.mapper = mapper else throw IllegalArgumentException("Arkivmelding kan enten inneholde Mappe(r) eller Registreringe(r), men ikke begge.") }
     fun registrering(registrering: List<IRegistrering>) = apply { if (this.mapper?.isEmpty() == true || registrering.isEmpty()) this.registrering = registrering else throw IllegalArgumentException("Arkivmelding kan enten inneholde Mappe(r) eller Registreringe(r), men ikke begge.") }
 

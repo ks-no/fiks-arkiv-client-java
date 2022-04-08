@@ -1,7 +1,7 @@
 package no.ks.fiks.io.arkiv.model
 
+import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Journalpost
-import java.math.BigInteger
 import java.time.ZonedDateTime
 import java.util.*
 import kotlin.collections.ArrayList
@@ -65,10 +65,10 @@ class JournalpostBuilder : IRegistrering {
 
     override fun buildApiModel() : Journalpost {
         return Journalpost().also {
-            it.systemID = systemID?.buildApiModel() ?: throw IllegalArgumentException(feilmeldingPakrevdFelt("SystemID"))
+            it.systemID = systemID?.buildApiModel() ?: throw IllegalStateException(feilmeldingPakrevdFelt("SystemID"))
             it.tittel = checkNotNull(tittel) { feilmeldingPakrevdFelt("Tittel") }
             it.korrespondanseparts.addAll(korrespondanseparts?.map { part -> part.build() }?.toCollection(ArrayList()) ?: emptyList())
-            it.referanseEksternNoekkel = referanseEksternNoekkel?.build() ?: throw IllegalArgumentException(feilmeldingPakrevdFelt("ReferanseEksternNoekkel"))
+            it.referanseEksternNoekkel = referanseEksternNoekkel?.build() ?: throw IllegalStateException(feilmeldingPakrevdFelt("ReferanseEksternNoekkel"))
             it.opprettetDato = opprettetDato
             it.opprettetAv = checkNotNull(opprettetAv) { feilmeldingPakrevdFelt("OpprettetAv") }
             it.arkivertDato = arkivertDato
@@ -76,8 +76,8 @@ class JournalpostBuilder : IRegistrering {
             it.referanseForelderMappe = referanseForelderMappe?.buildApiModel()
             it.referanseArkivdel = referanseArkivdel?.toString()
             it.journalaar = journalaar.toBigInteger()
-            it.journalsekvensnummer = journalsekvensnummer?.toBigInteger() ?: throw IllegalArgumentException(feilmeldingPakrevdFelt("Journalsekvensnummer"))
-            it.journalpostnummer = journalpostnummer?.toBigInteger() ?: throw IllegalArgumentException(feilmeldingPakrevdFelt("Journalpostnummer"))
+            it.journalsekvensnummer = journalsekvensnummer?.toBigInteger() ?: throw IllegalStateException(feilmeldingPakrevdFelt("Journalsekvensnummer"))
+            it.journalpostnummer = journalpostnummer?.toBigInteger() ?: throw IllegalStateException(feilmeldingPakrevdFelt("Journalpostnummer"))
             it.journalposttype = journalposttype.value
             it.journalstatus = journalstatus.value
             it.journaldato = journaldato

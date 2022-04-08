@@ -3,7 +3,10 @@ package no.ks.fiks.io.arkiv.model
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
+import no.ks.fiks.io.arkiv.model.arkivstruktur.MappeBuilder
+import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import java.io.File
 import java.io.StringWriter
 import java.time.ZonedDateTime
@@ -41,7 +44,13 @@ class ArkivmeldingTest {
                     .administrativEnhet("administrativEnhet")
                 ))
 
-        val arkivmelding = Arkivmelding().system("systemA").meldingId("meldingsId").tidspunkt(ZonedDateTime.now()).mapper(emptyList()).registrering(listOf(registrering))
+        val arkivmelding = Arkivmelding()
+            .system("systemA")
+            .meldingId("meldingsId")
+            .tidspunkt(ZonedDateTime.now())
+            .mapper(emptyList())
+            .registrering(listOf(registrering))
+            .antallFiler(2)
 
         val sw = StringWriter()
         arkivmelding.marshal(sw)
@@ -54,6 +63,45 @@ class ArkivmeldingTest {
 
         shouldNotThrowAny {
             validator.validate(JAXBSource(arkivmelding.jaxbContext(), arkivmelding.JAXBElement()))}
+    }
+
+    @Test
+    fun `Test arkivmelding uten system definert, skal kaste exception`() {
+        val registrering =
+            JournalpostBuilder()
+                .journaldato(ZonedDateTime.now())
+                .journalpostnummer(42213L)
+                .journalsekvensnummer(1234L)
+                .journalaar(2022)
+                .systemID(SystemIDBuilder().value(UUID.randomUUID()))
+                .tittel("Reg tittel")
+                .opprettetDato(ZonedDateTime.now())
+                .opprettetAv("Tester")
+                .arkivertDato(ZonedDateTime.now())
+                .arkivertAv("Mr. Arkiv")
+                .referanseForelderMappe(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel"))
+                .referanseEksternNoekkel(EksternNoekkelBuilder().fagstystem("Faglig").noekkel("key"))
+                .korrespondanseparts(listOf(KorrespondansepartBuilder()
+                    .korrespondansepartType(KorrespondansepartTypeBuilder().kode("kode").beskrivelse("Beskrivelse"))
+                    .korrespondansepartNavn("korrespondansepartNavn")
+                    .postadresse(emptyList())
+                    .postnummer("1234")
+                    .poststed("poststed")
+                    .saksbehandler("saksbehandler")
+                    .administrativEnhet("administrativEnhet")
+                ))
+
+        val arkivmelding = Arkivmelding()
+            //.system("Ikke satt")
+            .meldingId("meldingsId")
+            .antallFiler(1)
+            .tidspunkt(ZonedDateTime.now())
+            .mapper(emptyList())
+            .registrering(listOf(registrering))
+
+        val exception = assertThrows<IllegalStateException> { arkivmelding.build() }
+        exception.message shouldBe "System er påkrevd felt for Arkivmelding"
+
     }
 
     @Test
