@@ -6,7 +6,7 @@ pipeline {
     }
     tools {
         maven 'maven'
-        jdk 'openjdk17'
+        jdk 'openjdk11'
     }
 
     options {
@@ -16,12 +16,12 @@ pipeline {
     }
     environment {
         JACOCO_VERSION = "0.8.7"
-        JAVA_HOME = tool name: 'openjdk17', type: 'jdk'
+        JAVA_HOME = tool name: 'openjdk11', type: 'jdk'
     }
     parameters {
         booleanParam(name: 'isRelease', defaultValue: false, description: 'Skal prosjektet releases? Alle andre parametere ignoreres ved snapshot-bygg.')
         string(name: "specifiedVersion", defaultValue: "", description: "Hva er det nye versjonsnummeret (X.X.X)? Som default releases snapshot-versjonen")
-        string(name: "apiVersion", defaultValue: "", description: "Tag for fiks-arkiv-specification")
+        string(name: "apiVersion", defaultValue: "audun/refaktorering", description: "Hva er API versjon som skal brukes under bygg? Default er main")
         text(name: "releaseNotes", defaultValue: "Ingen endringer utført", description: "Hva er endret i denne releasen?")
         string(name: "reviewer", defaultValue: "Endringene krever ikke review", description: "Hvem har gjort review?")
     }
@@ -37,17 +37,18 @@ pipeline {
                     env.GIT_SHA = sh(returnStdout: true, script: 'git rev-parse HEAD').substring(0, 7)
                     env.REPO_NAME = scm.getUserRemoteConfigs()[0].getUrl().tokenize('/').last().split("\\.")[0]
                     env.PROFILE_EXTRA = ""
-                    if(params.apiVersion?.trim()) {
-                        env.API_VERSION = "${params.apiVersion}"
-                    } else {
-                        env.API_VERSION = ""
-                    }
+                    env.API_VERSION = "${params.apiVersion}"
                 }
                 sh '''
                  echo "PATH = ${PATH}"
                  echo "M2_HOME = ${M2_HOME}"
                 '''
                 sh 'git submodule  update --init --recursive --remote'
+
+                dir("fiks-arkiv-specification") {
+                    sh "git fetch"
+                    sh "git checkout ${API_VERSION}"
+                }
 
                 rtMavenDeployer (
                         id: "MAVEN_DEPLOYER",

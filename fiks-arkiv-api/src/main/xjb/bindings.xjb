@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxb:bindings version="2.1"
+               xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:annox="http://annox.dev.java.net">
+
+    <jaxb:globalBindings generateElementProperty="false">
+        <jaxb:javaType name="java.time.ZonedDateTime" xmlType="xs:dateTime"
+                       printMethod="java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME.format"
+                       parseMethod="java.time.ZonedDateTime.parse"/>
+        <jaxb:javaType name="java.time.ZonedDateTime" xmlType="xs:time"
+                       printMethod="java.time.format.DateTimeFormatter.ISO_OFFSET_TIME.format"
+                       parseMethod="java.time.ZonedDateTime.parse"/>
+        <jaxb:javaType name="java.time.ZonedDateTime" xmlType="xs:date"
+                       printMethod="java.time.format.DateTimeFormatter.ISO_OFFSET_DATE.format"
+                       parseMethod="java.time.ZonedDateTime.parse"/>
+        <xjc:simple/>
+    </jaxb:globalBindings>
+
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/arkivstruktur.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/arkivmelding.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.arkivmelding" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/arkivmeldingKvittering.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.arkivmeldingkvittering" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/dokumentfilHent.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.innsyn.hent" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/journalpostHent.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.innsyn.hent" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/mappeHent.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.innsyn.hent" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/sok.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.innsyn.sok" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/sokeresultatMinimum.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.innsyn.sok" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/arkivstrukturNoekler.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.nokler" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/arkivstrukturMinimum.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.minimum" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+</jaxb:bindings>
