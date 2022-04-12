@@ -3,7 +3,13 @@ package no.ks.fiks.io.arkiv.model
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
+import no.ks.fiks.io.arkiv.model.arkivmelding.Arkivmelding
+import no.ks.fiks.io.arkiv.model.arkivstruktur.EksternNoekkelBuilder
+import no.ks.fiks.io.arkiv.model.arkivstruktur.JournalpostBuilder
+import no.ks.fiks.io.arkiv.model.arkivstruktur.KorrespondansepartBuilder
 import no.ks.fiks.io.arkiv.model.arkivstruktur.MappeBuilder
+import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.JournalpostType
+import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KorrespondansepartTypeBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -14,7 +20,9 @@ import java.util.*
 import javax.xml.XMLConstants
 import javax.xml.bind.util.JAXBSource
 import javax.xml.validation.SchemaFactory
+import mu.KotlinLogging
 
+val logger = KotlinLogging.logger {  }
 
 class ArkivmeldingTest {
 
@@ -34,7 +42,8 @@ class ArkivmeldingTest {
                 .arkivertAv("Mr. Arkiv")
                 .referanseForelderMappe(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel"))
                 .referanseEksternNoekkel(EksternNoekkelBuilder().fagstystem("Faglig").noekkel("key"))
-                .korrespondanseparts(listOf(KorrespondansepartBuilder()
+                .korrespondanseparts(listOf(
+                    KorrespondansepartBuilder()
                     .korrespondansepartType(KorrespondansepartTypeBuilder().kode("kode").beskrivelse("Beskrivelse"))
                     .korrespondansepartNavn("korrespondansepartNavn")
                     .postadresse(emptyList())
@@ -55,7 +64,7 @@ class ArkivmeldingTest {
         val sw = StringWriter()
         arkivmelding.marshal(sw)
         val xmlContent = sw.toString()
-        println(xmlContent)
+        logger.info { xmlContent }
 
         val schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
         val schema = schemaFactory.newSchema(File("target/schemas/v1/arkivmelding.xsd"))
@@ -81,7 +90,8 @@ class ArkivmeldingTest {
                 .arkivertAv("Mr. Arkiv")
                 .referanseForelderMappe(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel"))
                 .referanseEksternNoekkel(EksternNoekkelBuilder().fagstystem("Faglig").noekkel("key"))
-                .korrespondanseparts(listOf(KorrespondansepartBuilder()
+                .korrespondanseparts(listOf(
+                    KorrespondansepartBuilder()
                     .korrespondansepartType(KorrespondansepartTypeBuilder().kode("kode").beskrivelse("Beskrivelse"))
                     .korrespondansepartNavn("korrespondansepartNavn")
                     .postadresse(emptyList())
@@ -92,7 +102,6 @@ class ArkivmeldingTest {
                 ))
 
         val arkivmelding = Arkivmelding()
-            //.system("Ikke satt")
             .meldingId("meldingsId")
             .antallFiler(1)
             .tidspunkt(ZonedDateTime.now())
@@ -128,7 +137,8 @@ class ArkivmeldingTest {
                 .referanseForelderMappe(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel"))
                 .referanseEksternNoekkel(EksternNoekkelBuilder().fagstystem("Faglig").noekkel("key"))
                 .journalposttype(JournalpostType.ORGANINTERT_DOKUMENT_FOR_OPPFOLGING)
-                .korrespondanseparts(listOf(KorrespondansepartBuilder()
+                .korrespondanseparts(listOf(
+                    KorrespondansepartBuilder()
                     .korrespondansepartType(KorrespondansepartTypeBuilder().kode("kode").beskrivelse("Beskrivelse"))
                     .korrespondansepartNavn("korrespondansepartNavn")
                     .postadresse(emptyList())

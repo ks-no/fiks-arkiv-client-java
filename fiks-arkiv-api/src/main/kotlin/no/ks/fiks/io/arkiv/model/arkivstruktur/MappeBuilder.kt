@@ -35,9 +35,9 @@ class MappeBuilder {
 
     fun build(): Mappe {
         return Mappe().also {
-            it.systemID = systemID?.buildApiModel()
+            it.systemID = systemID?.build()
             it.mappeID = mappeId
-            it.referanseForeldermappe = referanseForeldermappe?.buildApiModel()
+            it.referanseForeldermappe = referanseForeldermappe?.build()
             it.tittel = tittel
             it.opprettetDato = opprettetDato
             it.opprettetAv = opprettetAv

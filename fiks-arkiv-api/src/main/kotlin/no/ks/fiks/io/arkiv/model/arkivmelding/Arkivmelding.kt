@@ -1,5 +1,6 @@
-package no.ks.fiks.io.arkiv.model
+package no.ks.fiks.io.arkiv.model.arkivmelding
 
+import no.ks.fiks.io.arkiv.model.arkivstruktur.IRegistrering
 import no.ks.fiks.io.arkiv.model.arkivstruktur.MappeBuilder
 import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Arkivmelding
 import org.w3c.dom.Node

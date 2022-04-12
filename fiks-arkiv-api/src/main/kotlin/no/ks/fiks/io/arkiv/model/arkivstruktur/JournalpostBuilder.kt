@@ -1,5 +1,8 @@
-package no.ks.fiks.io.arkiv.model
+package no.ks.fiks.io.arkiv.model.arkivstruktur
 
+import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.JournalStatus
+import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.JournalpostType
+import no.ks.fiks.io.arkiv.model.arkivmelding.ArkivmeldingPartBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Journalpost
 import java.time.ZonedDateTime
@@ -33,16 +36,45 @@ class JournalpostBuilder : IRegistrering {
         private set
     var referanseForelderMappe: SystemIDBuilder? = null
         private set
-    var korrespondanseparts: List<KorrespondansepartBuilder>? = null
+    var korrespondanseparts: List<KorrespondansepartBuilder> = ArrayList()
         private set
     var journalstatus: JournalStatus = JournalStatus.JOURNALFORT
         private set
     var referanseEksternNoekkel: EksternNoekkelBuilder? = null
         private set
-    var parts: List<ArkivmeldingPartBuilder> = emptyList()
+    var parts: List<ArkivmeldingPartBuilder> = ArrayList()
         private set
     var beskrivelse: String? = null
         private set
+    var dokumentetsDato: ZonedDateTime? = null
+        private set
+    var mottattDato: ZonedDateTime? = null
+        private set
+    var sendtDato: ZonedDateTime? = null
+        private set
+    var forfallsdato: ZonedDateTime? = null
+        private set
+    var offentlighetsvurdertDato: ZonedDateTime? = null
+        private set
+    var antallVedlegg: Long? = null
+        private set
+    var utlaantDato: ZonedDateTime? = null
+        private set
+    var utlaantTil: String? = null
+        private set
+    var journalenhet: String? = null
+        private set
+    var avskrivninger: List<AvskrivningBuilder> = ArrayList()
+        private set
+    var dokumentflyt: List<DokumentflytBuilder> = ArrayList()
+        private set
+    var presedens: List<PresedensBuilder> = ArrayList()
+        private set
+    var elektroniskSignatur: ElektroniskSignaturBuilder? = null
+        private set
+    var klassifikasjoner: List<KlassifikasjonBuilder> = ArrayList()
+        private set
+
 
     fun systemID(systemID: SystemIDBuilder) = apply { this.systemID = systemID }
     fun journalposttype(journalposttype: JournalpostType) = apply { this.journalposttype = journalposttype }
@@ -62,27 +94,56 @@ class JournalpostBuilder : IRegistrering {
     fun journaldato(journaldato: ZonedDateTime) = apply { this.journaldato = journaldato }
     fun parts(parts: List<ArkivmeldingPartBuilder>) = apply { this.parts = parts }
     fun beskrivelse(beskrivelse: String) = apply { this.beskrivelse = beskrivelse }
+    fun dokumentetsDato(dokumentetsDato: ZonedDateTime) = apply { this.dokumentetsDato = dokumentetsDato }
+    fun mottattDato(mottattDato: ZonedDateTime) = apply { this.mottattDato = mottattDato }
+    fun sendtDato(sendtDato: ZonedDateTime) = apply { this.sendtDato = sendtDato }
+    fun forfallsdato(forfallsdato: ZonedDateTime) = apply { this.forfallsdato = forfallsdato }
+    fun offentlighetsvurdertDato(offentlighetsvurdertDato: ZonedDateTime) = apply { this.offentlighetsvurdertDato = offentlighetsvurdertDato }
+    fun antallVedlegg(antallVedlegg: Long) = apply { this.antallVedlegg = antallVedlegg }
+    fun utlaantDato(utlaantDato: ZonedDateTime) = apply { this.utlaantDato = utlaantDato }
+    fun utlaantTil(utlaantTil: String) = apply { this.utlaantTil = utlaantTil }
+    fun journalenhet(journalenhet: String) = apply { this.journalenhet = journalenhet }
+    fun avskrivninger(avskrivninger: List<AvskrivningBuilder>) = apply { this.avskrivninger = avskrivninger }
+    fun dokumentflyt(dokumentflyt: List<DokumentflytBuilder>) = apply { this.dokumentflyt = dokumentflyt }
+    fun presedens(presedens: List<PresedensBuilder>) = apply { this.presedens = presedens }
+    fun elektroniskSignatur(elektroniskSignatur: ElektroniskSignaturBuilder) = apply { this.elektroniskSignatur = elektroniskSignatur }
+    fun klassifikasjoner(klassifikasjoner: List<KlassifikasjonBuilder>) = apply { this.klassifikasjoner = klassifikasjoner }
 
     override fun buildApiModel() : Journalpost {
         return Journalpost().also {
-            it.systemID = systemID?.buildApiModel() ?: throw IllegalStateException(feilmeldingPakrevdFelt("SystemID"))
+            it.systemID = systemID?.build() ?: throw IllegalStateException(feilmeldingPakrevdFelt("SystemID"))
             it.tittel = checkNotNull(tittel) { feilmeldingPakrevdFelt("Tittel") }
-            it.korrespondanseparts.addAll(korrespondanseparts?.map { part -> part.build() }?.toCollection(ArrayList()) ?: emptyList())
-            it.referanseEksternNoekkel = referanseEksternNoekkel?.build() ?: throw IllegalStateException(feilmeldingPakrevdFelt("ReferanseEksternNoekkel"))
+            it.korrespondanseparts.addAll(korrespondanseparts.map { part -> part.build() }.toCollection(ArrayList()) )
             it.opprettetDato = opprettetDato
             it.opprettetAv = checkNotNull(opprettetAv) { feilmeldingPakrevdFelt("OpprettetAv") }
             it.arkivertDato = arkivertDato
             it.arkivertAv = checkNotNull(arkivertAv) { feilmeldingPakrevdFelt("ArkivertAv") }
-            it.referanseForelderMappe = referanseForelderMappe?.buildApiModel()
+            it.referanseForelderMappe = referanseForelderMappe?.build()
             it.referanseArkivdel = referanseArkivdel?.toString()
-            it.journalaar = journalaar.toBigInteger()
             it.journalsekvensnummer = journalsekvensnummer?.toBigInteger() ?: throw IllegalStateException(feilmeldingPakrevdFelt("Journalsekvensnummer"))
+            it.parts.addAll(parts.map { p -> p.buildApiModel() })
+            it.beskrivelse = beskrivelse
+            it.klassifikasjons.addAll(klassifikasjoner.map { k -> k.build() }.toList())
+            it.referanseEksternNoekkel = referanseEksternNoekkel?.build() ?: throw IllegalStateException(feilmeldingPakrevdFelt("ReferanseEksternNoekkel"))
+
+            it.journalaar = journalaar.toBigInteger()
             it.journalpostnummer = journalpostnummer?.toBigInteger() ?: throw IllegalStateException(feilmeldingPakrevdFelt("Journalpostnummer"))
             it.journalposttype = journalposttype.value
             it.journalstatus = journalstatus.value
             it.journaldato = journaldato
-            it.parts.addAll(parts.map { p -> p.buildApiModel() })
-            it.beskrivelse = beskrivelse
+            it.dokumentetsDato = dokumentetsDato
+            it.mottattDato = mottattDato
+            it.sendtDato = sendtDato
+            it.forfallsdato = forfallsdato
+            it.offentlighetsvurdertDato = offentlighetsvurdertDato
+            it.antallVedlegg = antallVedlegg?.toBigInteger()
+            it.utlaantDato = utlaantDato
+            it.utlaantTil = utlaantTil
+            it.journalenhet = journalenhet
+            it.avskrivnings.addAll(avskrivninger.map { a -> a.build() }.toList())
+            it.dokumentflyts.addAll(dokumentflyt.map { d -> d.build() }.toList())
+            it.presedens.addAll(presedens.map { p -> p.build() }.toList())
+            it.elektroniskSignatur = elektroniskSignatur?.build()
         }
     }
 

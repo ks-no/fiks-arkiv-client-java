@@ -1,5 +1,6 @@
-package no.ks.fiks.io.arkiv.model
+package no.ks.fiks.io.arkiv.model.arkivstruktur
 
+import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KorrespondansepartTypeBuilder
 import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Korrespondansepart
 
 class KorrespondansepartBuilder {

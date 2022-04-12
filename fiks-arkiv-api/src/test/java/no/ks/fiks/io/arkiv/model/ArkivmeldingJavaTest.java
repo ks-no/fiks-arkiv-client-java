@@ -1,5 +1,8 @@
 package no.ks.fiks.io.arkiv.model;
 
+import no.ks.fiks.io.arkiv.model.arkivmelding.Arkivmelding;
+import no.ks.fiks.io.arkiv.model.arkivstruktur.EksternNoekkelBuilder;
+import no.ks.fiks.io.arkiv.model.arkivstruktur.JournalpostBuilder;
 import no.ks.fiks.io.arkiv.model.arkivstruktur.MappeBuilder;
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder;
 import org.junit.jupiter.api.Assertions;

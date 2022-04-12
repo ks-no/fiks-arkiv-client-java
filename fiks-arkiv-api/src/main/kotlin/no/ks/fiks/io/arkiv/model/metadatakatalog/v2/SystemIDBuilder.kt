@@ -16,7 +16,7 @@ class SystemIDBuilder {
     fun value(value: UUID) = apply { this.value = value }
     fun label(label: String) = apply { this.label = label }
 
-    fun buildApiModel(): SystemID {
+    fun build(): SystemID {
         return SystemID().also {
             it.value = value?.toString() ?: throw IllegalStateException("UUID")
             it.label = label

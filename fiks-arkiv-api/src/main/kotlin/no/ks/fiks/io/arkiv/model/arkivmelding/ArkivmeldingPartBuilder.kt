@@ -1,5 +1,6 @@
-package no.ks.fiks.io.arkiv.model
+package no.ks.fiks.io.arkiv.model.arkivmelding
 
+import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.PartRolleType
 import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Part
 
 class ArkivmeldingPartBuilder {
