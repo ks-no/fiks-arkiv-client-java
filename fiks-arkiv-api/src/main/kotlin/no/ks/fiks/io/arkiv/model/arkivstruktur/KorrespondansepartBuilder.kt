@@ -1,10 +1,10 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
-import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KorrespondansepartTypeBuilder
+import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KorrespondansepartType
 import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Korrespondansepart
 
 class KorrespondansepartBuilder {
-    var korrespondansepartType: KorrespondansepartTypeBuilder? = null
+    var korrespondansepartType: KorrespondansepartType? = null
         private set
     var korrespondansepartNavn: String? = null
         private set
@@ -19,7 +19,7 @@ class KorrespondansepartBuilder {
     var administrativEnhet: String? = null
         private set
 
-    fun korrespondansepartType(korrespondansepartType: KorrespondansepartTypeBuilder) = apply { this.korrespondansepartType = korrespondansepartType }
+    fun korrespondansepartType(korrespondansepartType: KorrespondansepartType) = apply { this.korrespondansepartType = korrespondansepartType }
     fun korrespondansepartNavn(korrespondansepartNavn: String) = apply { this.korrespondansepartNavn = korrespondansepartNavn }
     fun postadresse(postadresse: List<String>) = apply { this.postadresse = postadresse }
     fun postnummer(postnummer: String) = apply { this.postnummer = postnummer }
@@ -29,7 +29,7 @@ class KorrespondansepartBuilder {
 
     fun build(): Korrespondansepart {
         return Korrespondansepart().also {
-            it.korrespondanseparttype = korrespondansepartType?.build()
+            it.korrespondanseparttype = korrespondansepartType?.value
             it.korrespondansepartNavn = korrespondansepartNavn
             it.postadresses.addAll(postadresse)
             it.postnummer = postnummer

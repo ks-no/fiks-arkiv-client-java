@@ -9,7 +9,6 @@ import no.ks.fiks.io.arkiv.model.arkivstruktur.JournalpostBuilder
 import no.ks.fiks.io.arkiv.model.arkivstruktur.KorrespondansepartBuilder
 import no.ks.fiks.io.arkiv.model.arkivstruktur.MappeBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.JournalpostType
-import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KorrespondansepartTypeBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -21,6 +20,8 @@ import javax.xml.XMLConstants
 import javax.xml.bind.util.JAXBSource
 import javax.xml.validation.SchemaFactory
 import mu.KotlinLogging
+import no.ks.fiks.io.arkiv.model.arkivmelding.RegistreringArkivmelding
+import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KorrespondansepartType
 
 val logger = KotlinLogging.logger {  }
 
@@ -44,7 +45,7 @@ class ArkivmeldingTest {
                 .referanseEksternNoekkel(EksternNoekkelBuilder().fagstystem("Faglig").noekkel("key"))
                 .korrespondanseparts(listOf(
                     KorrespondansepartBuilder()
-                    .korrespondansepartType(KorrespondansepartTypeBuilder().kode("kode").beskrivelse("Beskrivelse"))
+                    .korrespondansepartType(KorrespondansepartType.MOTTAKER)
                     .korrespondansepartNavn("korrespondansepartNavn")
                     .postadresse(emptyList())
                     .postnummer("1234")
@@ -53,12 +54,11 @@ class ArkivmeldingTest {
                     .administrativEnhet("administrativEnhet")
                 ))
 
-        val arkivmelding = Arkivmelding()
+        val arkivmelding = RegistreringArkivmelding()
+            .registrering(listOf(registrering))
             .system("systemA")
             .meldingId("meldingsId")
             .tidspunkt(ZonedDateTime.now())
-            .mapper(emptyList())
-            .registrering(listOf(registrering))
             .antallFiler(2)
 
         val sw = StringWriter()
@@ -92,7 +92,7 @@ class ArkivmeldingTest {
                 .referanseEksternNoekkel(EksternNoekkelBuilder().fagstystem("Faglig").noekkel("key"))
                 .korrespondanseparts(listOf(
                     KorrespondansepartBuilder()
-                    .korrespondansepartType(KorrespondansepartTypeBuilder().kode("kode").beskrivelse("Beskrivelse"))
+                    .korrespondansepartType(KorrespondansepartType.MOTTAKER)
                     .korrespondansepartNavn("korrespondansepartNavn")
                     .postadresse(emptyList())
                     .postnummer("1234")
@@ -101,63 +101,14 @@ class ArkivmeldingTest {
                     .administrativEnhet("administrativEnhet")
                 ))
 
-        val arkivmelding = Arkivmelding()
+        val arkivmelding = RegistreringArkivmelding()
+            .registrering(listOf(registrering))
             .meldingId("meldingsId")
             .antallFiler(1)
             .tidspunkt(ZonedDateTime.now())
-            .mapper(emptyList())
-            .registrering(listOf(registrering))
 
         val exception = assertThrows<IllegalStateException> { arkivmelding.build() }
         exception.message shouldBe "System er påkrevd felt for Arkivmelding"
-
-    }
-
-    @Test
-    fun `Test at vi far feilmelding om vi oppretter arkivmelding med Mappe og Registrering`(){
-        val mappe =
-            MappeBuilder()
-                .systemID(SystemIDBuilder().value(UUID.randomUUID()).label("label"))
-                .mappeId("mappeId")
-                .referanseForeldermappe(SystemIDBuilder().value(UUID.randomUUID()).label("label"))
-                .tittel("tittel")
-
-        val registrering =
-            JournalpostBuilder()
-                .journaldato(ZonedDateTime.now())
-                .journalpostnummer(42213L)
-                .journalsekvensnummer(1234L)
-                .journalaar(2022)
-                .systemID(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel"))
-                .tittel("Reg tittel")
-                .opprettetDato(ZonedDateTime.now())
-                .opprettetAv("Tester")
-                .arkivertDato(ZonedDateTime.now())
-                .arkivertAv("Mr. Arkiv")
-                .referanseForelderMappe(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel"))
-                .referanseEksternNoekkel(EksternNoekkelBuilder().fagstystem("Faglig").noekkel("key"))
-                .journalposttype(JournalpostType.ORGANINTERT_DOKUMENT_FOR_OPPFOLGING)
-                .korrespondanseparts(listOf(
-                    KorrespondansepartBuilder()
-                    .korrespondansepartType(KorrespondansepartTypeBuilder().kode("kode").beskrivelse("Beskrivelse"))
-                    .korrespondansepartNavn("korrespondansepartNavn")
-                    .postadresse(emptyList())
-                    .postnummer("1234")
-                    .poststed("poststed")
-                    .saksbehandler("saksbehandler")
-                    .administrativEnhet("administrativEnhet")
-                ))
-
-        val msg = shouldThrow<java.lang.IllegalArgumentException> {
-            Arkivmelding()
-                .system("systemA")
-                .meldingId("meldingsId")
-                .tidspunkt(ZonedDateTime.now())
-                .mapper(listOf(mappe))
-                .registrering(listOf(registrering))
-        }
-
-        msg.message shouldBe "Arkivmelding kan enten inneholde Mappe(r) eller Registreringe(r), men ikke begge."
 
     }
 }

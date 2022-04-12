@@ -1,6 +1,8 @@
 package no.ks.fiks.io.arkiv.model;
 
 import no.ks.fiks.io.arkiv.model.arkivmelding.Arkivmelding;
+import no.ks.fiks.io.arkiv.model.arkivmelding.MappeArkivmelding;
+import no.ks.fiks.io.arkiv.model.arkivmelding.RegistreringArkivmelding;
 import no.ks.fiks.io.arkiv.model.arkivstruktur.EksternNoekkelBuilder;
 import no.ks.fiks.io.arkiv.model.arkivstruktur.JournalpostBuilder;
 import no.ks.fiks.io.arkiv.model.arkivstruktur.MappeBuilder;
@@ -41,12 +43,12 @@ public class ArkivmeldingJavaTest {
                                         .label("label"))
                         .tittel("Mappe tittel");
 
-        Arkivmelding arkivmelding = new Arkivmelding()
+        Arkivmelding arkivmelding = new MappeArkivmelding()
+                .mapper(Collections.singletonList(mappe))
                 .system("System A")
                 .meldingId("MeldingsId")
                 .tidspunkt(ZonedDateTime.now())
-                .mapper(Collections.singletonList(mappe))
-                .registrering(Collections.emptyList());
+                .antallFiler(0);
 
         StringWriter sw = new StringWriter();
         arkivmelding.marshal(sw);
@@ -73,11 +75,11 @@ public class ArkivmeldingJavaTest {
                 .journalsekvensnummer(111L)
                 .journalpostnummer(222L);
 
-        Arkivmelding arkivmelding = new Arkivmelding()
+        Arkivmelding arkivmelding = new RegistreringArkivmelding()
+                .registrering(Collections.singletonList(journalPostBuilder))
                 .system("System A")
                 .meldingId("MeldingsId")
                 .tidspunkt(ZonedDateTime.now())
-                .registrering(Collections.singletonList(journalPostBuilder))
                 .antallFiler(1);
 
         StringWriter sw = new StringWriter();

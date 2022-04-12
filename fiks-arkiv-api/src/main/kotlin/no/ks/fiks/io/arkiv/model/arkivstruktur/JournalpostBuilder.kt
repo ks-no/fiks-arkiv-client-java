@@ -9,6 +9,9 @@ import java.time.ZonedDateTime
 import java.util.*
 import kotlin.collections.ArrayList
 
+/**
+ * Journalpost er en spesialisering av registrering og brukes for hendelser som skal inn i journalen, en oversikt over all korrespondanse til og fra organisasjonen, samt interne notater og rapporter. Oftest vil det kun være journalposter registrert i saksmapper.
+ */
 class JournalpostBuilder : IRegistrering {
     var referanseArkivdel: UUID? = null
         private set

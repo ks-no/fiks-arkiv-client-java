@@ -71,6 +71,11 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
+            <resource>
+                <directory>${project.build.directory}/schemas/v1</directory>
+                <targetPath>schemas/v1</targetPath>
+                <filtering>false</filtering>
+            </resource>
         </resources>
         <plugins>
             <plugin>
