@@ -8,7 +8,8 @@ Kotlin klient for generering av meldinger til [Fiks-Arkiv](https://www.ks.no/fag
 [tjenestedokumentasjon](https://ks-no.github.io/fiks-plattform/tjenester/fiksio/arkiv/)
 
 
-Modeller for forenklet generering av gyldige arkivmeldinger 
+Modeller for forenklet generering av gyldige arkivmeldinger. 
+Typer er definert med utgangspunkt i [kodeliste fra arkivverket](http://arkivverket.metakat.no/Diagram/Index/EAID_CC654F7F_60CA_4240_A003_B6557201F2BC)
 XSD skjema er inkludert i jar under schemas.v1. Skjema er definert i eget [repo](https://github.com/ks-no/fiks-arkiv-specification)
 
 Før bygg må submodul hentes:

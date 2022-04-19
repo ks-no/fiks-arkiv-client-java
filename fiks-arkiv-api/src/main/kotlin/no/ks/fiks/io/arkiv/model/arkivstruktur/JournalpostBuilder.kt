@@ -3,6 +3,7 @@ package no.ks.fiks.io.arkiv.model.arkivstruktur
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.JournalStatus
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.JournalpostType
 import no.ks.fiks.io.arkiv.model.arkivmelding.ArkivmeldingPartBuilder
+import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.DokumentmediumType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Journalpost
 import java.time.ZonedDateTime
@@ -77,7 +78,30 @@ class JournalpostBuilder : IRegistrering {
         private set
     var klassifikasjoner: List<KlassifikasjonBuilder> = ArrayList()
         private set
-
+    var kryssreferanser: List<KryssreferanseBuilder> = ArrayList()
+        private set
+    var merknader: List<MerknadBuilder> = ArrayList()
+        private set
+    var oppbevaringssteder: List<String> = ArrayList()
+        private set
+    var dokumentmedium: DokumentmediumType? = null
+        private set
+    var forfattere: List<String> = ArrayList()
+        private set
+    var nokkelord: List<String> = ArrayList()
+        private set
+    var offentligTittel: String? = null
+        private set
+    var registreringsID: String? = null
+        private set
+    var dokumentbeskrivelser: List<DokumentbeskrivelseBuilder> = ArrayList()
+        private set
+    var gradering: GraderingBuilder? = null
+        private set
+    var skjerming: SkjermingBuilder? = null
+        private set
+    var kassasjon: KassasjonBuilder? = null
+        private set
 
     fun systemID(systemID: SystemIDBuilder) = apply { this.systemID = systemID }
     fun journalposttype(journalposttype: JournalpostType) = apply { this.journalposttype = journalposttype }
@@ -111,12 +135,22 @@ class JournalpostBuilder : IRegistrering {
     fun presedens(presedens: List<PresedensBuilder>) = apply { this.presedens = presedens }
     fun elektroniskSignatur(elektroniskSignatur: ElektroniskSignaturBuilder) = apply { this.elektroniskSignatur = elektroniskSignatur }
     fun klassifikasjoner(klassifikasjoner: List<KlassifikasjonBuilder>) = apply { this.klassifikasjoner = klassifikasjoner }
+    fun kryssreferanser(kryssreferanser: List<KryssreferanseBuilder>) = apply { this.kryssreferanser = kryssreferanser }
+    fun merknader(merknader: List<MerknadBuilder>) = apply { this.merknader = merknader }
+    fun oppbevaringssteder(oppbevaringssteder: List<String>) = apply { this.oppbevaringssteder = oppbevaringssteder }
+    fun dokumentmedium(dokumentmedium: DokumentmediumType) = apply { this.dokumentmedium = dokumentmedium }
+    fun forfattere(forfattere: List<String>) = apply { this.forfattere = forfattere }
+    fun nokkelord(nokkelord: List<String>) = apply { this.nokkelord = nokkelord }
+    fun offentligTittel(offentligTittel: String) = apply { this.offentligTittel = offentligTittel }
+    fun registreringsID(registreringsID: String) = apply { this.registreringsID = registreringsID }
+    fun dokumentbeskrivelser(dokumentbeskrivelser: List<DokumentbeskrivelseBuilder>) = apply { this.dokumentbeskrivelser = dokumentbeskrivelser }
+    fun gradering(gradering: GraderingBuilder) = apply { this.gradering = gradering }
+    fun skjerming(skjerming: SkjermingBuilder) = apply { this.skjerming = skjerming }
+    fun kassasjon(kassasjon: KassasjonBuilder) = apply { this.kassasjon = kassasjon }
 
     override fun buildApiModel() : Journalpost {
         return Journalpost().also {
             it.systemID = systemID?.build() ?: throw IllegalStateException(feilmeldingPakrevdFelt("SystemID"))
-            it.tittel = checkNotNull(tittel) { feilmeldingPakrevdFelt("Tittel") }
-            it.korrespondanseparts.addAll(korrespondanseparts.map { part -> part.build() }.toCollection(ArrayList()) )
             it.opprettetDato = opprettetDato
             it.opprettetAv = checkNotNull(opprettetAv) { feilmeldingPakrevdFelt("OpprettetAv") }
             it.arkivertDato = arkivertDato
@@ -124,8 +158,23 @@ class JournalpostBuilder : IRegistrering {
             it.referanseForelderMappe = referanseForelderMappe?.build()
             it.referanseArkivdel = referanseArkivdel?.toString()
             it.journalsekvensnummer = journalsekvensnummer?.toBigInteger() ?: throw IllegalStateException(feilmeldingPakrevdFelt("Journalsekvensnummer"))
-            it.parts.addAll(parts.map { p -> p.buildApiModel() })
+            it.parts.addAll(parts.map { p -> p.build() })
+
+            it.kassasjon = kassasjon?.build()
+            it.skjerming = skjerming?.build()
+            it.gradering = gradering?.build()
+            it.dokumentbeskrivelses.addAll(dokumentbeskrivelser.map { d -> d.build() }.toList())
+            it.registreringsID = registreringsID
+            it.tittel = checkNotNull(tittel) { feilmeldingPakrevdFelt("Tittel") }
+            it.offentligTittel = offentligTittel
             it.beskrivelse = beskrivelse
+            it.noekkelords.addAll(nokkelord)
+            it.forfatters.addAll(forfattere)
+            it.dokumentmedium = dokumentmedium?.value
+            it.oppbevaringssteds.addAll(oppbevaringssteder)
+            it.merknads.addAll(merknader.map { m -> m.build() }.toList())
+            it.kryssreferanses.addAll(kryssreferanser.map { k -> k.build() }.toList())
+            it.korrespondanseparts.addAll(korrespondanseparts.map { part -> part.build() }.toCollection(ArrayList()) )
             it.klassifikasjons.addAll(klassifikasjoner.map { k -> k.build() }.toList())
             it.referanseEksternNoekkel = referanseEksternNoekkel?.build() ?: throw IllegalStateException(feilmeldingPakrevdFelt("ReferanseEksternNoekkel"))
 
