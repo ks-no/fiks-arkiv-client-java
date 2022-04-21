@@ -13,6 +13,7 @@
 
     <modules>
         <module>fiks-arkiv-api</module>
+        <module>fiks-arkiv-forenklet-arkivering</module>
     </modules>
 
     <properties>
@@ -46,6 +47,16 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>no.ks.fiks</groupId>
+                <artifactId>fiks-arkiv-api</artifactId>
+                <version>${pom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>no.ks.fiks</groupId>
+                <artifactId>fiks-arkiv-forenklet-arkivering</artifactId>
+                <version>${pom.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-bom</artifactId>

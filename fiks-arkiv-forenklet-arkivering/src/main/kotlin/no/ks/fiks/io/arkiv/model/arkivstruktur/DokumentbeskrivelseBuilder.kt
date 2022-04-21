@@ -27,7 +27,7 @@ class DokumentbeskrivelseBuilder {
         private set
     var referanseArkivDeler: List<String> = ArrayList()
         private set
-    var tilknyttetRegistreringSom: TilknyttetRegistreringSomType? = null
+    var tilknyttetRegistreringSom: TilknyttetRegistreringSomType = TilknyttetRegistreringSomType.HOVEDDOKUMENT
         private set
     var dokumentnummer: Long? = null
         private set
@@ -50,6 +50,8 @@ class DokumentbeskrivelseBuilder {
     var gradering: GraderingBuilder? = null
         private set
     var elektroniskSignatur: ElektroniskSignaturBuilder? = null
+        private set
+    var dokumentobjekter: List<DokumentObjektBuilder> = ArrayList()
         private set
 
     fun systemID(systemID: SystemIDBuilder) = apply { this.systemID = systemID }
@@ -75,6 +77,7 @@ class DokumentbeskrivelseBuilder {
     fun skjerming(skjerming: SkjermingBuilder) = apply { this.skjerming = skjerming }
     fun gradering(gradering: GraderingBuilder) = apply { this.gradering = gradering }
     fun elektroniskSignatur(elektroniskSignatur: ElektroniskSignaturBuilder) = apply { this.elektroniskSignatur = elektroniskSignatur }
+    fun dokumentobjekter(dokumentobjekter: List<DokumentObjektBuilder>) = apply { this.dokumentobjekter = dokumentobjekter }
 
     fun build() : Dokumentbeskrivelse {
         return Dokumentbeskrivelse().also {
@@ -89,7 +92,7 @@ class DokumentbeskrivelseBuilder {
             it.dokumentmedium = dokumentmedium?.value
             it.oppbevaringssted = oppbevaringssted
             it.referanseArkivdels.addAll(referanseArkivDeler)
-            it.tilknyttetRegistreringSom = tilknyttetRegistreringSom?.value ?: throw IllegalStateException("TilknyttetRegistreringSom er påkrevd for Dokumentbeskrivelse")
+            it.tilknyttetRegistreringSom = tilknyttetRegistreringSom.value
             it.dokumentnummer = dokumentnummer?.toBigInteger() ?: throw IllegalStateException("Dokumentnummer er påkrevd for Dokumentbeskrivelse")
             it.tilknyttetDato = tilknyttetDato
             it.tilknyttetAv = checkNotNull(tilknyttetAv)
@@ -101,7 +104,7 @@ class DokumentbeskrivelseBuilder {
             it.skjerming = skjerming?.build()
             it.gradering = gradering?.build()
             it.elektroniskSignatur = elektroniskSignatur?.build()
-            it.dokumentobjekts
+            it.dokumentobjekts.addAll(dokumentobjekter.map { d -> d.build() }.toList())
         }
     }
 }

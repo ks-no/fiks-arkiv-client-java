@@ -31,7 +31,7 @@ open class Arkivmelding {
             it.system = checkNotNull(system) {"System er påkrevd felt for Arkivmelding"}
             it.meldingId = checkNotNull(meldingId) {"MeldingId er påkrevd felt for Arkivmelding"}
             it.tidspunkt = tidspunkt
-            it.antallFiler = checkNotNull(antallFiler) {"Antall er påkrevd felt for Arkivmelding"}
+            it.antallFiler = checkNotNull(antallFiler) {"Antall filer er påkrevd felt for Arkivmelding"}
         }
     }
 
