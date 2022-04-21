@@ -63,8 +63,7 @@ class ArkivmeldingTest {
         logger.info { xmlContent }
 
         val schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
-        val uri = this.javaClass.classLoader.getResource("schemas/v1/arkivmelding.xsd").toURI()
-        val schema = schemaFactory.newSchema(File(uri))
+        val schema = schemaFactory.newSchema(File("target/schemas/v1/arkivmelding.xsd"))
         val validator = schema.newValidator()
 
         shouldNotThrowAny {
