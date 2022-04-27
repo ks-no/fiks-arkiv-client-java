@@ -1,7 +1,9 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
+import no.ks.fiks.io.arkiv.model.arkivmelding.DokumentObjektBuilder
+import no.ks.fiks.io.arkiv.model.arkivmelding.PartBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.*
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Dokumentbeskrivelse
+import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Dokumentbeskrivelse
 import java.time.ZonedDateTime
 
 class DokumentbeskrivelseBuilder {
@@ -98,12 +100,12 @@ class DokumentbeskrivelseBuilder {
             it.tilknyttetAv = checkNotNull(tilknyttetAv)
             it.parts.addAll(parts.map { p -> p.build() }.toList())
             it.merknads.addAll(merknader.map { m -> m.build() }.toList())
-            it.kassasjon = kassasjon?.build()
-            it.utfoertKassasjon = utfoertKassasjon?.build()
-            it.sletting = sletting?.build()
+            //it.kassasjon = kassasjon?.build()
+            //it.utfoertKassasjon = utfoertKassasjon?.build()
+            //it.sletting = sletting?.build()
             it.skjerming = skjerming?.build()
             it.gradering = gradering?.build()
-            it.elektroniskSignatur = elektroniskSignatur?.build()
+            //it.elektroniskSignatur = elektroniskSignatur?.build()
             it.dokumentobjekts.addAll(dokumentobjekter.map { d -> d.build() }.toList())
         }
     }

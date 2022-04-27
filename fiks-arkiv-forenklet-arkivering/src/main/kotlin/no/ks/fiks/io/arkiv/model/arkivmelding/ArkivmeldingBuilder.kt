@@ -16,7 +16,7 @@ import javax.xml.stream.XMLEventWriter
 import javax.xml.stream.XMLStreamWriter
 
 
-open class Arkivmelding {
+open class ArkivmeldingBuilder {
     var system: String? = null
         private set
     var meldingId: String? = null

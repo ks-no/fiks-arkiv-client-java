@@ -1,11 +1,11 @@
-package no.ks.fiks.io.arkiv.model.arkivstruktur
+package no.ks.fiks.io.arkiv.model.arkivmelding
 
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.JournalStatus
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.JournalpostType
-import no.ks.fiks.io.arkiv.model.arkivmelding.ArkivmeldingPartBuilder
+import no.ks.fiks.io.arkiv.model.arkivstruktur.*
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.DokumentmediumType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Journalpost
+import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Journalpost
 import java.time.ZonedDateTime
 import java.util.*
 import kotlin.collections.ArrayList
@@ -46,7 +46,7 @@ class JournalpostBuilder : IRegistrering {
         private set
     var referanseEksternNoekkel: EksternNoekkelBuilder? = null
         private set
-    var parts: List<ArkivmeldingPartBuilder> = ArrayList()
+    var parts: List<PartBuilder> = ArrayList()
         private set
     var beskrivelse: String? = null
         private set
@@ -74,8 +74,6 @@ class JournalpostBuilder : IRegistrering {
         private set
     var presedens: List<PresedensBuilder> = ArrayList()
         private set
-    var elektroniskSignatur: ElektroniskSignaturBuilder? = null
-        private set
     var klassifikasjoner: List<KlassifikasjonBuilder> = ArrayList()
         private set
     var kryssreferanser: List<KryssreferanseBuilder> = ArrayList()
@@ -100,8 +98,6 @@ class JournalpostBuilder : IRegistrering {
         private set
     var skjerming: SkjermingBuilder? = null
         private set
-    var kassasjon: KassasjonBuilder? = null
-        private set
 
     fun systemID(systemID: SystemIDBuilder) = apply { this.systemID = systemID }
     fun journalposttype(journalposttype: JournalpostType) = apply { this.journalposttype = journalposttype }
@@ -119,7 +115,7 @@ class JournalpostBuilder : IRegistrering {
     fun journalsekvensnummer(journalsekvensnummer: Long) = apply { this.journalsekvensnummer = journalsekvensnummer }
     fun journalpostnummer(journalpostnummer: Long) = apply { this.journalpostnummer = journalpostnummer }
     fun journaldato(journaldato: ZonedDateTime) = apply { this.journaldato = journaldato }
-    fun parts(parts: List<ArkivmeldingPartBuilder>) = apply { this.parts = parts }
+    fun parts(parts: List<PartBuilder>) = apply { this.parts = parts }
     fun beskrivelse(beskrivelse: String) = apply { this.beskrivelse = beskrivelse }
     fun dokumentetsDato(dokumentetsDato: ZonedDateTime) = apply { this.dokumentetsDato = dokumentetsDato }
     fun mottattDato(mottattDato: ZonedDateTime) = apply { this.mottattDato = mottattDato }
@@ -133,7 +129,6 @@ class JournalpostBuilder : IRegistrering {
     fun avskrivninger(avskrivninger: List<AvskrivningBuilder>) = apply { this.avskrivninger = avskrivninger }
     fun dokumentflyt(dokumentflyt: List<DokumentflytBuilder>) = apply { this.dokumentflyt = dokumentflyt }
     fun presedens(presedens: List<PresedensBuilder>) = apply { this.presedens = presedens }
-    fun elektroniskSignatur(elektroniskSignatur: ElektroniskSignaturBuilder) = apply { this.elektroniskSignatur = elektroniskSignatur }
     fun klassifikasjoner(klassifikasjoner: List<KlassifikasjonBuilder>) = apply { this.klassifikasjoner = klassifikasjoner }
     fun kryssreferanser(kryssreferanser: List<KryssreferanseBuilder>) = apply { this.kryssreferanser = kryssreferanser }
     fun merknader(merknader: List<MerknadBuilder>) = apply { this.merknader = merknader }
@@ -146,7 +141,6 @@ class JournalpostBuilder : IRegistrering {
     fun dokumentbeskrivelser(dokumentbeskrivelser: List<DokumentbeskrivelseBuilder>) = apply { this.dokumentbeskrivelser = dokumentbeskrivelser }
     fun gradering(gradering: GraderingBuilder) = apply { this.gradering = gradering }
     fun skjerming(skjerming: SkjermingBuilder) = apply { this.skjerming = skjerming }
-    fun kassasjon(kassasjon: KassasjonBuilder) = apply { this.kassasjon = kassasjon }
 
     override fun buildApiModel() : Journalpost {
         return Journalpost().also {
@@ -160,7 +154,6 @@ class JournalpostBuilder : IRegistrering {
             it.journalsekvensnummer = journalsekvensnummer?.toBigInteger() ?: throw IllegalStateException(feilmeldingPakrevdFelt("Journalsekvensnummer"))
             it.parts.addAll(parts.map { p -> p.build() })
 
-            it.kassasjon = kassasjon?.build()
             it.skjerming = skjerming?.build()
             it.gradering = gradering?.build()
             it.dokumentbeskrivelses.addAll(dokumentbeskrivelser.map { d -> d.build() }.toList())
@@ -195,7 +188,6 @@ class JournalpostBuilder : IRegistrering {
             it.avskrivnings.addAll(avskrivninger.map { a -> a.build() }.toList())
             it.dokumentflyts.addAll(dokumentflyt.map { d -> d.build() }.toList())
             it.presedens.addAll(presedens.map { p -> p.build() }.toList())
-            it.elektroniskSignatur = elektroniskSignatur?.build()
         }
     }
 

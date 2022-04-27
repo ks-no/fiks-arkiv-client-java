@@ -2,7 +2,7 @@ package no.ks.fiks.io.arkiv.model.arkivmelding
 
 import no.ks.fiks.io.arkiv.model.arkivstruktur.IRegistrering
 
-class RegistreringArkivmelding: Arkivmelding() {
+class RegistreringArkivmeldingBuilder: ArkivmeldingBuilder() {
 
     var registrering: List<IRegistrering>? = emptyList()
         private set

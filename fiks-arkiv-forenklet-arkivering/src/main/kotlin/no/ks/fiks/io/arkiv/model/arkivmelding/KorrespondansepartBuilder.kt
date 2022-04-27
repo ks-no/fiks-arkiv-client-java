@@ -1,7 +1,7 @@
-package no.ks.fiks.io.arkiv.model.arkivstruktur
+package no.ks.fiks.io.arkiv.model.arkivmelding
 
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KorrespondansepartType
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Korrespondansepart
+import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Korrespondansepart
 
 class KorrespondansepartBuilder {
     var korrespondansepartType: KorrespondansepartType = KorrespondansepartType.MOTTAKER

@@ -3,10 +3,10 @@ package no.ks.fiks.io.arkiv.model
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.matchers.shouldBe
 import mu.KotlinLogging
-import no.ks.fiks.io.arkiv.model.arkivmelding.RegistreringArkivmelding
+import no.ks.fiks.io.arkiv.model.arkivmelding.RegistreringArkivmeldingBuilder
 import no.ks.fiks.io.arkiv.model.arkivstruktur.EksternNoekkelBuilder
-import no.ks.fiks.io.arkiv.model.arkivstruktur.JournalpostBuilder
-import no.ks.fiks.io.arkiv.model.arkivstruktur.KorrespondansepartBuilder
+import no.ks.fiks.io.arkiv.model.arkivmelding.JournalpostBuilder
+import no.ks.fiks.io.arkiv.model.arkivmelding.KorrespondansepartBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KorrespondansepartType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import org.junit.jupiter.api.Test
@@ -50,7 +50,7 @@ class ArkivmeldingTest {
                     .administrativEnhet("administrativEnhet")
                 ))
 
-        val arkivmelding = RegistreringArkivmelding()
+        val arkivmelding = RegistreringArkivmeldingBuilder()
             .registrering(listOf(registrering))
             .system("systemA")
             .meldingId("meldingsId")
@@ -97,7 +97,7 @@ class ArkivmeldingTest {
                     .administrativEnhet("administrativEnhet")
                 ))
 
-        val arkivmelding = RegistreringArkivmelding()
+        val arkivmelding = RegistreringArkivmeldingBuilder()
             .registrering(listOf(registrering))
             .meldingId("meldingsId")
             .antallFiler(1)

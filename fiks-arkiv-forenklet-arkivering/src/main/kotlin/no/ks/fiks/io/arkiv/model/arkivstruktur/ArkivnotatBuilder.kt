@@ -3,7 +3,7 @@ package no.ks.fiks.io.arkiv.model.arkivstruktur
 import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Arkivnotat
 import java.time.ZonedDateTime
 
-class ArkivnotatBuilder : IRegistrering {
+class ArkivnotatBuilder {
     var dokumentetsDato: ZonedDateTime? = null
         private set
     var mottattDato: ZonedDateTime? = null
@@ -33,7 +33,7 @@ class ArkivnotatBuilder : IRegistrering {
     fun utlaantTil(utlaantTil: String) = apply { this.utlaantTil = utlaantTil }
     fun dokumentflyt(dokumentflyt: List<DokumentflytBuilder>) = apply { this.dokumentflyt = dokumentflyt }
 
-    override fun buildApiModel() : Arkivnotat {
+    fun buildApiModel() : Arkivnotat {
         return Arkivnotat().also {
             it.dokumentetsDato = dokumentetsDato
             it.mottattDato = mottattDato

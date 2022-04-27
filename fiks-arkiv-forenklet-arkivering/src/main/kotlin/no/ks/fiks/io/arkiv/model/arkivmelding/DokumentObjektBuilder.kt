@@ -1,9 +1,11 @@
-package no.ks.fiks.io.arkiv.model.arkivstruktur
+package no.ks.fiks.io.arkiv.model.arkivmelding
 
+import no.ks.fiks.io.arkiv.model.arkivstruktur.ElektroniskSignaturBuilder
+import no.ks.fiks.io.arkiv.model.arkivstruktur.KonverteringBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.FormatType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.VariantFormatType
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Dokumentobjekt
+import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Dokumentobjekt
 import java.time.ZonedDateTime
 
 class DokumentObjektBuilder {
@@ -71,8 +73,8 @@ class DokumentObjektBuilder {
             it.sjekksum = checkNotNull(sjekksum) {"Sjekksum er påkrevd for Dokumentobjekt"}
             it.sjekksumAlgoritme = checkNotNull(sjekksumAlgoritme) { "SjekksumAlgoritme er påkrevd for Dokumentobjekt" }
             it.filstoerrelse = filstoerrelse?.toBigInteger() ?: throw IllegalStateException("Filstørrelse er påkrevd for Dokumentobjekt")
-            it.elektroniskSignatur = elektroniskSignatur?.build()
-            it.konverterings.addAll(konverteringer.map { k -> k.build() }.toList())
+            //it.elektroniskSignatur = elektroniskSignatur?.build()
+            //it.konverterings.addAll(konverteringer.map { k -> k.build() }.toList())
         }
     }
 }

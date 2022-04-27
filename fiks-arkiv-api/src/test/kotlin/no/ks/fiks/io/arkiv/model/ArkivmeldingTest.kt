@@ -13,9 +13,9 @@ import javax.xml.validation.SchemaFactory
 import no.arkivverket.standarder.noark5.metadatakatalog.v2.Korrespondanseparttype
 import no.arkivverket.standarder.noark5.metadatakatalog.v2.SystemID
 import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Arkivmelding
+import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Journalpost
 import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.EksternNoekkel
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Journalpost
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Korrespondansepart
+import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Korrespondansepart
 import javax.xml.bind.JAXBContext
 import javax.xml.bind.JAXBElement
 import javax.xml.namespace.QName

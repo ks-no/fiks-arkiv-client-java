@@ -1,7 +1,7 @@
-package no.ks.fiks.io.arkiv.model.arkivstruktur
+package no.ks.fiks.io.arkiv.model.arkivmelding
 
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Mappe
+import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Mappe
 import java.time.ZonedDateTime
 
 /**
