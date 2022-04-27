@@ -1,11 +1,8 @@
-package no.ks.fiks.io.arkiv.model.arkivstruktur
+package no.ks.fiks.io.arkiv.model.arkivmelding
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Saksstatus
+import no.ks.fiks.io.arkiv.model.arkivstruktur.PresedensBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SaksstatusType
-import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.EksternNoekkel
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Mappe
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Saksmappe
+import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Saksmappe
 import java.time.ZonedDateTime
 
 /**
@@ -30,8 +27,6 @@ open class SaksmappeBuilder : MappeBuilder() {
         private set
     var utlaantTil: String? = null
         private set
-    var referanseSekundaerKlassifikasjoner: List<String> = ArrayList()
-        private set
     var presedens: List<PresedensBuilder> = ArrayList()
         private set
 
@@ -44,7 +39,6 @@ open class SaksmappeBuilder : MappeBuilder() {
     fun saksstatus(saksstatus: SaksstatusType) = apply { this.saksstatus = saksstatus }
     fun utlaantDato(utlaantDato: ZonedDateTime) = apply { this.utlaantDato = utlaantDato }
     fun utlaantTil(utlaantTil: String) = apply { this.utlaantTil = utlaantTil }
-    fun referanseSekundaerKlassifikasjoner(referanseSekundaerKlassifikasjoner: List<String>) = apply { this.referanseSekundaerKlassifikasjoner = referanseSekundaerKlassifikasjoner }
     fun presedens(presedens: List<PresedensBuilder>) = apply { this.presedens = presedens }
 
     override fun build(): Saksmappe {
@@ -78,10 +72,9 @@ open class SaksmappeBuilder : MappeBuilder() {
             it.administrativEnhet = administrativEnhet
             it.saksansvarlig = saksansvarlig
             it.journalenhet = journalenhet
-            it.saksstatus = saksstatus?.value ?: throw IllegalStateException("Saksstatus er påkrevd for Saksmappe")
+            it.saksstatus = saksstatus?.value
             it.utlaantDato = utlaantDato
             it.utlaantTil = utlaantTil
-            it.referanseSekundaerKlassifikasjons.addAll(referanseSekundaerKlassifikasjoner)
             it.presedens.addAll(presedens.map { p -> p.build() }.toList())
         }
     }

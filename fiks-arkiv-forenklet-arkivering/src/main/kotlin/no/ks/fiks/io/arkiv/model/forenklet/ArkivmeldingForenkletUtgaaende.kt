@@ -1,8 +1,6 @@
 package no.ks.fiks.io.arkiv.model.forenklet
 
-import no.ks.fiks.io.arkiv.model.arkivmelding.KorrespondansepartBuilder
-import no.ks.fiks.io.arkiv.model.arkivmelding.MappeArkivmelding
-import no.ks.fiks.io.arkiv.model.arkivmelding.RegistreringArkivmelding
+import no.ks.fiks.io.arkiv.model.arkivmelding.*
 import no.ks.fiks.io.arkiv.model.arkivstruktur.*
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.*
 
@@ -21,7 +19,7 @@ class ArkivmeldingForenkletUtgaaende {
     fun nyUtgaaendeJournalpost(journalpost: UtgaaendeJournalpost) = apply { this.nyUtgaaendeJournalpost = journalpost }
     fun sluttbrukerIdentifikator(sluttbrukerIdentifikator: String) = apply { this.sluttbrukerIdentifikator = sluttbrukerIdentifikator }
 
-    fun byggArkivmelding(): no.ks.fiks.io.arkiv.model.arkivmelding.Arkivmelding {
+    fun byggArkivmelding(): ArkivmeldingBuilder {
         checkNotNull(nyUtgaaendeJournalpost) {"ArkivmeldingForenkletUtgaaende krever journalpost"}
 
         val journalpost = nyUtgaaendeJournalpost?.let {
@@ -97,14 +95,14 @@ class ArkivmeldingForenkletUtgaaende {
         this.referanseSaksmappeForenklet?.let { saksmappe ->
             val saksMappeBuilder = opprettSaksmappe(saksmappe, journalpost)
 
-            val arkivmelding = MappeArkivmelding()
+            val arkivmelding = MappeArkivmeldingBuilder()
                 .mapper(listOf(saksMappeBuilder))
                 .antallFiler(journalpost.dokumentbeskrivelser.size)
             journalpost.referanseEksternNoekkel?.fagsystem?.let { fs -> arkivmelding.system(fs) }
             journalpost.referanseEksternNoekkel?.noekkel?.let { mid -> arkivmelding.meldingId(mid) }
             return arkivmelding
         } ?: run {
-            val arkivmelding = RegistreringArkivmelding()
+            val arkivmelding = RegistreringArkivmeldingBuilder()
                 .registrering(listOf(journalpost))
                 .antallFiler(journalpost.dokumentbeskrivelser.size)
             journalpost.referanseEksternNoekkel?.fagsystem?.let { fs -> arkivmelding.system(fs) }

@@ -1,9 +1,11 @@
-package no.ks.fiks.io.arkiv.model.arkivstruktur
+package no.ks.fiks.io.arkiv.model.arkivmelding
 
+import no.ks.fiks.io.arkiv.model.arkivstruktur.ElektroniskSignaturBuilder
+import no.ks.fiks.io.arkiv.model.arkivstruktur.KonverteringBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.FormatType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.VariantFormatType
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Dokumentobjekt
+import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Dokumentobjekt
 import java.time.ZonedDateTime
 
 class DokumentObjektBuilder {
@@ -34,10 +36,6 @@ class DokumentObjektBuilder {
         private set
     var filstoerrelse: Long? = null
         private set
-    var elektroniskSignatur: ElektroniskSignaturBuilder? = null
-        private set
-    var konverteringer: List<KonverteringBuilder> = ArrayList()
-        private set
 
     fun systemID(systemID: SystemIDBuilder) = apply { this.systemID = systemID }
     fun versjonsnummer(versjonsnummer: Long) = apply { this.versjonsnummer = versjonsnummer }
@@ -52,27 +50,23 @@ class DokumentObjektBuilder {
     fun sjekksum(sjekksum: String) = apply { this.sjekksum = sjekksum }
     fun sjekksumAlgoritme(sjekksumAlgoritme: String) = apply { this.sjekksumAlgoritme = sjekksumAlgoritme }
     fun filstoerrelse(filstoerrelse: Long) = apply { this.filstoerrelse = filstoerrelse }
-    fun elektroniskSignatur(elektroniskSignatur: ElektroniskSignaturBuilder) = apply { this.elektroniskSignatur = elektroniskSignatur }
-    fun konverteringer(konverteringer: List<KonverteringBuilder>) = apply { this.konverteringer = konverteringer }
 
 
     fun build() : Dokumentobjekt {
         return Dokumentobjekt().also {
-            it.systemID = systemID?.build() ?: throw IllegalStateException("SystemID er påkrevd for Dokumentobjekt")
+            it.systemID = systemID?.build()
             it.versjonsnummer = versjonsnummer?.toBigInteger() ?: throw IllegalStateException("Versjonsnummer er påkrevd for Dokumentobjekt")
             it.variantformat = variantformat?.value ?: throw IllegalStateException("Variantformat er påkrevd for Dokumentobjekt")
             it.filnavn = checkNotNull(filnavn) {"Filnavn er påkrevd for Dokumentobject"}
             it.format = format?.value ?: throw IllegalStateException("Format er påkrevd for Dokumentobjekt")
-            it.mimeType = checkNotNull(mimeType) {"Mimetype er påkrevd for Dokumentobject"}
+            it.mimeType = mimeType
             it.formatDetaljer = formatDetaljer
             it.opprettetDato = opprettetDato
-            it.opprettetAv = checkNotNull(opprettetAv) {"OpprettetAv er påkrevd for Dokumentobjekt"}
+            it.opprettetAv = opprettetAv
             it.referanseDokumentfil = checkNotNull(referanseDokumentfil) {"ReferanseDokumentfil er påkrevd for Dokumnetobjekt"}
-            it.sjekksum = checkNotNull(sjekksum) {"Sjekksum er påkrevd for Dokumentobjekt"}
-            it.sjekksumAlgoritme = checkNotNull(sjekksumAlgoritme) { "SjekksumAlgoritme er påkrevd for Dokumentobjekt" }
-            it.filstoerrelse = filstoerrelse?.toBigInteger() ?: throw IllegalStateException("Filstørrelse er påkrevd for Dokumentobjekt")
-            it.elektroniskSignatur = elektroniskSignatur?.build()
-            it.konverterings.addAll(konverteringer.map { k -> k.build() }.toList())
+            it.sjekksum = sjekksum
+            it.sjekksumAlgoritme = sjekksumAlgoritme
+            it.filstoerrelse = filstoerrelse?.toBigInteger()
         }
     }
 }

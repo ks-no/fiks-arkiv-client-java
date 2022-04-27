@@ -1,8 +1,6 @@
 package no.ks.fiks.io.arkiv.model;
 
-import no.ks.fiks.io.arkiv.model.arkivmelding.Arkivmelding;
-import no.ks.fiks.io.arkiv.model.arkivmelding.MappeArkivmelding;
-import no.ks.fiks.io.arkiv.model.arkivmelding.RegistreringArkivmelding;
+import no.ks.fiks.io.arkiv.model.arkivmelding.*;
 import no.ks.fiks.io.arkiv.model.arkivstruktur.*;
 import no.ks.fiks.io.arkiv.model.forenklet.*;
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.*;
@@ -12,14 +10,11 @@ import org.junit.jupiter.api.Test;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.util.JAXBSource;
-import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.File;
-import java.io.InputStream;
 import java.io.StringWriter;
-import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,7 +42,7 @@ public class ArkivmeldingJavaTest {
                                         .label("label"))
                         .tittel("Mappe tittel");
 
-        Arkivmelding arkivmelding = new MappeArkivmelding()
+        ArkivmeldingBuilder arkivmeldingBuilder = new MappeArkivmeldingBuilder()
                 .mapper(Collections.singletonList(mappe))
                 .system("System A")
                 .meldingId("MeldingsId")
@@ -55,7 +50,7 @@ public class ArkivmeldingJavaTest {
                 .antallFiler(0);
 
         StringWriter sw = new StringWriter();
-        arkivmelding.marshal(sw);
+        arkivmeldingBuilder.marshal(sw);
         String xmlContent = sw.toString();
         System.out.println(xmlContent);
 
@@ -63,7 +58,7 @@ public class ArkivmeldingJavaTest {
         Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/arkivmelding.xsd"));
         Validator validator = schema.newValidator();
 
-        Assertions.assertDoesNotThrow(() -> validator.validate(new JAXBSource(arkivmelding.jaxbContext(), arkivmelding.JAXBElement())));
+        Assertions.assertDoesNotThrow(() -> validator.validate(new JAXBSource(arkivmeldingBuilder.jaxbContext(), arkivmeldingBuilder.JAXBElement())));
     }
 
     @Test
@@ -79,7 +74,7 @@ public class ArkivmeldingJavaTest {
                 .journalsekvensnummer(111L)
                 .journalpostnummer(222L);
 
-        Arkivmelding arkivmelding = new RegistreringArkivmelding()
+        ArkivmeldingBuilder arkivmeldingBuilder = new RegistreringArkivmeldingBuilder()
                 .registrering(Collections.singletonList(journalPostBuilder))
                 .system("System A")
                 .meldingId("MeldingsId")
@@ -87,7 +82,7 @@ public class ArkivmeldingJavaTest {
                 .antallFiler(1);
 
         StringWriter sw = new StringWriter();
-        arkivmelding.marshal(sw);
+        arkivmeldingBuilder.marshal(sw);
         String xmlContent = sw.toString();
         System.out.println(xmlContent);
 
@@ -95,7 +90,7 @@ public class ArkivmeldingJavaTest {
         Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/arkivmelding.xsd"));
         Validator validator = schema.newValidator();
 
-        Assertions.assertDoesNotThrow(() -> validator.validate(new JAXBSource(arkivmelding.jaxbContext(), arkivmelding.JAXBElement())));
+        Assertions.assertDoesNotThrow(() -> validator.validate(new JAXBSource(arkivmeldingBuilder.jaxbContext(), arkivmeldingBuilder.JAXBElement())));
     }
 
     @Test
@@ -152,7 +147,7 @@ public class ArkivmeldingJavaTest {
                                                                     .filstoerrelse(12345L)
                                                                     .referanseDokumentfil("/en/path")
                                                                     .format(FormatType.PDF_A_ISO_19005_1_2005))))));
-        Arkivmelding arkivmelding = new RegistreringArkivmelding()
+        ArkivmeldingBuilder arkivmeldingBuilder = new RegistreringArkivmeldingBuilder()
                 .registrering(journalposter)
                 .system("Fagsystem X")
                 .antallFiler(1)
@@ -161,13 +156,13 @@ public class ArkivmeldingJavaTest {
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/arkivmelding.xsd"));
         Validator validator = schema.newValidator();
-        Assertions.assertDoesNotThrow(() -> validator.validate(new JAXBSource(arkivmelding.jaxbContext(), arkivmelding.JAXBElement())));
+        Assertions.assertDoesNotThrow(() -> validator.validate(new JAXBSource(arkivmeldingBuilder.jaxbContext(), arkivmeldingBuilder.JAXBElement())));
     }
 
     @Test
     @DisplayName("ArkivmeldingForenkletUtgaaende, brukerhistorie 4 med forenklet modell")
     public void Brukerhistorie4ProAktivTest() throws Exception{
-        Arkivmelding arkivmelding = new ArkivmeldingForenkletUtgaaende()
+        ArkivmeldingBuilder arkivmelding = new ArkivmeldingForenkletUtgaaende()
                 .sluttbrukerIdentifikator("ABC")
                 .nyUtgaaendeJournalpost(new UtgaaendeJournalpost()
                         .tittel("Vedtak etter tilsyn")
