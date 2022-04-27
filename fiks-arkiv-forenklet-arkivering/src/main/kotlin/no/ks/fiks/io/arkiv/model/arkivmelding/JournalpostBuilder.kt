@@ -13,7 +13,7 @@ import kotlin.collections.ArrayList
 /**
  * Journalpost er en spesialisering av registrering og brukes for hendelser som skal inn i journalen, en oversikt over all korrespondanse til og fra organisasjonen, samt interne notater og rapporter. Oftest vil det kun være journalposter registrert i saksmapper.
  */
-class JournalpostBuilder : IRegistrering {
+open class JournalpostBuilder : IRegistrering {
     var referanseArkivdel: UUID? = null
         private set
     var journaldato: ZonedDateTime = ZonedDateTime.now()
@@ -142,16 +142,16 @@ class JournalpostBuilder : IRegistrering {
     fun gradering(gradering: GraderingBuilder) = apply { this.gradering = gradering }
     fun skjerming(skjerming: SkjermingBuilder) = apply { this.skjerming = skjerming }
 
-    override fun buildApiModel() : Journalpost {
+    override fun build() : Journalpost {
         return Journalpost().also {
-            it.systemID = systemID?.build() ?: throw IllegalStateException(feilmeldingPakrevdFelt("SystemID"))
+            it.systemID = systemID?.build()
             it.opprettetDato = opprettetDato
-            it.opprettetAv = checkNotNull(opprettetAv) { feilmeldingPakrevdFelt("OpprettetAv") }
+            it.opprettetAv = opprettetAv
             it.arkivertDato = arkivertDato
-            it.arkivertAv = checkNotNull(arkivertAv) { feilmeldingPakrevdFelt("ArkivertAv") }
+            it.arkivertAv = arkivertAv
             it.referanseForelderMappe = referanseForelderMappe?.build()
             it.referanseArkivdel = referanseArkivdel?.toString()
-            it.journalsekvensnummer = journalsekvensnummer?.toBigInteger() ?: throw IllegalStateException(feilmeldingPakrevdFelt("Journalsekvensnummer"))
+            it.journalsekvensnummer = journalsekvensnummer?.toBigInteger()
             it.parts.addAll(parts.map { p -> p.build() })
 
             it.skjerming = skjerming?.build()
@@ -172,7 +172,7 @@ class JournalpostBuilder : IRegistrering {
             it.referanseEksternNoekkel = referanseEksternNoekkel?.build() ?: throw IllegalStateException(feilmeldingPakrevdFelt("ReferanseEksternNoekkel"))
 
             it.journalaar = journalaar.toBigInteger()
-            it.journalpostnummer = journalpostnummer?.toBigInteger() ?: throw IllegalStateException(feilmeldingPakrevdFelt("Journalpostnummer"))
+            it.journalpostnummer = journalpostnummer?.toBigInteger()
             it.journalposttype = journalposttype.value
             it.journalstatus = journalstatus.value
             it.journaldato = journaldato

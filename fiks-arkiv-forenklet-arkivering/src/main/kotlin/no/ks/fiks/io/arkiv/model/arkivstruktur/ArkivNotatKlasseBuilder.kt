@@ -10,7 +10,7 @@ class ArkivNotatKlasseBuilder: KlasseBuilder() {
 
     override fun build(): Klasse {
         return super.build().also {
-            it.registrerings.addAll(arkivnotater.map { j -> j.buildApiModel() }.toList())
+            it.registrerings.addAll(arkivnotater.map { j -> j.build() }.toList())
         }
     }
 }

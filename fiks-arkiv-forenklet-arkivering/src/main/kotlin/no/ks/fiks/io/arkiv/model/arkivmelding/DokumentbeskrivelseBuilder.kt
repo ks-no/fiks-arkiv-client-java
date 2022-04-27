@@ -1,12 +1,11 @@
-package no.ks.fiks.io.arkiv.model.arkivstruktur
+package no.ks.fiks.io.arkiv.model.arkivmelding
 
-import no.ks.fiks.io.arkiv.model.arkivmelding.DokumentObjektBuilder
-import no.ks.fiks.io.arkiv.model.arkivmelding.PartBuilder
+import no.ks.fiks.io.arkiv.model.arkivstruktur.*
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.*
 import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Dokumentbeskrivelse
 import java.time.ZonedDateTime
 
-class DokumentbeskrivelseBuilder {
+open class DokumentbeskrivelseBuilder {
     var systemID: SystemIDBuilder? = null
         private set
     var dokumentType: DokumentType? = null
@@ -29,7 +28,7 @@ class DokumentbeskrivelseBuilder {
         private set
     var referanseArkivDeler: List<String> = ArrayList()
         private set
-    var tilknyttetRegistreringSom: TilknyttetRegistreringSomType = TilknyttetRegistreringSomType.HOVEDDOKUMENT
+    var tilknyttetRegistreringSom: TilknyttetRegistreringSomType? = null
         private set
     var dokumentnummer: Long? = null
         private set
@@ -83,21 +82,21 @@ class DokumentbeskrivelseBuilder {
 
     fun build() : Dokumentbeskrivelse {
         return Dokumentbeskrivelse().also {
-            it.systemID = systemID?.build() ?: throw IllegalStateException("SystemID er påkrevd for Dokumentbeskrivelse")
+            it.systemID = systemID?.build()
             it.dokumenttype = dokumentType?.value ?: throw IllegalStateException("DokumentType er påkrevd for Dokumentbeskrivelse")
             it.dokumentstatus = dokumentStatus?.value ?: throw IllegalStateException("DokumentStatus er påkrevd for Dokumentbeskrivelse")
             it.tittel = checkNotNull(tittel) {"Tittel er påkrevd for Dokumentbeskrivelse"}
             it.beskrivelse = beskrivelse
             it.forfatters.addAll(forfattere)
             it.opprettetDato = opprettetDato
-            it.opprettetAv = checkNotNull(opprettetAv) {"OpprettetAv er påkrevd for Dokumentbeskrivelse"}
+            it.opprettetAv = opprettetAv
             it.dokumentmedium = dokumentmedium?.value
             it.oppbevaringssted = oppbevaringssted
             it.referanseArkivdels.addAll(referanseArkivDeler)
-            it.tilknyttetRegistreringSom = tilknyttetRegistreringSom.value
-            it.dokumentnummer = dokumentnummer?.toBigInteger() ?: throw IllegalStateException("Dokumentnummer er påkrevd for Dokumentbeskrivelse")
+            it.tilknyttetRegistreringSom = tilknyttetRegistreringSom?.value
+            it.dokumentnummer = dokumentnummer?.toBigInteger()
             it.tilknyttetDato = tilknyttetDato
-            it.tilknyttetAv = checkNotNull(tilknyttetAv)
+            it.tilknyttetAv = tilknyttetAv
             it.parts.addAll(parts.map { p -> p.build() }.toList())
             it.merknads.addAll(merknader.map { m -> m.build() }.toList())
             //it.kassasjon = kassasjon?.build()

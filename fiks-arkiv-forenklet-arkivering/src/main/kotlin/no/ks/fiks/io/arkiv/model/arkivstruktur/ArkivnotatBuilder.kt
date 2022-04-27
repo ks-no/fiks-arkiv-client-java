@@ -33,7 +33,7 @@ class ArkivnotatBuilder {
     fun utlaantTil(utlaantTil: String) = apply { this.utlaantTil = utlaantTil }
     fun dokumentflyt(dokumentflyt: List<DokumentflytBuilder>) = apply { this.dokumentflyt = dokumentflyt }
 
-    fun buildApiModel() : Arkivnotat {
+    fun build() : Arkivnotat {
         return Arkivnotat().also {
             it.dokumentetsDato = dokumentetsDato
             it.mottattDato = mottattDato

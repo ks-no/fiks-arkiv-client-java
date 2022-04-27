@@ -2,6 +2,7 @@ package no.ks.fiks.io.arkiv.model;
 
 import no.ks.fiks.io.arkiv.model.arkivmelding.*;
 import no.ks.fiks.io.arkiv.model.arkivstruktur.*;
+import no.ks.fiks.io.arkiv.model.forenklet.*;
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -93,7 +94,7 @@ public class ArkivmeldingJavaTest {
     }
 
     @Test
-    @DisplayName("Opprett Journalpost med dokumenter")
+    @DisplayName("ArkivmeldingForenkletUtgaaende, Opprett Journalpost med dokumenter")
     public void OpprettJournalpostMedDokument() throws Exception{
         List<KorrespondansepartBuilder> korrespondanseparts = new ArrayList<>();
         korrespondanseparts.add(new KorrespondansepartBuilder()
@@ -125,7 +126,7 @@ public class ArkivmeldingJavaTest {
                                 Collections.singletonList(
                                         new DokumentbeskrivelseBuilder()
                                                 .systemID(new SystemIDBuilder().value(UUID.randomUUID()).label("Dokumentbeskrivelse label"))
-                                                .dokumentType(DokumentType.BREV)
+                                                .dokumentType(DokumentType.KORRESPONDANSE)
                                                 .dokumentStatus(DokumentStatus.DOKUMENTET_ER_FERDIGSTILT)
                                                 .dokumentnummer(1L)
                                                 .opprettetAv("Kari")
@@ -156,6 +157,44 @@ public class ArkivmeldingJavaTest {
         Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/arkivmelding.xsd"));
         Validator validator = schema.newValidator();
         Assertions.assertDoesNotThrow(() -> validator.validate(new JAXBSource(arkivmeldingBuilder.jaxbContext(), arkivmeldingBuilder.JAXBElement())));
+    }
+
+    @Test
+    @DisplayName("ArkivmeldingForenkletUtgaaende, brukerhistorie 4 med forenklet modell")
+    public void Brukerhistorie4ProAktivTest() throws Exception{
+        ArkivmeldingBuilder arkivmelding = new ArkivmeldingForenkletUtgaaende()
+                .sluttbrukerIdentifikator("ABC")
+                .nyUtgaaendeJournalpost(new UtgaaendeJournalpost()
+                        .tittel("Vedtak etter tilsyn")
+                        .referanseEksternNoekkelForenklet(new EksternNoekkelForenklet()
+                                .noekkel(UUID.randomUUID().toString())
+                                .fagstystem("Fagsystem X"))
+                        .internAvsender(Collections.singletonList(new KorrespondansepartIntern()
+                                .saksbehandler("Birger Brannmann")
+                                .referanseSaksbehandler("60577438-1f97-4c5f-b254-aa758c8786c4")))
+                        .mottakere(Collections.singletonList(new KorrespondansepartForenklet()
+                                .navn("Mons Mottaker")
+                                .personid(new Personidentifikator()
+                                        .personidentifikatorLandkode("NO")
+                                        .personidentifikatorNr("12345678901"))
+                                .postadresse(new EnkelAdresse()
+                                        .adresselinje1("Gate 1")
+                                        .adresselinje2("Andre adresselinje")
+                                        .adresselinje3("Tredje adresselinje")
+                                        .postnr("3801")
+                                        .poststed("Bø"))
+                                .forsendelsemåte("SvarUt")))
+                        .hoveddokument(new ForenkletDokument()
+                                .tittel("Vedtak")
+                                .filnavn("vedtak.pdf")
+                                .referanseDokumentFil("/en/path")))
+                .referanseSaksmappeForenklet(new SaksmappeForenklet().tittel("Tilsyn eiendom 21/400"))
+                .byggArkivmelding();
+
+        SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/arkivmelding.xsd"));
+        Validator validator = schema.newValidator();
+        Assertions.assertDoesNotThrow(() -> validator.validate(new JAXBSource(arkivmelding.jaxbContext(), arkivmelding.JAXBElement())));
     }
 
 }
