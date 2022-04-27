@@ -11,7 +11,7 @@ class RegistreringArkivmelding: Arkivmelding() {
 
     override fun build(): no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Arkivmelding {
         return super.build().also {
-            it.registrerings.addAll( registrering?.map { m -> m.buildApiModel() }?.toList() ?: emptyList() )
+            it.registrerings.addAll( registrering?.map { m -> m.build() }?.toList() ?: emptyList() )
         }
     }
 

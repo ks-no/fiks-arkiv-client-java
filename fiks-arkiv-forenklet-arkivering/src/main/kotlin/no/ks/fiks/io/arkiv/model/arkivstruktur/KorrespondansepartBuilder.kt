@@ -3,7 +3,7 @@ package no.ks.fiks.io.arkiv.model.arkivstruktur
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KorrespondansepartType
 import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Korrespondansepart
 
-class KorrespondansepartBuilder {
+open class KorrespondansepartBuilder {
     var korrespondansepartType: KorrespondansepartType = KorrespondansepartType.MOTTAKER
         private set
     var korrespondansepartNavn: String? = null
@@ -20,6 +20,12 @@ class KorrespondansepartBuilder {
         private set
     var administrativEnhet: String? = null
         private set
+    var kontaktperson: String? = null
+        private set
+    var epostadresse: String? = null
+        private set
+    var telefonnumre: List<String> = ArrayList()
+        private set
 
 
     fun korrespondansepartType(korrespondansepartType: KorrespondansepartType) = apply { this.korrespondansepartType = korrespondansepartType }
@@ -30,8 +36,11 @@ class KorrespondansepartBuilder {
     fun land(land: String) = apply { this.land = land }
     fun saksbehandler(saksbehandler: String) = apply { this.saksbehandler = saksbehandler }
     fun administrativEnhet(administrativEnhet: String) = apply { this.administrativEnhet = administrativEnhet }
+    fun kontaktperson(kontaktperson: String) = apply { this.kontaktperson = kontaktperson }
+    fun epostadresse(epostadresse: String) = apply { this.epostadresse = epostadresse }
+    fun telefonnumre(telefonnumre: List<String>) = apply { this.telefonnumre = telefonnumre }
 
-    fun build(): Korrespondansepart {
+    open fun build(): Korrespondansepart {
         return Korrespondansepart().also {
             it.korrespondanseparttype = korrespondansepartType.value
             it.korrespondansepartNavn = checkNotNull(korrespondansepartNavn) {"KorrespondansepartNavn er påkrevd for Korrespondansepart"}
@@ -41,6 +50,9 @@ class KorrespondansepartBuilder {
             it.land = land
             it.saksbehandler = saksbehandler
             it.administrativEnhet = administrativEnhet
+            it.kontaktperson = kontaktperson
+            it.epostadresse = epostadresse
+            it.telefonnummers.addAll(telefonnumre)
         }
     }
 }

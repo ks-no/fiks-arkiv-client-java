@@ -1,6 +1,5 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Journalposttype
 import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Klasse
 
 class JournalpostKlasseBuilder: KlasseBuilder() {
@@ -11,7 +10,7 @@ class JournalpostKlasseBuilder: KlasseBuilder() {
 
     override fun build(): Klasse {
         return super.build().also {
-            it.registrerings.addAll(journalposter.map { j -> j.buildApiModel() }.toList())
+            it.registrerings.addAll(journalposter.map { j -> j.build() }.toList())
         }
     }
 }

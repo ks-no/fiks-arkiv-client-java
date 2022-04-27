@@ -4,8 +4,14 @@ import no.arkivverket.standarder.noark5.metadatakatalog.v2.Dokumenttype
 
 
 enum class DokumentType(val value: Dokumenttype) {
-    BREV(Dokumenttype().also { it.kode = "B"; it.beskrivelse = "Brev" }),
-    RUNDSKRIV(Dokumenttype().also { it.kode = "R"; it.beskrivelse = "Rundskriv" }),
-    FAKTURA(Dokumenttype().also { it.kode = "F"; it.beskrivelse = "Faktura" }),
-    ORDREBEKREFTELSE(Dokumenttype().also { it.kode = "O"; it.beskrivelse = "Ordrebekreftelse" })
+    SØKNAD(Dokumenttype().also { it.kode = "SØKNAD"; it.beskrivelse = "Søknad" }),
+    MELDING(Dokumenttype().also { it.kode = "MELDING"; it.beskrivelse = "Melding" }),
+    KORRESPONDANSE(Dokumenttype().also { it.kode = "KORR"; it.beskrivelse = "Faktura" }),
+    KART(Dokumenttype().also { it.kode = "KART"; it.beskrivelse = "Kart" }),
+    FOTO(Dokumenttype().also { it.kode = "FOTO"; it.beskrivelse = "Foto" }),
+    TEGNING(Dokumenttype().also { it.kode = "TEGNING"; it.beskrivelse = "Tegning" }),
+    ANSVAR_OG_KONTROLL(Dokumenttype().also { it.kode = "ANSVKONT"; it.beskrivelse = "Ansvar og kontroll" }),
+    TILSYN(Dokumenttype().also { it.kode = "TILSYN"; it.beskrivelse = "Tilsyn" }),
+    AVTALE(Dokumenttype().also { it.kode = "AVTALE"; it.beskrivelse = "Avtale" }),
+    VEDTAK(Dokumenttype().also { it.kode = "VEDTAK"; it.beskrivelse = "Vedtak" })
 }

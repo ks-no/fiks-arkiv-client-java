@@ -4,7 +4,7 @@ import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.*
 import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Dokumentbeskrivelse
 import java.time.ZonedDateTime
 
-class DokumentbeskrivelseBuilder {
+open class DokumentbeskrivelseBuilder {
     var systemID: SystemIDBuilder? = null
         private set
     var dokumentType: DokumentType? = null
@@ -27,7 +27,7 @@ class DokumentbeskrivelseBuilder {
         private set
     var referanseArkivDeler: List<String> = ArrayList()
         private set
-    var tilknyttetRegistreringSom: TilknyttetRegistreringSomType = TilknyttetRegistreringSomType.HOVEDDOKUMENT
+    var tilknyttetRegistreringSom: TilknyttetRegistreringSomType? = null
         private set
     var dokumentnummer: Long? = null
         private set
@@ -92,7 +92,7 @@ class DokumentbeskrivelseBuilder {
             it.dokumentmedium = dokumentmedium?.value
             it.oppbevaringssted = oppbevaringssted
             it.referanseArkivdels.addAll(referanseArkivDeler)
-            it.tilknyttetRegistreringSom = tilknyttetRegistreringSom.value
+            it.tilknyttetRegistreringSom = tilknyttetRegistreringSom?.value
             it.dokumentnummer = dokumentnummer?.toBigInteger() ?: throw IllegalStateException("Dokumentnummer er påkrevd for Dokumentbeskrivelse")
             it.tilknyttetDato = tilknyttetDato
             it.tilknyttetAv = checkNotNull(tilknyttetAv)

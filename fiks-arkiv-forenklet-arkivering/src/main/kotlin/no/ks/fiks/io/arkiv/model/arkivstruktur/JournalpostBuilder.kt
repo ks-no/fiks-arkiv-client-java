@@ -13,7 +13,7 @@ import kotlin.collections.ArrayList
 /**
  * Journalpost er en spesialisering av registrering og brukes for hendelser som skal inn i journalen, en oversikt over all korrespondanse til og fra organisasjonen, samt interne notater og rapporter. Oftest vil det kun være journalposter registrert i saksmapper.
  */
-class JournalpostBuilder : IRegistrering {
+open class JournalpostBuilder : IRegistrering {
     var referanseArkivdel: UUID? = null
         private set
     var journaldato: ZonedDateTime = ZonedDateTime.now()
@@ -148,7 +148,7 @@ class JournalpostBuilder : IRegistrering {
     fun skjerming(skjerming: SkjermingBuilder) = apply { this.skjerming = skjerming }
     fun kassasjon(kassasjon: KassasjonBuilder) = apply { this.kassasjon = kassasjon }
 
-    override fun buildApiModel() : Journalpost {
+    override fun build() : Journalpost {
         return Journalpost().also {
             it.systemID = systemID?.build() ?: throw IllegalStateException(feilmeldingPakrevdFelt("SystemID"))
             it.opprettetDato = opprettetDato
