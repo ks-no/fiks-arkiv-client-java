@@ -12,6 +12,7 @@ import kotlin.collections.ArrayList
 
 /**
  * Journalpost er en spesialisering av registrering og brukes for hendelser som skal inn i journalen, en oversikt over all korrespondanse til og fra organisasjonen, samt interne notater og rapporter. Oftest vil det kun være journalposter registrert i saksmapper.
+ * @see http://arkivverket.metakat.no/Objekttype/Index/EAID_EA66ABBF_7124_485c_AB57_BC5159EB8F56
  */
 open class JournalpostBuilder : IRegistrering {
     var referanseArkivdel: UUID? = null
@@ -111,6 +112,10 @@ open class JournalpostBuilder : IRegistrering {
     fun korrespondanseparts(korrespondanseparts: List<KorrespondansepartBuilder>) = apply { this.korrespondanseparts = korrespondanseparts }
     fun journalstatus(journalstatus: JournalStatus) = apply { this.journalstatus = journalstatus }
     fun referanseEksternNoekkel(referanseEksternNoekkel: EksternNoekkelBuilder) = apply { this.referanseEksternNoekkel =  referanseEksternNoekkel}
+
+    /**
+     * Viser året journalposten ble opprettet Kilde: Registreres automatisk når journalposten opprettes Kommentar: (ingen) M013 journalaar
+     */
     fun journalaar(journalaar: Int) = apply { this.journalaar = journalaar }
     fun journalsekvensnummer(journalsekvensnummer: Long) = apply { this.journalsekvensnummer = journalsekvensnummer }
     fun journalpostnummer(journalpostnummer: Long) = apply { this.journalpostnummer = journalpostnummer }
