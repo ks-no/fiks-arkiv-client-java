@@ -54,6 +54,8 @@ open class MappeBuilder {
         private set
     var registreringer: List<IRegistrering> = emptyList()
         private set
+    var mapper: List<MappeBuilder> = emptyList()
+        private set
 
     fun systemID(systemID: SystemIDBuilder) = apply { this.systemID = systemID }
     fun mappeId(mappeId: String) = apply { this.mappeId = mappeId }
@@ -76,15 +78,15 @@ open class MappeBuilder {
     fun gradering(gradering: GraderingBuilder) = apply { this.gradering = gradering }
     fun klassifikasjoner(klassifikasjoner: List<KlassifikasjonBuilder>) = apply { this.klassifikasjoner = klassifikasjoner }
     fun referanseEksternNoekkel(referanseEksternNoekkel: EksternNoekkelBuilder) = apply { this.referanseEksternNoekkel = referanseEksternNoekkel }
-
-    fun registreringer(registreringer: List<IRegistrering>) = apply { this.registreringer = registreringer }
+    fun registreringer(registreringer: List<IRegistrering>) = apply { if(mapper.isEmpty()) this.registreringer = registreringer else throw IllegalArgumentException("Det er ikke mulig å registrere både undermapper og registreringer til samme mappe") }
+    fun mapper(mapper: List<MappeBuilder>) = apply { if(mapper.isEmpty()) this.mapper = mapper else throw IllegalArgumentException("Det er ikke mulig å registrere både undermapper og registreringer til samme mappe") }
 
     open fun build(): Mappe {
         return Mappe().also {
             it.systemID = systemID?.build()
             it.mappeID = mappeId
             it.referanseForeldermappe = referanseForeldermappe?.build()
-            it.tittel = tittel
+            it.tittel = checkNotNull(tittel) {"Tittel er påkrevd felt for Mappe"}
             it.offentligTittel = offentligTittel
             it.beskrivelse = beskrivelse
             it.noekkelords.addAll(noekkelord)
@@ -103,6 +105,7 @@ open class MappeBuilder {
             it.klassifikasjons.addAll(klassifikasjoner.map { k -> k.build() }.toList())
             it.referanseEksternNoekkel = referanseEksternNoekkel?.build()
             it.registrerings.addAll(registreringer.map { r -> r.build() }.toList())
+            it.mappes.addAll(mapper.map { m -> m.build() }.toList())
         }
     }
 }

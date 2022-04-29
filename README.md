@@ -8,8 +8,14 @@
 Kotlin klient for generering av meldinger til [Fiks-Arkiv](https://www.ks.no/fagomrader/digitalisering/felleslosninger/verktoykasse-plan--og-byggesak/verktoy/sammenhengende-tjenester---integrasjoner/fiks-arkiv/), 
 [tjenestedokumentasjon](https://ks-no.github.io/fiks-plattform/tjenester/fiksio/arkiv/)
 
-Modul fiks-arkiv-api inneholder autogenerert typer, definert i arkiv spesifikasjon [repo](https://github.com/ks-no/fiks-arkiv-specification).
-Modul fiks-arkiv-forenklet-arkivering inneholder buildere for forenklet oppbygging av gyldig arkivmelding. Se [ArkivmeldingBuilder](https://github.com/ks-no/fiks-arkiv-client-java/blob/main/fiks-arkiv-forenklet-arkivering/src/main/kotlin/no/ks/fiks/io/arkiv/model/arkivmelding/ArkivmeldingBuilder.kt)
+* Modul fiks-arkiv-api inneholder autogenerert typer, definert i arkiv spesifikasjon [repo](https://github.com/ks-no/fiks-arkiv-specification).
+* Modul fiks-arkiv-forenklet-arkivering inneholder buildere for forenklet oppbygging av gyldig arkivmelding. Se [ArkivmeldingBuilder](https://github.com/ks-no/fiks-arkiv-client-java/blob/main/fiks-arkiv-forenklet-arkivering/src/main/kotlin/no/ks/fiks/io/arkiv/model/arkivmelding/ArkivmeldingBuilder.kt)
+  * Builder klasser for generering av gyldig arkivmelding
+  * ArkivmeldingForenkletUtgaaende bygger på builder struktur, men med utvidet bruk av default verdier for utgående arkivmelding
+  * Kodetyper er definert i (no.ks.fiks.io.arkiv.model.metadatakatalog.v2) med utgangspunkt i [kodeliste fra arkivverket](http://arkivverket.metakat.no/Diagram/Index/EAID_CC654F7F_60CA_4240_A003_B6557201F2BC)
+  
+* XSD skjema er inkludert i jar under schemas.v1. Skjema er definert i eget [repo](https://github.com/ks-no/fiks-arkiv-specification)
+* Noark 5 dokumentasjon [Noark 5](https://www.arkivverket.no/forvaltning-og-utvikling/noark-standarden/noark-5/noark5-standarden)
 
 # Brukstilfeller
 Ref [Isy Proaktiv](https://github.com/ks-no/fiks-arkiv/wiki/Brukstilfeller#4-isy-proaktiv) er det laget forenklet modell som bygger ArkivmeldingBuilder, se [ArkivmeldingForenkletUtgaaende](https://github.com/ks-no/fiks-arkiv-client-java/blob/main/fiks-arkiv-forenklet-arkivering/src/main/kotlin/no/ks/fiks/io/arkiv/model/forenklet/ArkivmeldingForenkletUtgaaende.kt)
@@ -134,10 +140,7 @@ Resultat fra oppbygging av arkivmelding:
 ```
 
 
-- Modeller for forenklet generering av gyldige arkivmeldinger.
-- Typer er definert med utgangspunkt i [kodeliste fra arkivverket](http://arkivverket.metakat.no/Diagram/Index/EAID_CC654F7F_60CA_4240_A003_B6557201F2BC)
-- XSD skjema er inkludert i jar under schemas.v1. Skjema er definert i eget [repo](https://github.com/ks-no/fiks-arkiv-specification)
-- Noark 5 dokumentasjon [Noark 5](https://www.arkivverket.no/forvaltning-og-utvikling/noark-standarden/noark-5/noark5-standarden)
+
 
 
 

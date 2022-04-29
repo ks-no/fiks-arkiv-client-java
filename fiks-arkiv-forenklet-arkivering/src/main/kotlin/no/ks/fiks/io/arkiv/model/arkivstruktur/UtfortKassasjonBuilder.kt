@@ -4,7 +4,7 @@ import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.UtfoertKassasjon
 import java.time.ZonedDateTime
 
 open class UtfortKassasjonBuilder {
-    var kassertDato: ZonedDateTime = ZonedDateTime.now()
+    var kassertDato: ZonedDateTime? = null
         private set
     var kassertAv: String? = null
         private set
@@ -14,7 +14,7 @@ open class UtfortKassasjonBuilder {
 
     open fun build() : UtfoertKassasjon {
         return UtfoertKassasjon().also {
-            it.kassertDato = kassertDato
+            it.kassertDato = checkNotNull(kassertDato) {"KassertDato er påkrevd for UtfoertKassasjon"}
             it.kassertAv = checkNotNull(kassertAv) {"KassertAv er påkrevd for UtfoertKassasjon"}
         }
     }

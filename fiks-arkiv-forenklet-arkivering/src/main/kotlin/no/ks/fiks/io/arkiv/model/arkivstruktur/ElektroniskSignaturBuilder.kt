@@ -10,7 +10,7 @@ class ElektroniskSignaturBuilder {
         private set
     var elektroniskSignaturVerifisert: ElektroniskSignaturVerifisertType? = null
         private set
-    var verifisertDato: ZonedDateTime = ZonedDateTime.now()
+    var verifisertDato: ZonedDateTime? = null
         private set
     var verifisertAv: String? = null
         private set
@@ -24,7 +24,7 @@ class ElektroniskSignaturBuilder {
         return ElektroniskSignatur().also {
             it.elektroniskSignaturSikkerhetsnivaa = elektroniskSignaturSikkerhetsnivaa?.value ?: throw IllegalStateException("ElektroniskSignaturSikkerhetsnivaa er påkrevd for ElektroniskSignatur")
             it.elektroniskSignaturVerifisert = elektroniskSignaturVerifisert?.value ?: throw IllegalStateException("ElektroniskSignaturVerifiser er påkrevd for ElektroniskSignatur")
-            it.verifisertDato = verifisertDato
+            it.verifisertDato = checkNotNull(verifisertDato) {"VerifisertDatao er påkrevd for ElektroniskSignatur"}
             it.verifisertAv = checkNotNull(verifisertAv) {"VerifisertAv er påkrevd for ElektroniskSignatur"}
         }
     }

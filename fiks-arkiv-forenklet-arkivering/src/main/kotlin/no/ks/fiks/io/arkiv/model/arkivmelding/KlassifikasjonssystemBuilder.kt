@@ -1,8 +1,8 @@
-package no.ks.fiks.io.arkiv.model.arkivstruktur
+package no.ks.fiks.io.arkiv.model.arkivmelding
 
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KlassifikasjonsType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Klassifikasjonssystem
+import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Klassifikasjonssystem
 import java.time.ZonedDateTime
 
 class KlassifikasjonssystemBuilder {
@@ -14,7 +14,7 @@ class KlassifikasjonssystemBuilder {
         private set
     var beskrivelse: String? = null
         private set
-    var opprettetDato: ZonedDateTime = ZonedDateTime.now()
+    var opprettetDato: ZonedDateTime? = null
         private set
     var opprettetAv: String? = null
         private set
@@ -37,12 +37,12 @@ class KlassifikasjonssystemBuilder {
 
     fun build() : Klassifikasjonssystem {
         return Klassifikasjonssystem().also {
-            it.systemID = systemID?.build() ?: throw IllegalStateException("SystemID er påkrevd for Klassifikasjonsystem")
+            it.systemID = systemID?.build()
             it.klassifikasjonstype = klassifikasjonstype?.value
             it.tittel = checkNotNull(tittel) {"Tittel er påkrevd for Klassifikasjonsystem"}
             it.beskrivelse = beskrivelse
             it.opprettetDato = opprettetDato
-            it.opprettetAv = checkNotNull(opprettetAv) {"OpprettetAv er påkrevd for Klassifikasjonsystem"}
+            it.opprettetAv = opprettetAv
             it.avsluttetDato = avsluttetDato
             it.avsluttetAv = avsluttetAv
             it.klasses.addAll(klasse.map { k -> k.build() }.toList())

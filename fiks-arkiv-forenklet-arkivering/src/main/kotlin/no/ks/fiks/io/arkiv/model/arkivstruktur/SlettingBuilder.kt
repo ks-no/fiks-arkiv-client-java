@@ -9,7 +9,7 @@ import java.time.ZonedDateTime
 open class SlettingBuilder {
     var slettingsType: SlettingsType? = null
         private set
-    var slettetDato: ZonedDateTime = ZonedDateTime.now()
+    var slettetDato: ZonedDateTime? = null
         private set
     var slettetAv: String? = null
         private set
@@ -21,7 +21,7 @@ open class SlettingBuilder {
     open fun build() : Sletting {
         return Sletting().also {
             it.slettingstype = slettingsType?.value ?: throw IllegalStateException("Slettingstype er påkrevd for Sletting")
-            it.slettetDato = slettetDato
+            it.slettetDato = checkNotNull(slettetDato) {"SlettetDato er påkrevd for Sletting"}
             it.slettetAv = checkNotNull(slettetAv) {"SlettetAv er påkrevd for Slettet"}
         }
     }

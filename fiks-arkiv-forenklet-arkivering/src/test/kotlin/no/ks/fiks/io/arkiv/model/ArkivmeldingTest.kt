@@ -7,6 +7,8 @@ import no.ks.fiks.io.arkiv.model.arkivmelding.RegistreringArkivmeldingBuilder
 import no.ks.fiks.io.arkiv.model.arkivstruktur.EksternNoekkelBuilder
 import no.ks.fiks.io.arkiv.model.arkivmelding.JournalpostBuilder
 import no.ks.fiks.io.arkiv.model.arkivmelding.KorrespondansepartBuilder
+import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.JournalStatus
+import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.JournalpostType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KorrespondansepartType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import org.junit.jupiter.api.Test
@@ -27,6 +29,8 @@ class ArkivmeldingTest {
     fun `Test gyldig arkivmelding`() {
         val registrering =
             JournalpostBuilder()
+                .journalstatus(JournalStatus.GODKJENT_AV_LEDER)
+                .journalposttype(JournalpostType.UTGAENDE_DOKUMENT)
                 .journaldato(ZonedDateTime.now())
                 .journalpostnummer(42213L)
                 .journalsekvensnummer(1234L)

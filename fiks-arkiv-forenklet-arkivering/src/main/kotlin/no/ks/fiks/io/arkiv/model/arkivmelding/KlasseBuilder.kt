@@ -1,7 +1,10 @@
-package no.ks.fiks.io.arkiv.model.arkivstruktur
+package no.ks.fiks.io.arkiv.model.arkivmelding
 
+import no.ks.fiks.io.arkiv.model.arkivstruktur.GraderingBuilder
+import no.ks.fiks.io.arkiv.model.arkivstruktur.KassasjonBuilder
+import no.ks.fiks.io.arkiv.model.arkivstruktur.KryssreferanseBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Klasse
+import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Klasse
 import java.time.ZonedDateTime
 
 open class KlasseBuilder {
@@ -15,7 +18,7 @@ open class KlasseBuilder {
         private set
     var nokkelOrd: List<String> = ArrayList()
         private set
-    var opprettetDato: ZonedDateTime = ZonedDateTime.now()
+    var opprettetDato: ZonedDateTime? = null
         private set
     var opprettetAv: String? = null
         private set
@@ -45,13 +48,13 @@ open class KlasseBuilder {
 
     open fun build() : Klasse {
         return Klasse().also {
-            it.systemID = systemID?.build() ?: throw IllegalStateException("SystemID er påkrevd for Klasse")
-            it.klasseID = checkNotNull(klasseID) {"KlasseID er opåkrevd for Klasse"}
+            it.systemID = systemID?.build()
+            it.klasseID = klasseID
             it.tittel = checkNotNull(tittel) {"Tittel er påkrevd for Klasse"}
             it.beskrivelse = beskrivelse
             it.noekkelords.addAll(nokkelOrd)
             it.opprettetDato = opprettetDato
-            it.opprettetAv = checkNotNull(opprettetAv) {"OpprettetAv er påkrevd for Klasse"}
+            it.opprettetAv = opprettetAv
             it.avsluttetDato = avsluttetDato
             it.avsluttetAv = avsluttetAv
             it.kryssreferanses.addAll(kryssreferanse.map { k -> k.build() }.toList())

@@ -18,7 +18,7 @@ class SystemIDBuilder {
 
     fun build(): SystemID {
         return SystemID().also {
-            it.value = value?.toString() ?: throw IllegalStateException("UUID")
+            it.value = value?.toString() ?: throw IllegalStateException("Value må være definert for SystemID")
             it.label = label
         }
     }

@@ -99,12 +99,8 @@ open class DokumentbeskrivelseBuilder {
             it.tilknyttetAv = tilknyttetAv
             it.parts.addAll(parts.map { p -> p.build() }.toList())
             it.merknads.addAll(merknader.map { m -> m.build() }.toList())
-            //it.kassasjon = kassasjon?.build()
-            //it.utfoertKassasjon = utfoertKassasjon?.build()
-            //it.sletting = sletting?.build()
             it.skjerming = skjerming?.build()
             it.gradering = gradering?.build()
-            //it.elektroniskSignatur = elektroniskSignatur?.build()
             it.dokumentobjekts.addAll(dokumentobjekter.map { d -> d.build() }.toList())
         }
     }

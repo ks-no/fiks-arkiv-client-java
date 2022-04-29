@@ -25,8 +25,8 @@ class KlassifikasjonBuilder {
     fun build() : Klassifikasjon {
         return Klassifikasjon().also {
             it.systemID = systemID?.build()
-            it.klassifikasjonssystem = klassifikasjonssystem
-            it.tittel = tittel
+            it.klassifikasjonssystem = checkNotNull(klassifikasjonssystem) {"Klassifikasjonssystem er påkrevd for Klassifikasjon"}
+            it.tittel = checkNotNull(tittel) {"Tittel er påkrevd for Klassifikasjon"}
             it.klasseID = klasseID
             it.skjermetObjekt = skjermetObjekt
         }

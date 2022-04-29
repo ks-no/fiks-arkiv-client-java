@@ -45,8 +45,8 @@ class PresedensBuilder {
 
     fun build() : Presedens {
         return Presedens().also {
-            it.presedensDato = presedensDato
-            it.opprettetDato = opprettetDato
+            it.presedensDato = checkNotNull(presedensDato) {"PresedensDato er påkrevd for Presedens"}
+            it.opprettetDato = checkNotNull(opprettetDato) {"OpprettetDato er påkrevd for Presedens"}
             it.opprettetAv = checkNotNull(opprettetAv) {"OpprettetAv er påkrevd for Presedens"}
             it.tittel = checkNotNull(tittel) {"Tittel er påkrevd for Presedens"}
             it.beskrivelse = beskrivelse

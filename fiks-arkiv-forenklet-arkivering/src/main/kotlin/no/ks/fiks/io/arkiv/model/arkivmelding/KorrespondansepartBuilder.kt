@@ -8,7 +8,7 @@ open class KorrespondansepartBuilder {
 
     var systemID: SystemIDBuilder? = null
         private set
-    var korrespondansepartType: KorrespondansepartType = KorrespondansepartType.MOTTAKER
+    var korrespondansepartType: KorrespondansepartType? = null
         private set
     var korrespondansepartNavn: String? = null
         private set
@@ -59,13 +59,13 @@ open class KorrespondansepartBuilder {
     fun personnavn(personnavn: String) = apply { this.personnavn = personnavn }
     fun forsendelsesmaate(forsendelsesmaate: String) = apply { this.forsendelsesmaate = forsendelsesmaate }
     fun deresReferanse(deresReferanse: String) = apply { this.deresReferanse = deresReferanse }
-    fun organisasjonid(organisasjonid: String) = apply { this.organisasjonid = organisasjonid }
-    fun personid(personid: String) = apply { this.personid = personid }
+    fun organisasjonid(organisasjonid: String) = apply { if(this.personid == null) this.organisasjonid = organisasjonid else throw IllegalStateException("Personid kan ikke settes i kombinasjon med organisasjonsid") }
+    fun personid(personid: String) = apply { if(this.organisasjonid == null) this.personid = personid else throw IllegalStateException("Personid kan ikke settes i kombinasjon med organisasjonsid") }
 
     open fun build(): Korrespondansepart {
         return Korrespondansepart().also {
             it.systemID = systemID?.build()
-            it.korrespondanseparttype = korrespondansepartType.value
+            it.korrespondanseparttype = korrespondansepartType?.value ?: throw IllegalStateException("Korrespondanseparttype er påkrevd for Korrespondansepart")
             it.korrespondansepartNavn = checkNotNull(korrespondansepartNavn) {"KorrespondansepartNavn er påkrevd for Korrespondansepart"}
             it.postadresses.addAll(postadresse)
             it.postnummer = postnummer

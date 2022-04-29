@@ -46,7 +46,7 @@ open class SaksmappeBuilder : MappeBuilder() {
             it.systemID = systemID?.build()
             it.mappeID = mappeId
             it.referanseForeldermappe = referanseForeldermappe?.build()
-            it.tittel = tittel
+            it.tittel = checkNotNull(tittel) { "Tittel er påkrevd for Saksmappe" }
             it.offentligTittel = offentligTittel
             it.beskrivelse = beskrivelse
             it.noekkelords.addAll(noekkelord)
@@ -65,6 +65,7 @@ open class SaksmappeBuilder : MappeBuilder() {
             it.klassifikasjons.addAll(klassifikasjoner.map { k -> k.build() }.toList())
             it.referanseEksternNoekkel = referanseEksternNoekkel?.build()
             it.registrerings.addAll(registreringer.map { r -> r.build() }.toList())
+            it.mappes.addAll(mapper.map { m -> m.build() }.toList())
 
             it.saksaar = saksaar?.toBigInteger()
             it.sakssekvensnummer = sakssekvensnummer?.toBigInteger()

@@ -65,6 +65,8 @@ public class ArkivmeldingJavaTest {
     @DisplayName("Opprett Arkivmelding med Journalposter")
     public void opprettArkivmeldingMedJournalposterTest() throws Exception {
         JournalpostBuilder journalPostBuilder = new JournalpostBuilder()
+                .journalposttype(JournalpostType.UTGAENDE_DOKUMENT)
+                .journalstatus(JournalStatus.FERDIGSTILT_FRA_SAKSBEHANDLER)
                 .systemID(new SystemIDBuilder().value(UUID.randomUUID()).label("Journalpost label"))
                 .tittel("Journalpost tittel")
                 .beskrivelse("Journalpost beskrivelse")
@@ -98,9 +100,11 @@ public class ArkivmeldingJavaTest {
     public void OpprettJournalpostMedDokument() throws Exception{
         List<KorrespondansepartBuilder> korrespondanseparts = new ArrayList<>();
         korrespondanseparts.add(new KorrespondansepartBuilder()
+                .korrespondansepartType(KorrespondansepartType.MOTTAKER)
                 .korrespondansepartNavn("Birger Brannmann")
                 .saksbehandler("Birger Brannmann"));
         korrespondanseparts.add(new KorrespondansepartBuilder()
+                .korrespondansepartType(KorrespondansepartType.MOTTAKER)
                 .korrespondansepartNavn("Mons Mottaker")
                 .saksbehandler("Mons Mottaker")
                 .postadresse(Collections.singletonList("Gate 1"))
@@ -111,6 +115,8 @@ public class ArkivmeldingJavaTest {
 
         final List<JournalpostBuilder> journalposter = Collections.singletonList(
                 new JournalpostBuilder()
+                        .journalposttype(JournalpostType.UTGAENDE_DOKUMENT)
+                        .journalstatus(JournalStatus.JOURNALFORT)
                         .systemID(new SystemIDBuilder().value(UUID.randomUUID()).label("Journalpost label"))
                         .journalsekvensnummer(7L)
                         .opprettetAv("Kari")

@@ -1,10 +1,6 @@
-package no.ks.fiks.io.arkiv.model.arkivstruktur
+package no.ks.fiks.io.arkiv.model.arkivmelding
 
-import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.GradType
 import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Byggident
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Matrikkelnummer
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Gradering
-import java.time.ZonedDateTime
 
 class ByggidentBuilder {
     var bygningsnummer: Long? = null

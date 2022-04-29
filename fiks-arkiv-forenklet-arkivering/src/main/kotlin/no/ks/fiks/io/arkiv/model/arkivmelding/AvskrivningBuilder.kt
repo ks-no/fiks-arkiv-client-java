@@ -5,7 +5,7 @@ import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Avskrivning
 import java.time.ZonedDateTime
 
 class AvskrivningBuilder {
-    var avskrivningsdato: ZonedDateTime = ZonedDateTime.now()
+    var avskrivningsdato: ZonedDateTime? = null
         private set
     var avskrevetAv: String? = null
         private set
@@ -21,8 +21,8 @@ class AvskrivningBuilder {
 
     fun build(): Avskrivning {
         return Avskrivning().also {
-            it.avskrivningsdato = avskrivningsdato
-            it.avskrevetAv = checkNotNull(avskrevetAv) { "avskrevetAv er påkrevd for Avskrivning" }
+            it.avskrivningsdato = checkNotNull(avskrivningsdato) { "Avskrivningsdato er påkrevd for Avskrivning" }
+            it.avskrevetAv = checkNotNull(avskrevetAv) { "AvskrevetAv er påkrevd for Avskrivning" }
             it.avskrivningsmaate = avskrivningsmaate?.value ?: throw IllegalStateException("Avskrivningsmaate er påkrevd for Avskrivning")
             it.referanseAvskrivesAvJournalpost = referanseAvskrivesAvJournalpost
         }

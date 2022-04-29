@@ -53,7 +53,7 @@ class PartBuilder {
         return Part().also {
             it.partID = partID
             it.partNavn = checkNotNull(partNavn) { feilmeldingPakrevdFelt("PartNavn") }
-            it.partRolle = partRolle?.value ?: throw IllegalStateException(feilmeldingPakrevdFelt("PartRolle"))
+            it.partRolle = partRolle?.value
             it.postadresses.addAll(postadresser)
             it.postnummer = postnummer
             it.poststed = poststed
