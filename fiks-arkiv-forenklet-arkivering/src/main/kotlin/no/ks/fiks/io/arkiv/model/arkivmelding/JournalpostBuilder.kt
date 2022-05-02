@@ -1,10 +1,7 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
-import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.JournalStatus
-import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.JournalpostType
 import no.ks.fiks.io.arkiv.model.arkivstruktur.*
-import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.DokumentmediumType
-import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
+import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.*
 import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Journalpost
 import java.time.ZonedDateTime
 import java.util.*
@@ -15,7 +12,7 @@ import kotlin.collections.ArrayList
  * @see http://arkivverket.metakat.no/Objekttype/Index/EAID_EA66ABBF_7124_485c_AB57_BC5159EB8F56
  */
 open class JournalpostBuilder : IRegistrering {
-    var referanseArkivdel: UUID? = null
+    var arkivdel: KodeBuilder? = null
         private set
     var journaldato: ZonedDateTime = ZonedDateTime.now()
         private set
@@ -107,8 +104,8 @@ open class JournalpostBuilder : IRegistrering {
     fun opprettetAv(opprettetAv: String) = apply { this.opprettetAv = opprettetAv }
     fun arkivertDato(arkivertDato: ZonedDateTime) = apply { this.arkivertDato = arkivertDato }
     fun arkivertAv(arkivertAv: String) = apply { this.arkivertAv = arkivertAv }
-    fun referanseForelderMappe(referanseForelderMappe: SystemIDBuilder) = apply { if(referanseArkivdel == null) this.referanseForelderMappe = referanseForelderMappe else throw IllegalArgumentException("ReferanseForelderMappe kan ikke settes i kombinasjon med ReferanseArkivdel") }
-    fun referanseArkivdel(referanseArkivdel: UUID) = apply { if(referanseForelderMappe == null) this.referanseArkivdel = referanseArkivdel else throw IllegalArgumentException("ReferanseArkivdel kan ikke settes i kombinasjon med ReferanseForelderMappe") }
+    fun referanseForelderMappe(referanseForelderMappe: SystemIDBuilder) = apply { if(arkivdel == null) this.referanseForelderMappe = referanseForelderMappe else throw IllegalArgumentException("ReferanseForelderMappe kan ikke settes i kombinasjon med ReferanseArkivdel") }
+    fun arkivdel(arkivdel: KodeBuilder) = apply { if(referanseForelderMappe == null) this.arkivdel = arkivdel else throw IllegalArgumentException("ReferanseArkivdel kan ikke settes i kombinasjon med ReferanseForelderMappe") }
     fun korrespondanseparts(korrespondanseparts: List<KorrespondansepartBuilder>) = apply { this.korrespondanseparts = korrespondanseparts }
     fun journalstatus(journalstatus: JournalStatus) = apply { this.journalstatus = journalstatus }
     fun referanseEksternNoekkel(referanseEksternNoekkel: EksternNoekkelBuilder) = apply { this.referanseEksternNoekkel =  referanseEksternNoekkel}
@@ -155,7 +152,7 @@ open class JournalpostBuilder : IRegistrering {
             it.arkivertDato = arkivertDato
             it.arkivertAv = arkivertAv
             it.referanseForelderMappe = referanseForelderMappe?.build()
-            it.referanseArkivdel = referanseArkivdel?.toString()
+            it.arkivdel = arkivdel?.build()
             it.journalsekvensnummer = journalsekvensnummer?.toBigInteger()
             it.parts.addAll(parts.map { p -> p.build() })
 

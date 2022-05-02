@@ -2,6 +2,7 @@ package no.ks.fiks.io.arkiv.model.arkivmelding
 
 import no.ks.fiks.io.arkiv.model.arkivstruktur.*
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.DokumentmediumType
+import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KodeBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Arkivnotat
 import java.time.ZonedDateTime
@@ -22,7 +23,7 @@ class ArkivnotatBuilder : IRegistrering {
         private set
     var referanseForelderMappe: SystemIDBuilder? = null
         private set
-    var referanseArkivdel: UUID? = null
+    var arkivdel: KodeBuilder? = null
         private set
     var parts: List<PartBuilder> = ArrayList()
         private set
@@ -84,8 +85,8 @@ class ArkivnotatBuilder : IRegistrering {
     fun opprettetAv(opprettetAv: String) = apply { this.opprettetAv = opprettetAv }
     fun arkivertDato(arkivertDato: ZonedDateTime) = apply { this.arkivertDato = arkivertDato }
     fun arkivertAv(arkivertAv: String) = apply { this.arkivertAv = arkivertAv }
-    fun referanseForelderMappe(referanseForelderMappe: SystemIDBuilder) = apply { if(referanseArkivdel == null) this.referanseForelderMappe = referanseForelderMappe else throw IllegalArgumentException("ReferanseForelderMappe kan ikke settes i kombinasjon med ReferanseArkivdel") }
-    fun referanseArkivdel(referanseArkivdel: UUID) = apply { if(referanseForelderMappe == null) this.referanseArkivdel = referanseArkivdel else throw IllegalArgumentException("ReferanseArkivdel kan ikke settes i kombinasjon med ReferanseForelderMappe") }
+    fun referanseForelderMappe(referanseForelderMappe: SystemIDBuilder) = apply { if(arkivdel == null) this.referanseForelderMappe = referanseForelderMappe else throw IllegalArgumentException("ReferanseForelderMappe kan ikke settes i kombinasjon med ReferanseArkivdel") }
+    fun arkivdel(arkivdel: KodeBuilder) = apply { if(referanseForelderMappe == null) this.arkivdel = arkivdel else throw IllegalArgumentException("ReferanseArkivdel kan ikke settes i kombinasjon med ReferanseForelderMappe") }
     fun korrespondanseparts(korrespondanseparts: List<KorrespondansepartBuilder>) = apply { this.korrespondanseparts = korrespondanseparts }
     fun referanseEksternNoekkel(referanseEksternNoekkel: EksternNoekkelBuilder) = apply { this.referanseEksternNoekkel =  referanseEksternNoekkel}
     fun parts(parts: List<PartBuilder>) = apply { this.parts = parts }
@@ -121,7 +122,7 @@ class ArkivnotatBuilder : IRegistrering {
             it.arkivertDato = arkivertDato
             it.arkivertAv = arkivertAv
             it.referanseForelderMappe = referanseForelderMappe?.build()
-            it.referanseArkivdel = referanseArkivdel?.toString()
+            it.arkivdel = arkivdel?.build()
             it.parts.addAll(parts.map { p -> p.build() })
 
             it.skjerming = skjerming?.build()

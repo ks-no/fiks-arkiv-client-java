@@ -2,6 +2,7 @@ package no.ks.fiks.io.arkiv.model.arkivmelding
 
 import no.ks.fiks.io.arkiv.model.arkivstruktur.*
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.DokumentmediumType
+import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KodeBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Mappe
 import java.time.ZonedDateTime
@@ -36,7 +37,7 @@ open class MappeBuilder {
         private set
     var avsluttetAv: String? = null
         private set
-    var referanseArkivdeler: List<String> = ArrayList()
+    var arkivdel: KodeBuilder? = null
         private set
     var parts: List<PartBuilder> = ArrayList()
         private set
@@ -70,7 +71,7 @@ open class MappeBuilder {
     fun opprettetAv(opprettetAv: String) = apply { this.opprettetAv = opprettetAv }
     fun avsluttetDato(avsluttetDato: ZonedDateTime) = apply { this.avsluttetDato = avsluttetDato }
     fun avsluttetAv(avsluttetAv: String) = apply { this.avsluttetAv = avsluttetAv }
-    fun referanseArkivdeler(referanseArkivdeler: List<String>) = apply { this.referanseArkivdeler = referanseArkivdeler }
+    fun arkivdel(arkivdel: KodeBuilder) = apply { this.arkivdel = arkivdel }
     fun parts(parts: List<PartBuilder>) = apply { this.parts = parts }
     fun kryssreferanser(kryssreferanser: List<KryssreferanseBuilder>) = apply { this.kryssreferanser = kryssreferanser }
     fun merknader(merknader: List<MerknadBuilder>) = apply { this.merknader = merknader }
@@ -96,7 +97,7 @@ open class MappeBuilder {
             it.opprettetAv = opprettetAv
             it.avsluttetDato = avsluttetDato
             it.avsluttetAv = avsluttetAv
-            it.referanseArkivdels.addAll(referanseArkivdeler)
+            it.arkivdel = arkivdel?.build()
             it.parts.addAll(parts.map { p -> p.build() }.toList())
             it.kryssreferanses.addAll(kryssreferanser.map { k -> k.build() }.toList())
             it.merknads.addAll(merknader.map { m -> m.build() }.toList())

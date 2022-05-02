@@ -26,7 +26,7 @@ open class DokumentbeskrivelseBuilder {
         private set
     var oppbevaringssted: String? = null
         private set
-    var referanseArkivDeler: List<String> = ArrayList()
+    var arkivdel: KodeBuilder? = null
         private set
     var tilknyttetRegistreringSom: TilknyttetRegistreringSomType? = null
         private set
@@ -65,7 +65,7 @@ open class DokumentbeskrivelseBuilder {
     fun opprettetAv(opprettetAv: String) = apply { this.opprettetAv = opprettetAv }
     fun dokumentmedium(dokumentmedium: DokumentmediumType) = apply { this.dokumentmedium = dokumentmedium }
     fun oppbevaringssted(oppbevaringssted: String) = apply { this.oppbevaringssted = oppbevaringssted }
-    fun referanseArkivDeler(referanseArkivDeler: List<String>) = apply { this.referanseArkivDeler = referanseArkivDeler }
+    fun arkivdel(arkivdel: KodeBuilder) = apply { this.arkivdel = arkivdel }
     fun tilknyttetRegistreringSom(tilknyttetRegistreringSom: TilknyttetRegistreringSomType) = apply { this.tilknyttetRegistreringSom = tilknyttetRegistreringSom }
     fun dokumentnummer(dokumentnummer: Long) = apply { this.dokumentnummer = dokumentnummer }
     fun tilknyttetDato(tilknyttetDato: ZonedDateTime) = apply { this.tilknyttetDato = tilknyttetDato }
@@ -92,7 +92,7 @@ open class DokumentbeskrivelseBuilder {
             it.opprettetAv = opprettetAv
             it.dokumentmedium = dokumentmedium?.value
             it.oppbevaringssted = oppbevaringssted
-            it.referanseArkivdels.addAll(referanseArkivDeler)
+            it.arkivdel = arkivdel?.build()
             it.tilknyttetRegistreringSom = tilknyttetRegistreringSom?.value
             it.dokumentnummer = dokumentnummer?.toBigInteger()
             it.tilknyttetDato = tilknyttetDato

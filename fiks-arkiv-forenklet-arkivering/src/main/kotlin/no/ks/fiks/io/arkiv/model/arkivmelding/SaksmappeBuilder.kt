@@ -56,7 +56,7 @@ open class SaksmappeBuilder : MappeBuilder() {
             it.opprettetAv = opprettetAv
             it.avsluttetDato = avsluttetDato
             it.avsluttetAv = avsluttetAv
-            it.referanseArkivdels.addAll(referanseArkivdeler)
+            it.arkivdel = arkivdel?.build()
             it.parts.addAll(parts.map { p -> p.build() }.toList())
             it.kryssreferanses.addAll(kryssreferanser.map { k -> k.build() }.toList())
             it.merknads.addAll(merknader.map { m -> m.build() }.toList())
