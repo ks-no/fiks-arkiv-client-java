@@ -167,7 +167,7 @@ pipeline {
 
         stage('Deploy to Artifactory') {
             when {
-                branch 'master'
+                branch 'main'
             }
 
             steps {
@@ -188,7 +188,7 @@ pipeline {
 
         stage('Deploy to Maven Central') {
             when {
-                branch 'master'
+                branch 'main'
             }
 
             steps {
