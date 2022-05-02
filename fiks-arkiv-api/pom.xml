@@ -11,6 +11,11 @@
 
     <artifactId>fiks-arkiv-api</artifactId>
     <name>Fiks arkiv API</name>
+
+    <properties>
+        <maven-javadoc-plugin.version>3.4.0</maven-javadoc-plugin.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -51,9 +56,6 @@
         </dependency>
 
     </dependencies>
-    <properties>
-        <maven.javadoc.skip>true</maven.javadoc.skip>
-    </properties>
     <build>
         <resources>
             <resource>
@@ -105,6 +107,21 @@
                 <configuration>
                     <skip>true</skip>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+                <configuration>
+                    <excludePackageNames>no.ks.fiks.io.arkiv.v1.*:com.*</excludePackageNames>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>
