@@ -165,16 +165,6 @@ pipeline {
             }
         }
 
-        stage('Run component tests') {
-            when {
-                expression { pipelineParams.componentTestProject }
-            }
-
-            steps {
-                build job: "/KS/${pipelineParams.componentTestProject}/master", propagate: true, wait: true
-            }
-        }
-
         stage('Deploy to Artifactory') {
             when {
                 branch 'master'
