@@ -2,7 +2,7 @@ package no.ks.fiks.io.arkiv.model.arkivmelding
 
 import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Punkt
 
-class PunkBuilder {
+class PunktBuilder {
     var koordinatsystem: String? = null
         private set
     var x: Double? = null

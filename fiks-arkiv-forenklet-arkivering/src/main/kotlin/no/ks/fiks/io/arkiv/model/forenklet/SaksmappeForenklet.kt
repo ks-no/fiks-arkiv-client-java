@@ -1,6 +1,7 @@
 package no.ks.fiks.io.arkiv.model.forenklet
 
-import org.apache.tools.ant.types.Mapper.MapperType
+import no.arkivverket.standarder.noark5.metadatakatalog.v2.Kode
+import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KodeBuilder
 import java.time.ZonedDateTime
 
 class SaksmappeForenklet {
@@ -9,7 +10,7 @@ class SaksmappeForenklet {
         private set
     var sakssekvensnummer: Long? = null
         private set
-    var mappetype: MapperType? = null
+    var mappetype: KodeBuilder? = null
         private set
     var saksdato: ZonedDateTime? = null
         private set
@@ -38,7 +39,7 @@ class SaksmappeForenklet {
 
     fun saksaar(saksaar: Long) = apply { this.saksaar = saksaar }
     fun sakssekvensnummer(sakssekvensnummer: Long) = apply { this.sakssekvensnummer = sakssekvensnummer }
-    fun mappetype(mappetype: MapperType) = apply { this.mappetype = mappetype }
+    fun mappetype(mappetype: KodeBuilder) = apply { this.mappetype = mappetype }
     fun saksdato(saksdato: ZonedDateTime) = apply { this.saksdato = saksdato }
     fun administrativEnhet(administrativEnhet: String) = apply { this.administrativEnhet = administrativEnhet }
     fun tittel(tittel: String) = apply { this.tittel = tittel }
