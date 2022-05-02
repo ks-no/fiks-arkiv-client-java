@@ -61,6 +61,9 @@
         </dependency>
 
     </dependencies>
+    <properties>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+    </properties>
     <build>
         <resources>
             <resource>
@@ -106,9 +109,17 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.jetbrains.dokka</groupId>
+                <artifactId>dokka-maven-plugin</artifactId>
+                <version>${dokka.version}</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>
                 <artifactId>maven-jaxb2-plugin</artifactId>
-                <version>0.14.0</version>
+                <version>0.15.1</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.glassfish.jaxb</groupId>
@@ -139,6 +150,7 @@
                     <extension>true</extension>
                     <verbose>true</verbose>
                     <removeOldOutput>true</removeOldOutput>
+                    <addCompileSourceRoot>true</addCompileSourceRoot>
                     <args>
                         <arg>-Xfluent-builder</arg>
                         <arg>-Xannotate</arg>
