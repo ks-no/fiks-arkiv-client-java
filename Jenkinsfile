@@ -116,17 +116,18 @@ pipeline {
 
         }
 
-        stage('Snapshot: verify pom') {
-            when {
-                expression { !params.isRelease }
-            }
-
+        stage('Validate') {
             steps {
-                rtMavenRun (
-                        pom: 'pom.xml',
-                        goals: "-T0.5C enforcer:enforce@validate-snap",
-                        resolverId: "MAVEN_RESOLVER"
-                )
+                script {
+                    if (params.isRelease) {
+                        if (params.specifiedVersion != null && !params.specifiedVersion.isEmpty() && !isValidReleaseVersion(params.specifiedVersion)) {
+                            error("Invalid version: " + params.releaseVersion);
+                        }
+                        sh(script: 'mvn -U -B validate')
+                    } else {
+                        sh(script: 'mvn -U -B -P snapshot validate')
+                    }
+                }
             }
         }
 
@@ -152,22 +153,72 @@ pipeline {
                 }
 
                 gitCheckout(env.BRANCH_NAME)
-                prepareReleaseNoBuildRT(releaseVersion,'MAVEN_RESOLVER')
+                prepareReleaseNoBuild releaseVersion
                 rtMavenRun(
                         pom: 'pom.xml',
                         goals: '-DskipTests -U -B clean install',
-                        deployerId: 'MAVEN_DEPLOYER',
                         resolverId: 'MAVEN_RESOLVER'
                 )
                 gitTag(isRelease, releaseVersion)
             }
         }
+
+        stage('Run component tests') {
+            when {
+                expression { pipelineParams.componentTestProject }
+            }
+
+            steps {
+                build job: "/KS/${pipelineParams.componentTestProject}/master", propagate: true, wait: true
+            }
+        }
+
+        stage('Deploy to Artifactory') {
+            when {
+                branch 'master'
+            }
+
+            steps {
+                configFileProvider([configFile(fileId: 'oss-settings.xml', variable: 'SETTINGS_XML')]) {
+                    script {
+                        def deployRepo = ""
+                        if (params.isRelease) {
+                            deployRepo = " -DaltReleaseDeploymentRepository=central::https://artifactory.fiks.ks.no/artifactory/ks-maven/"
+                        } else {
+                            deployRepo = " -DaltSnapshotDeploymentRepository=snapshots::https://artifactory.fiks.ks.no/artifactory/maven-all/"
+                        }
+
+                        sh(script: "mvn -Dmaven.install.skip=true -DskipTests -Duse-nexus-staging-maven-plugin=false ${deployRepo} -s $SETTINGS_XML jar:jar org.apache.maven.plugins:maven-deploy-plugin:3.0.0-M1:deploy")
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Maven Central') {
+            when {
+                branch 'master'
+            }
+
+            steps {
+                configFileProvider([configFile(fileId: 'oss-settings.xml', variable: 'SETTINGS_XML')]) {
+                    script {
+                        def profile = ""
+                        if (params.isRelease) {
+                            profile = "-P release"
+                        }
+                        sh(script: "mvn -s $SETTINGS_XML ${profile} -Dmaven.install.skip=true -DskipTests -Dmaven.test.skip=true -Duse-nexus-staging-maven-plugin=true -DautoReleaseAfterClose=${params.autoReleaseAfterClose} deploy")
+                    }
+
+                }
+            }
+        }
+
         stage('Release: set snapshot') {
             when {
                 expression { params.isRelease }
             }
             steps {
-                setSnapshotRT(releaseVersion, 'MAVEN_RESOLVER')
+                setSnapshot releaseVersion
                 gitPush()
             }
             post {
@@ -185,6 +236,31 @@ pipeline {
             jiraSendBuildInfo(
                 site: "ksfiks.atlassian.net"
             )
+            deleteDir()
         }
     }
 }
+
+
+@NonCPS
+def isValidReleaseVersion(String version){
+    def m = version =~ /\d+.\d+.\d+/
+    assert m instanceof Matcher
+    if (!m) {
+        error("Invalid version: " + version);
+    }
+    env.TAG_VERSION="${version}"
+    def commit = sh (returnStdout: true, script: '''
+        version=$(git rev-parse "$TAG_VERSION" 2>/dev/null)||true
+        if [ "$version" != "$TAG_VERSION" ]; then
+            echo "Version is already released - version ${TAG_VERSION}"
+            exit 128
+        fi
+        echo "Version is valid for release - version ${TAG_VERSION}"
+    ''')
+
+    return true
+}
+© 2022 GitHub, Inc.
+Terms
+Privacy
