@@ -261,6 +261,3 @@ def isValidReleaseVersion(String version){
 
     return true
 }
-© 2022 GitHub, Inc.
-Terms
-Privacy
