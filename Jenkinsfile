@@ -48,6 +48,7 @@ pipeline {
                 dir("fiks-arkiv-specification") {
                     sh "git fetch"
                     sh "git checkout ${API_VERSION}"
+                    sh "git pull"
                 }
 
                 rtMavenDeployer (
