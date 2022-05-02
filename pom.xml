@@ -4,6 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>no.ks.fiks.pom</groupId>
+        <artifactId>fiks-ekstern-kotlin-superpom</artifactId>
+        <version>1.0.9</version>
+    </parent>
+
     <groupId>no.ks.fiks</groupId>
     <artifactId>fiks-arkiv</artifactId>
     <packaging>pom</packaging>
@@ -30,22 +36,12 @@
         <kotest.version>5.0.0</kotest.version>
         <logback.version>1.2.10</logback.version>
         <kotlin-logging.version>2.1.21</kotlin-logging.version>
+
+        <connection>scm:git:git@github.com:ks-no/fiks-arkiv-client-java.git</connection>
+        <developerConnection>scm:git:git@github.com:ks-no/fiks-arkiv-client-java.git</developerConnection>
+        <url>https://github.com/ks-no/fiks-arkiv-client-java</url>
     </properties>
 
-    <distributionManagement>
-        <repository>
-            <uniqueVersion>false</uniqueVersion>
-            <id>central</id>
-            <name>KS Repository</name>
-            <url>https://artifactory.fiks.ks.no/artifactory/ks-maven/</url>
-        </repository>
-        <snapshotRepository>
-            <uniqueVersion>true</uniqueVersion>
-            <id>snapshots</id>
-            <name>KS Snapshots</name>
-            <url>https://artifactory.fiks.ks.no/artifactory/maven-all/</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <dependencyManagement>
         <dependencies>
