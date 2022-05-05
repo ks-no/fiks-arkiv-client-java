@@ -26,6 +26,7 @@ pipeline {
         string(name: "apiVersion", defaultValue: "main", description: "Hva er API versjon som skal brukes under bygg? Default er main")
         text(name: "releaseNotes", defaultValue: "Ingen endringer utført", description: "Hva er endret i denne releasen?")
         string(name: "reviewer", defaultValue: "Endringene krever ikke review", description: "Hvem har gjort review?")
+        booleanParam(name: 'autoReleaseAfterClose', defaultValue: true, description: 'Automatisk release til maven central?')
     }
 
     stages {
