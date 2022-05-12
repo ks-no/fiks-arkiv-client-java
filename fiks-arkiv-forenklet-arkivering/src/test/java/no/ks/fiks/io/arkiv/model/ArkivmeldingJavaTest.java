@@ -74,6 +74,9 @@ public class ArkivmeldingJavaTest {
                 .opprettetAv("Ole Olsen")
                 .arkivertAv("Petter Pettersen")
                 .journalsekvensnummer(111L)
+                .dokumentetsDato(ZonedDateTime.now())
+                .offentlighetsvurdertDato(ZonedDateTime.now())
+                .mottattDato(ZonedDateTime.now())
                 .journalpostnummer(222L);
 
         ArkivmeldingBuilder arkivmeldingBuilder = new RegistreringArkivmeldingBuilder()
