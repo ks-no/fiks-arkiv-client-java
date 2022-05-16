@@ -3,6 +3,7 @@ package no.ks.fiks.io.arkiv.model.arkivstruktur
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.ElektroniskSignaturSikkerhetsnivaaType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.ElektroniskSignaturVerifisertType
 import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.ElektroniskSignatur
+import java.time.LocalDate
 import java.time.ZonedDateTime
 
 class ElektroniskSignaturBuilder {
@@ -10,14 +11,14 @@ class ElektroniskSignaturBuilder {
         private set
     var elektroniskSignaturVerifisert: ElektroniskSignaturVerifisertType? = null
         private set
-    var verifisertDato: ZonedDateTime? = null
+    var verifisertDato: LocalDate? = null
         private set
     var verifisertAv: String? = null
         private set
 
     fun elektroniskSignaturSikkerhetsnivaa(elektroniskSignaturSikkerhetsnivaa: ElektroniskSignaturSikkerhetsnivaaType) = apply { this.elektroniskSignaturSikkerhetsnivaa = elektroniskSignaturSikkerhetsnivaa }
     fun elektroniskSignaturVerifisert(elektroniskSignaturVerifisert: ElektroniskSignaturVerifisertType) = apply { this.elektroniskSignaturVerifisert = elektroniskSignaturVerifisert }
-    fun verifisertDato(verifisertDato: ZonedDateTime) = apply { this.verifisertDato = verifisertDato }
+    fun verifisertDato(verifisertDato: LocalDate) = apply { this.verifisertDato = verifisertDato }
     fun verifisertAv(verifisertAv: String) = apply { this.verifisertAv = verifisertAv }
 
     fun build(): ElektroniskSignatur {

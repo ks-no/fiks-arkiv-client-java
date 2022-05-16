@@ -2,10 +2,11 @@ package no.ks.fiks.io.arkiv.model.arkivstruktur
 
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.PresedensStatusType
 import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Presedens
+import java.time.LocalDate
 import java.time.ZonedDateTime
 
 class PresedensBuilder {
-    var presedensDato: ZonedDateTime? = null
+    var presedensDato: LocalDate? = null
         private set
     var opprettetDato: ZonedDateTime? = null
         private set
@@ -30,7 +31,7 @@ class PresedensBuilder {
     var presedensStatus: PresedensStatusType? = null
         private set
 
-    fun presedensDato(presedensDato: ZonedDateTime) = apply { this.presedensDato = presedensDato }
+    fun presedensDato(presedensDato: LocalDate) = apply { this.presedensDato = presedensDato }
     fun opprettetDato(opprettetDato: ZonedDateTime) = apply { this.opprettetDato = opprettetDato }
     fun opprettetAv(opprettetAv: String) = apply { this.opprettetAv = opprettetAv }
     fun tittel(tittel: String) = apply { this.tittel = tittel }

@@ -15,6 +15,7 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.StringWriter;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,8 +75,8 @@ public class ArkivmeldingJavaTest {
                 .opprettetAv("Ole Olsen")
                 .arkivertAv("Petter Pettersen")
                 .journalsekvensnummer(111L)
-                .dokumentetsDato(ZonedDateTime.now())
-                .offentlighetsvurdertDato(ZonedDateTime.now())
+                .dokumentetsDato(LocalDate.now())
+                .offentlighetsvurdertDato(LocalDate.now())
                 .mottattDato(ZonedDateTime.now())
                 .journalpostnummer(222L);
 

@@ -2,6 +2,7 @@ package no.ks.fiks.io.arkiv.model.forenklet
 
 import no.arkivverket.standarder.noark5.metadatakatalog.v2.Kode
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KodeBuilder
+import java.time.LocalDate
 import java.time.ZonedDateTime
 
 class SaksmappeForenklet {
@@ -12,7 +13,7 @@ class SaksmappeForenklet {
         private set
     var mappetype: KodeBuilder? = null
         private set
-    var saksdato: ZonedDateTime? = null
+    var saksdato: LocalDate? = null
         private set
     var tittel: String? = null
         private set
@@ -40,7 +41,7 @@ class SaksmappeForenklet {
     fun saksaar(saksaar: Long) = apply { this.saksaar = saksaar }
     fun sakssekvensnummer(sakssekvensnummer: Long) = apply { this.sakssekvensnummer = sakssekvensnummer }
     fun mappetype(mappetype: KodeBuilder) = apply { this.mappetype = mappetype }
-    fun saksdato(saksdato: ZonedDateTime) = apply { this.saksdato = saksdato }
+    fun saksdato(saksdato: LocalDate) = apply { this.saksdato = saksdato }
     fun administrativEnhet(administrativEnhet: String) = apply { this.administrativEnhet = administrativEnhet }
     fun tittel(tittel: String) = apply { this.tittel = tittel }
     fun referanseAdministrativEnhet(referanseAdministrativEnhet: String) = apply { this.referanseAdministrativEnhet = referanseAdministrativEnhet }

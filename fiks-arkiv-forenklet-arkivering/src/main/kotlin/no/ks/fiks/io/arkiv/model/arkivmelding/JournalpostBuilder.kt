@@ -3,6 +3,7 @@ package no.ks.fiks.io.arkiv.model.arkivmelding
 import no.ks.fiks.io.arkiv.model.arkivstruktur.*
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.*
 import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Journalpost
+import java.time.LocalDate
 import java.time.ZonedDateTime
 import java.util.*
 import kotlin.collections.ArrayList
@@ -14,7 +15,7 @@ import kotlin.collections.ArrayList
 open class JournalpostBuilder : IRegistrering {
     var arkivdel: KodeBuilder? = null
         private set
-    var journaldato: ZonedDateTime = ZonedDateTime.now()
+    var journaldato: LocalDate = LocalDate.now()
         private set
     var journalpostnummer: Long? = null
         private set
@@ -48,19 +49,19 @@ open class JournalpostBuilder : IRegistrering {
         private set
     var beskrivelse: String? = null
         private set
-    var dokumentetsDato: ZonedDateTime? = null
+    var dokumentetsDato: LocalDate? = null
         private set
     var mottattDato: ZonedDateTime? = null
         private set
     var sendtDato: ZonedDateTime? = null
         private set
-    var forfallsdato: ZonedDateTime? = null
+    var forfallsdato: LocalDate? = null
         private set
-    var offentlighetsvurdertDato: ZonedDateTime? = null
+    var offentlighetsvurdertDato: LocalDate? = null
         private set
     var antallVedlegg: Long? = null
         private set
-    var utlaantDato: ZonedDateTime? = null
+    var utlaantDato: LocalDate? = null
         private set
     var utlaantTil: String? = null
         private set
@@ -116,16 +117,16 @@ open class JournalpostBuilder : IRegistrering {
     fun journalaar(journalaar: Int) = apply { this.journalaar = journalaar }
     fun journalsekvensnummer(journalsekvensnummer: Long) = apply { this.journalsekvensnummer = journalsekvensnummer }
     fun journalpostnummer(journalpostnummer: Long) = apply { this.journalpostnummer = journalpostnummer }
-    fun journaldato(journaldato: ZonedDateTime) = apply { this.journaldato = journaldato }
+    fun journaldato(journaldato: LocalDate) = apply { this.journaldato = journaldato }
     fun parts(parts: List<PartBuilder>) = apply { this.parts = parts }
     fun beskrivelse(beskrivelse: String) = apply { this.beskrivelse = beskrivelse }
-    fun dokumentetsDato(dokumentetsDato: ZonedDateTime) = apply { this.dokumentetsDato = dokumentetsDato }
+    fun dokumentetsDato(dokumentetsDato: LocalDate) = apply { this.dokumentetsDato = dokumentetsDato }
     fun mottattDato(mottattDato: ZonedDateTime) = apply { this.mottattDato = mottattDato }
     fun sendtDato(sendtDato: ZonedDateTime) = apply { this.sendtDato = sendtDato }
-    fun forfallsdato(forfallsdato: ZonedDateTime) = apply { this.forfallsdato = forfallsdato }
-    fun offentlighetsvurdertDato(offentlighetsvurdertDato: ZonedDateTime) = apply { this.offentlighetsvurdertDato = offentlighetsvurdertDato }
+    fun forfallsdato(forfallsdato: LocalDate) = apply { this.forfallsdato = forfallsdato }
+    fun offentlighetsvurdertDato(offentlighetsvurdertDato: LocalDate) = apply { this.offentlighetsvurdertDato = offentlighetsvurdertDato }
     fun antallVedlegg(antallVedlegg: Long) = apply { this.antallVedlegg = antallVedlegg }
-    fun utlaantDato(utlaantDato: ZonedDateTime) = apply { this.utlaantDato = utlaantDato }
+    fun utlaantDato(utlaantDato: LocalDate) = apply { this.utlaantDato = utlaantDato }
     fun utlaantTil(utlaantTil: String) = apply { this.utlaantTil = utlaantTil }
     fun journalenhet(journalenhet: String) = apply { this.journalenhet = journalenhet }
     fun avskrivninger(avskrivninger: List<AvskrivningBuilder>) = apply { this.avskrivninger = avskrivninger }

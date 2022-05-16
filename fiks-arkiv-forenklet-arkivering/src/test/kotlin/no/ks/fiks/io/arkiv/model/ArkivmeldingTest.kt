@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.io.File
 import java.io.StringWriter
+import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
@@ -33,12 +34,12 @@ class ArkivmeldingTest {
 
         val registrering =
             JournalpostBuilder()
-                .dokumentetsDato(mottattDato)
-                .offentlighetsvurdertDato(ZonedDateTime.now())
+                .dokumentetsDato(mottattDato.toLocalDate())
+                .offentlighetsvurdertDato(LocalDate.now())
                 .mottattDato(mottattDato)
                 .journalstatus(JournalStatus.GODKJENT_AV_LEDER)
                 .journalposttype(JournalpostType.UTGAENDE_DOKUMENT)
-                .journaldato(ZonedDateTime.now())
+                .journaldato(LocalDate.now())
                 .journalpostnummer(42213L)
                 .journalsekvensnummer(1234L)
                 .journalaar(2022)
@@ -88,7 +89,7 @@ class ArkivmeldingTest {
     fun `Test arkivmelding uten system definert, skal kaste exception`() {
         val registrering =
             JournalpostBuilder()
-                .journaldato(ZonedDateTime.now())
+                .journaldato(LocalDate.now())
                 .journalpostnummer(42213L)
                 .journalsekvensnummer(1234L)
                 .journalaar(2022)

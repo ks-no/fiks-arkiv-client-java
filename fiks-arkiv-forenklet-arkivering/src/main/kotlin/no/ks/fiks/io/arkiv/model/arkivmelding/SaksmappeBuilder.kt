@@ -4,6 +4,7 @@ import no.ks.fiks.io.arkiv.model.arkivstruktur.AdresseBuilder
 import no.ks.fiks.io.arkiv.model.arkivstruktur.PresedensBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SaksstatusType
 import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Saksmappe
+import java.time.LocalDate
 import java.time.ZonedDateTime
 
 /**
@@ -14,7 +15,7 @@ open class SaksmappeBuilder : MappeBuilder() {
         private set
     var sakssekvensnummer: Long? = null
         private set
-    var saksdato: ZonedDateTime? = null
+    var saksdato: LocalDate? = null
         private set
     var administrativEnhet: String? = null
         private set
@@ -24,7 +25,7 @@ open class SaksmappeBuilder : MappeBuilder() {
         private set
     var saksstatus: SaksstatusType? = null
         private set
-    var utlaantDato: ZonedDateTime? = null
+    var utlaantDato: LocalDate? = null
         private set
     var utlaantTil: String? = null
         private set
@@ -43,12 +44,12 @@ open class SaksmappeBuilder : MappeBuilder() {
 
     fun saksaar(saksaar: Long) = apply { this.saksaar = saksaar }
     fun sakssekvensnummer(sakssekvensnummer: Long) = apply { this.sakssekvensnummer = sakssekvensnummer }
-    fun saksdato(saksdato: ZonedDateTime) = apply { this.saksdato = saksdato }
+    fun saksdato(saksdato: LocalDate) = apply { this.saksdato = saksdato }
     fun administrativEnhet(administrativEnhet: String) = apply { this.administrativEnhet = administrativEnhet }
     fun saksansvarlig(saksansvarlig: String) = apply { this.saksansvarlig = saksansvarlig }
     fun journalenhet(journalenhet: String) = apply { this.journalenhet = journalenhet }
     fun saksstatus(saksstatus: SaksstatusType) = apply { this.saksstatus = saksstatus }
-    fun utlaantDato(utlaantDato: ZonedDateTime) = apply { this.utlaantDato = utlaantDato }
+    fun utlaantDato(utlaantDato: LocalDate) = apply { this.utlaantDato = utlaantDato }
     fun utlaantTil(utlaantTil: String) = apply { this.utlaantTil = utlaantTil }
     fun presedens(presedens: List<PresedensBuilder>) = apply { this.presedens = presedens }
     fun adresser(adresser: List<AdresseBuilder>) = apply { this.adresser = adresser }
