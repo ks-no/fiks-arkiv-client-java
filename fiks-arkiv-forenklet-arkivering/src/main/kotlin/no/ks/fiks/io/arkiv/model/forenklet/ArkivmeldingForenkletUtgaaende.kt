@@ -40,8 +40,7 @@ class ArkivmeldingForenkletUtgaaende {
 
             if(it.skjermetTittel){
                 builder.skjerming(SkjermingBuilder()
-                    .skjermingshjemmel(SKJERMINGSHJEMMEL)
-                    .skjermingMetadataTyper(listOf(SkjermingMetadataType.SKJERMING_TITTEL_DOKUMENTBESKRIVELSE, SkjermingMetadataType.SKJERMING_NAVN_PART_I_SAK)))
+                    .skjermingshjemmel(SKJERMINGSHJEMMEL))
             }
             it.hoveddokument?.let {doc ->
                 val dokumentBuilder = DokumentbeskrivelseBuilder()
@@ -52,7 +51,6 @@ class ArkivmeldingForenkletUtgaaende {
                 if(doc.skjermetDokument == true) {
                     dokumentBuilder.skjerming(SkjermingBuilder()
                         .skjermingshjemmel(SKJERMINGSHJEMMEL)
-                        .skjermingDokumentType(SkjermingDokumentType.SKJERMING_AV_HELE_DOKUMENTET)
                     )
                 }
                 dokumentBuilder.dokumentobjekter(listOf(getDokumentObjektBuilder(doc)))
@@ -81,7 +79,7 @@ class ArkivmeldingForenkletUtgaaende {
                 builder.korrespondanseparts(builder.korrespondanseparts + korrespondansepartBuilder)
             }
             it.internAvsender.forEach { avsender ->
-                val korrespondansepartBuilder = korrespondansepartMapper(KorrespondansepartType.INTER_AVSENDER, avsender)
+                val korrespondansepartBuilder = korrespondansepartMapper(avsender)
                 builder.korrespondanseparts(builder.korrespondanseparts + korrespondansepartBuilder)
             }
             it.referanseEksternNoekkelForenklet?.let { rn ->
@@ -127,25 +125,33 @@ class ArkivmeldingForenkletUtgaaende {
             saksMappeBuilder.klassifikasjoner(
                 klasser.map { k ->
                     val klassifikasjonBuilder = KlassifikasjonBuilder()
-                    k.klassifikasjonssystem?.let { k -> klassifikasjonBuilder.klassifikasjonssystem(k) }
-                    k.klasseID?.let { k -> klassifikasjonBuilder.klasseID(k) }
-                    k.tittel?.let { k -> klassifikasjonBuilder.tittel(k) }
+                    k.klassifikasjonssystem?.let { klassifikasjonBuilder.klassifikasjonssystem(it) }
+                    k.klasseID?.let { klassifikasjonBuilder.klasseID(it) }
+                    k.tittel?.let { klassifikasjonBuilder.tittel(it) }
                     klassifikasjonBuilder
                 }.toList()
             )
         }
         saksmappe.referanseEksternNoekkelForenklet?.let { noekkel ->
-            val noekkelBuilder = EksternNoekkelBuilder()
-            noekkel.fagstystem?.let { f -> noekkelBuilder.fagstystem(f) }
-            noekkel.noekkel?.let { n -> noekkelBuilder.noekkel(n) }
-            saksMappeBuilder.referanseEksternNoekkel(noekkelBuilder)
+            mappeBuilder(noekkel, saksMappeBuilder)
         }
 
         saksMappeBuilder.registreringer(listOf(journalpost))
         return saksMappeBuilder
     }
 
-    private fun korrespondansepartMapper(type: KorrespondansepartType, part: KorrespondansepartIntern): KorrespondansepartBuilder {
+    private fun mappeBuilder(
+        noekkel: EksternNoekkelForenklet,
+        saksMappeBuilder: SaksmappeBuilder
+    ): MappeBuilder {
+        val noekkelBuilder = EksternNoekkelBuilder()
+        noekkel.fagstystem?.let { f -> noekkelBuilder.fagstystem(f) }
+        noekkel.noekkel?.let { n -> noekkelBuilder.noekkel(n) }
+        return saksMappeBuilder.referanseEksternNoekkel(noekkelBuilder)
+    }
+
+    private fun korrespondansepartMapper(part: KorrespondansepartIntern): KorrespondansepartBuilder {
+        val type = KorrespondansepartType.INTER_AVSENDER
         val korrespondansepartBuilder = KorrespondansepartBuilder()
         part.saksbehandler?.let {
             korrespondansepartBuilder.korrespondansepartNavn(it)
@@ -215,17 +221,17 @@ private fun getDokumentObjektBuilder(doc: ForenkletDokument) =
 
 
 private fun filtypeTilFormatKode(filnavn: String) : FormatType {
-    val postfix = filnavn.substring(filnavn.lastIndexOf(".") ?: -1)
+    val postfix = filnavn.substring(filnavn.lastIndexOf(".") )
     return when {
-        postfix.equals(".txt", true) -> return FormatType.REN_TEKST
-        postfix.equals(".tiff", true) -> return FormatType.TIFF_VERSJON_6
-        postfix.equals(".pdf", true) -> return FormatType.PDF_A_ISO_19005_1_2005
-        postfix.equals(".xml", true) -> return FormatType.XML
-        postfix.equals(".jpeg", true) -> return FormatType.JPEG
-        postfix.equals(".mp3", true) -> return FormatType.MP3
-        postfix.equals(".sosi", true) -> return FormatType.SOSI
-        postfix.equals(".mpg", true) -> return FormatType.MPEG_2
-        postfix.equals(".mp2", true) -> return FormatType.MPEG_2
-        else -> throw IllegalStateException("Filformat er ukjent for hoveddokument: ${filnavn}")
+        postfix.equals(".txt", true) -> FormatType.REN_TEKST
+        postfix.equals(".tiff", true) -> FormatType.TIFF_VERSJON_6
+        postfix.equals(".pdf", true) -> FormatType.PDF_A_ISO_19005_1_2005
+        postfix.equals(".xml", true) -> FormatType.XML
+        postfix.equals(".jpeg", true) -> FormatType.JPEG
+        postfix.equals(".mp3", true) -> FormatType.MP3
+        postfix.equals(".sosi", true) -> FormatType.SOSI
+        postfix.equals(".mpg", true) -> FormatType.MPEG_2
+        postfix.equals(".mp2", true) -> FormatType.MPEG_2
+        else -> throw IllegalStateException("Filformat er ukjent for hoveddokument: $filnavn")
     }
 }

@@ -57,6 +57,8 @@ open class MappeBuilder {
         private set
     var mapper: List<MappeBuilder> = emptyList()
         private set
+    var mappetype: KodeBuilder? = null
+        private set
 
     fun systemID(systemID: SystemIDBuilder) = apply { this.systemID = systemID }
     fun mappeId(mappeId: String) = apply { this.mappeId = mappeId }
@@ -81,6 +83,7 @@ open class MappeBuilder {
     fun referanseEksternNoekkel(referanseEksternNoekkel: EksternNoekkelBuilder) = apply { this.referanseEksternNoekkel = referanseEksternNoekkel }
     fun registreringer(registreringer: List<IRegistrering>) = apply { if(mapper.isEmpty()) this.registreringer = registreringer else throw IllegalArgumentException("Det er ikke mulig å registrere både undermapper og registreringer til samme mappe") }
     fun mapper(mapper: List<MappeBuilder>) = apply { if(mapper.isEmpty()) this.mapper = mapper else throw IllegalArgumentException("Det er ikke mulig å registrere både undermapper og registreringer til samme mappe") }
+    fun mappetype(mappetype: KodeBuilder) = apply { this.mappetype = mappetype }
 
     open fun build(): Mappe {
         return Mappe().also {
@@ -107,6 +110,7 @@ open class MappeBuilder {
             it.referanseEksternNoekkel = referanseEksternNoekkel?.build()
             it.registrerings.addAll(registreringer.map { r -> r.build() }.toList())
             it.mappes.addAll(mapper.map { m -> m.build() }.toList())
+            it.mappetype = mappetype?.build()
         }
     }
 }

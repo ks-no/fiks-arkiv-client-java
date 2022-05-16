@@ -1,5 +1,6 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
+import no.ks.fiks.io.arkiv.model.arkivstruktur.AdresseBuilder
 import no.ks.fiks.io.arkiv.model.arkivstruktur.PresedensBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SaksstatusType
 import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Saksmappe
@@ -29,6 +30,16 @@ open class SaksmappeBuilder : MappeBuilder() {
         private set
     var presedens: List<PresedensBuilder> = ArrayList()
         private set
+    var adresser: List<AdresseBuilder> = ArrayList()
+        private set
+    var matrikkelnumre: List<MatrikkelnummerBuilder> = ArrayList()
+        private set
+    var byggindenter: List<ByggidentBuilder> = ArrayList()
+        private set
+    var planident: PlanidentBuilder? = null
+        private set
+    var punkt: PunktBuilder? = null
+        private set
 
     fun saksaar(saksaar: Long) = apply { this.saksaar = saksaar }
     fun sakssekvensnummer(sakssekvensnummer: Long) = apply { this.sakssekvensnummer = sakssekvensnummer }
@@ -40,6 +51,11 @@ open class SaksmappeBuilder : MappeBuilder() {
     fun utlaantDato(utlaantDato: ZonedDateTime) = apply { this.utlaantDato = utlaantDato }
     fun utlaantTil(utlaantTil: String) = apply { this.utlaantTil = utlaantTil }
     fun presedens(presedens: List<PresedensBuilder>) = apply { this.presedens = presedens }
+    fun adresser(adresser: List<AdresseBuilder>) = apply { this.adresser = adresser }
+    fun matrikkelnumre(matrikkelnumre: List<MatrikkelnummerBuilder>) = apply { this.matrikkelnumre = matrikkelnumre }
+    fun byggindenter(byggindenter: List<ByggidentBuilder>) = apply { this.byggindenter = byggindenter }
+    fun planident(planident: PlanidentBuilder) = apply { this.planident = planident }
+    fun punkt(punkt: PunktBuilder) = apply { this.punkt = punkt }
 
     override fun build(): Saksmappe {
         return Saksmappe().also {
@@ -66,6 +82,7 @@ open class SaksmappeBuilder : MappeBuilder() {
             it.referanseEksternNoekkel = referanseEksternNoekkel?.build()
             it.registrerings.addAll(registreringer.map { r -> r.build() }.toList())
             it.mappes.addAll(mapper.map { m -> m.build() }.toList())
+            it.mappetype = mappetype?.build()
 
             it.saksaar = saksaar?.toBigInteger()
             it.sakssekvensnummer = sakssekvensnummer?.toBigInteger()
@@ -77,6 +94,11 @@ open class SaksmappeBuilder : MappeBuilder() {
             it.utlaantDato = utlaantDato
             it.utlaantTil = utlaantTil
             it.presedens.addAll(presedens.map { p -> p.build() }.toList())
+            it.matrikkelnummers.addAll(matrikkelnumre.map { m -> m.build() }.toList())
+            it.byggidents.addAll(byggindenter.map { b -> b.build() }.toList())
+            it.planident = planident?.build()
+            it.punkt = punkt?.build()
+            it.adresses.addAll(adresser.map { a -> a.build() }.toList())
         }
     }
 }
