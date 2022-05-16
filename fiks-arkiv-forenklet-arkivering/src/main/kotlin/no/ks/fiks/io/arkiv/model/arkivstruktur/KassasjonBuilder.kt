@@ -2,6 +2,7 @@ package no.ks.fiks.io.arkiv.model.arkivstruktur
 
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KassasjonsvedtakType
 import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Kassasjon
+import java.time.LocalDate
 import java.time.ZonedDateTime
 
 class KassasjonBuilder {
@@ -11,13 +12,13 @@ class KassasjonBuilder {
         private set
     var bevaringstid: Long? = null
         private set
-    var kassasjonsdato: ZonedDateTime? = null
+    var kassasjonsdato: LocalDate? = null
         private set
 
     fun kassasjonsvedtak(kassasjonsvedtak: KassasjonsvedtakType) = apply { this.kassasjonsvedtak = kassasjonsvedtak }
     fun kassasjonshjemmel(kassasjonshjemmel: String) = apply { this.kassasjonshjemmel = kassasjonshjemmel }
     fun bevaringstid(bevaringstid: Long) = apply { this.bevaringstid = bevaringstid }
-    fun kassasjonsdato(kassasjonsdato: ZonedDateTime) = apply { this.kassasjonsdato = kassasjonsdato }
+    fun kassasjonsdato(kassasjonsdato: LocalDate) = apply { this.kassasjonsdato = kassasjonsdato }
 
     fun build(): Kassasjon {
         return Kassasjon().also {

@@ -3,6 +3,7 @@ package no.ks.fiks.io.arkiv.model.arkivstruktur
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SkjermingOpphoererAksjonType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.TilgangrestriksjonType
 import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Skjerming
+import java.time.LocalDate
 import java.time.ZonedDateTime
 
 open class SkjermingBuilder {
@@ -10,13 +11,13 @@ open class SkjermingBuilder {
         private set
     var skjermingshjemmel: String? = null
         private set
-    var skjermingOpphoererDato: ZonedDateTime? = null
+    var skjermingOpphoererDato: LocalDate? = null
         private set
     var skjermingOpphoererAksjon: SkjermingOpphoererAksjonType? = null
 
     fun tilgangsrestriksjon(tilgangsrestriksjon: TilgangrestriksjonType) = apply { this.tilgangsrestriksjon = tilgangsrestriksjon }
     fun skjermingshjemmel(skjermingshjemmel: String) = apply { this.skjermingshjemmel = skjermingshjemmel }
-    fun skjermingOpphoererDato(skjermingOpphoererDato: ZonedDateTime) = apply { this.skjermingOpphoererDato = skjermingOpphoererDato }
+    fun skjermingOpphoererDato(skjermingOpphoererDato: LocalDate) = apply { this.skjermingOpphoererDato = skjermingOpphoererDato }
     fun skjermingOpphoererAksjon(skjermingOpphoererAksjonType: SkjermingOpphoererAksjonType) = apply { this.skjermingOpphoererAksjon = skjermingOpphoererAksjon }
 
     open fun build() : Skjerming {

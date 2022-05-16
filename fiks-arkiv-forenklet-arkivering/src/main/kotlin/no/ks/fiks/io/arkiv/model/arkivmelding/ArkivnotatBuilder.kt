@@ -5,6 +5,7 @@ import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.DokumentmediumType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KodeBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Arkivnotat
+import java.time.LocalDate
 import java.time.ZonedDateTime
 import java.util.*
 import kotlin.collections.ArrayList
@@ -59,19 +60,19 @@ class ArkivnotatBuilder : IRegistrering {
         private set
     var referanseEksternNoekkel: EksternNoekkelBuilder? = null
         private set
-    var dokumentetsDato: ZonedDateTime? = null
+    var dokumentetsDato: LocalDate? = null
         private set
     var mottattDato: ZonedDateTime? = null
         private set
     var sendtDato: ZonedDateTime? = null
         private set
-    var forfallsdato: ZonedDateTime? = null
+    var forfallsdato: LocalDate? = null
         private set
-    var offentlighetsvurdertDato: ZonedDateTime? = null
+    var offentlighetsvurdertDato: LocalDate? = null
         private set
     var antallVedlegg: Long? = null
         private set
-    var utlaantDato: ZonedDateTime? = null
+    var utlaantDato: LocalDate? = null
         private set
     var utlaantTil: String? = null
         private set
@@ -104,13 +105,13 @@ class ArkivnotatBuilder : IRegistrering {
     fun gradering(gradering: GraderingBuilder) = apply { this.gradering = gradering }
     fun skjerming(skjerming: SkjermingBuilder) = apply { this.skjerming = skjerming }
 
-    fun dokumentetsDato(dokumentetsDato: ZonedDateTime) = apply { this.dokumentetsDato = dokumentetsDato }
+    fun dokumentetsDato(dokumentetsDato: LocalDate) = apply { this.dokumentetsDato = dokumentetsDato }
     fun mottattDato(mottattDato: ZonedDateTime) = apply { this.mottattDato = mottattDato }
     fun sendtDato(sendtDato: ZonedDateTime) = apply { this.sendtDato = sendtDato }
-    fun forfallsdato(forfallsdato: ZonedDateTime) = apply { this.forfallsdato = forfallsdato }
-    fun offentlighetsvurdertDato(offentlighetsvurdertDato: ZonedDateTime) = apply { this.offentlighetsvurdertDato = offentlighetsvurdertDato }
+    fun forfallsdato(forfallsdato: LocalDate) = apply { this.forfallsdato = forfallsdato }
+    fun offentlighetsvurdertDato(offentlighetsvurdertDato: LocalDate) = apply { this.offentlighetsvurdertDato = offentlighetsvurdertDato }
     fun antallVedlegg(antallVedlegg: Long) = apply { this.antallVedlegg = antallVedlegg }
-    fun utlaantDato(utlaantDato: ZonedDateTime) = apply { this.utlaantDato = utlaantDato }
+    fun utlaantDato(utlaantDato: LocalDate) = apply { this.utlaantDato = utlaantDato }
     fun utlaantTil(utlaantTil: String) = apply { this.utlaantTil = utlaantTil }
     fun dokumentflyt(dokumentflyt: List<DokumentflytBuilder>) = apply { this.dokumentflyt = dokumentflyt }
 

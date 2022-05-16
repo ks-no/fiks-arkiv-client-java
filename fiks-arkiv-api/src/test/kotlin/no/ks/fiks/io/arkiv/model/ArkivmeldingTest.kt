@@ -1,32 +1,40 @@
 package no.ks.fiks.io.arkiv.model
 
+
+import io.kotest.matchers.shouldBe
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import no.arkivverket.standarder.noark5.metadatakatalog.v2.Journalposttype
 import no.arkivverket.standarder.noark5.metadatakatalog.v2.Journalstatus
-import org.junit.jupiter.api.Test
-import java.io.File
-import java.time.ZonedDateTime
-import java.util.*
-import javax.xml.XMLConstants
-import javax.xml.bind.util.JAXBSource
-import javax.xml.validation.SchemaFactory
 import no.arkivverket.standarder.noark5.metadatakatalog.v2.Korrespondanseparttype
 import no.arkivverket.standarder.noark5.metadatakatalog.v2.SystemID
 import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Arkivmelding
 import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Journalpost
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.EksternNoekkel
 import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Korrespondansepart
+import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.EksternNoekkel
+import org.junit.jupiter.api.Test
+import java.io.File
+import java.io.StringWriter
+import java.time.LocalDate
+import java.time.ZonedDateTime
+import java.util.*
+import javax.xml.XMLConstants
 import javax.xml.bind.JAXBContext
 import javax.xml.bind.JAXBElement
+import javax.xml.bind.Marshaller
+import javax.xml.bind.util.JAXBSource
 import javax.xml.namespace.QName
+import javax.xml.validation.SchemaFactory
 
 class ArkivmeldingTest {
 
     @Test
     fun `Test autogenerert modell mot xsd`() {
+        val journalDate = LocalDate.now()
+        val arkivertDato = ZonedDateTime.now()
+
         val arkivmelding = Arkivmelding().also {
             it.registrerings.addAll(listOf(Journalpost().also {
-                it.journaldato = ZonedDateTime.now()
+                it.journaldato = journalDate
                 it.journalpostnummer = 5000.toBigInteger()
                 it.journalsekvensnummer = 1234.toBigInteger()
                 it.journalaar = 2022.toBigInteger()
@@ -38,7 +46,7 @@ class ArkivmeldingTest {
                 it.opprettetDato = ZonedDateTime.now()
                 it.opprettetAv = "Ole"
                 it.arkivertAv = "Kari"
-                it.arkivertDato = ZonedDateTime.now()
+                it.arkivertDato = arkivertDato
                 it.referanseForelderMappe = SystemID().also {
                     it.label = "ReferanseMappe"
                     it.value = UUID.randomUUID().toString()
@@ -76,11 +84,22 @@ class ArkivmeldingTest {
         val schema = schemaFactory.newSchema(File("target/schemas/v1/arkivmelding.xsd"))
         val validator = schema.newValidator()
 
+        val element = JAXBElement(
+            QName("http://www.arkivverket.no/standarder/noark5/arkivmelding/v2", "arkivmelding"),
+            Arkivmelding::class.java,
+            arkivmelding)
+
         shouldNotThrowAny {
-            validator.validate(JAXBSource(jaxbContext, JAXBElement(
-                QName("http://www.arkivverket.no/standarder/noark5/arkivmelding/v2", "arkivmelding"),
-                Arkivmelding::class.java,
-                arkivmelding)
-            ))}
+            validator.validate(JAXBSource(jaxbContext, element))}
+
+        val sw = StringWriter()
+        val marshaller = jaxbContext.createMarshaller().also { it.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true) }
+        marshaller.marshal(element, sw)
+
+        val unmarshaller = jaxbContext.createUnmarshaller()
+        val parsedArkivmelding: Arkivmelding = unmarshaller.unmarshal(sw.toString().byteInputStream()) as Arkivmelding
+
+        (parsedArkivmelding.registrerings[0] as Journalpost).journaldato.format(java.time.format.DateTimeFormatter.ISO_LOCAL_DATE) shouldBe journalDate.format(java.time.format.DateTimeFormatter.ISO_LOCAL_DATE)
+        (parsedArkivmelding.registrerings[0] as Journalpost).arkivertDato.format(java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME) shouldBe arkivertDato.format(java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME)
     }
 }
