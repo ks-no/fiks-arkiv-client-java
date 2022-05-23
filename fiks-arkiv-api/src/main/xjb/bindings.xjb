@@ -68,4 +68,19 @@
             <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.minimum" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/serverfeil.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.feilmelding" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/ikkefunnet.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.feilmelding" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/ugyldigforespoersel.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.feilmelding" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
 </jaxb:bindings>

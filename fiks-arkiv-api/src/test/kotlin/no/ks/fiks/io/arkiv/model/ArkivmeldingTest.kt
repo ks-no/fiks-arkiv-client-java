@@ -1,6 +1,5 @@
 package no.ks.fiks.io.arkiv.model
 
-
 import io.kotest.matchers.shouldBe
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import no.arkivverket.standarder.noark5.metadatakatalog.v2.Journalposttype
@@ -18,12 +17,12 @@ import java.time.LocalDate
 import java.time.ZonedDateTime
 import java.util.*
 import javax.xml.XMLConstants
+import javax.xml.bind.util.JAXBSource
+import javax.xml.validation.SchemaFactory
 import javax.xml.bind.JAXBContext
 import javax.xml.bind.JAXBElement
 import javax.xml.bind.Marshaller
-import javax.xml.bind.util.JAXBSource
 import javax.xml.namespace.QName
-import javax.xml.validation.SchemaFactory
 
 class ArkivmeldingTest {
 
