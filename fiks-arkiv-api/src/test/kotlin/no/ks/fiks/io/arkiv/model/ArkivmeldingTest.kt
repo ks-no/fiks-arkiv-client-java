@@ -1,6 +1,5 @@
 package no.ks.fiks.io.arkiv.model
 
-
 import io.kotest.matchers.shouldBe
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import no.arkivverket.standarder.noark5.metadatakatalog.v2.Journalposttype
@@ -20,18 +19,10 @@ import java.util.*
 import javax.xml.XMLConstants
 import javax.xml.bind.util.JAXBSource
 import javax.xml.validation.SchemaFactory
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Korrespondanseparttype
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.SystemID
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Arkivmelding
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Korrespondansepart
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.EksternNoekkel
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Journalpost
 import javax.xml.bind.JAXBContext
 import javax.xml.bind.JAXBElement
 import javax.xml.bind.Marshaller
-import javax.xml.bind.util.JAXBSource
 import javax.xml.namespace.QName
-import javax.xml.validation.SchemaFactory
 
 class ArkivmeldingTest {
 
