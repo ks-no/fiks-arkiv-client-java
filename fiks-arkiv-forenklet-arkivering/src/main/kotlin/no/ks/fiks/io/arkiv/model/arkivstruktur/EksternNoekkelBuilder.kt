@@ -13,8 +13,8 @@ class EksternNoekkelBuilder {
 
     fun build(): EksternNoekkel {
         return EksternNoekkel().also {
-            it.fagsystem = fagsystem
-            it.noekkel = noekkel
+            it.fagsystem = checkNotNull(fagsystem) {"Fagsystem er påkrevd for EksternNoekkel"}
+            it.noekkel = checkNotNull(noekkel) {"Noekkel er påkrevd for EksternNoekkel"}
         }
     }
 }

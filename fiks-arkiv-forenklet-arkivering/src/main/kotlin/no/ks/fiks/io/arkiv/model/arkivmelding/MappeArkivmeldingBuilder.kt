@@ -1,8 +1,6 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
-import no.ks.fiks.io.arkiv.model.arkivstruktur.MappeBuilder
-
-class MappeArkivmelding: Arkivmelding() {
+class MappeArkivmeldingBuilder: ArkivmeldingBuilder() {
 
     var mapper: List<MappeBuilder>? = emptyList()
         private set

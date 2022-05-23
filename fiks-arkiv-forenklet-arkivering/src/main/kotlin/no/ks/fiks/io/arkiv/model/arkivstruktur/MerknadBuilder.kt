@@ -12,7 +12,7 @@ open class MerknadBuilder {
         private set
     var merknadstype: MerknadsType? = null
         private set
-    var merknadsDato: ZonedDateTime = ZonedDateTime.now()
+    var merknadsDato: ZonedDateTime? = null
         private set
     var merknadRegistrertAv: String? = null
         private set
@@ -28,10 +28,10 @@ open class MerknadBuilder {
 
     open fun build() : Merknad {
         return Merknad().also {
-            it.systemID = systemID?.build() ?: throw IllegalStateException("SystemID er påkrevd for Klasse")
+            it.systemID = systemID?.build()
             it.merknadstekst = checkNotNull(merknadstekst) {"Merknadstekst er påkrevd for Klasse"}
             it.merknadstype = merknadstype?.value
-            it.merknadsdato = merknadsDato
+            it.merknadsdato = checkNotNull(merknadsDato) {"Merknadsdato er påkrevd fro Merknad"}
             it.merknadRegistrertAv = checkNotNull(merknadRegistrertAv) {"MerknadRegistrertAv er påkrevd for klasse"}
             it.skjermetObjekt = skjermetObjekt
         }

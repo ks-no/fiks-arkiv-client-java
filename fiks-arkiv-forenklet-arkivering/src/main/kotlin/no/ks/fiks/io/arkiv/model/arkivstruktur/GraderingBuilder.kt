@@ -7,7 +7,7 @@ import java.time.ZonedDateTime
 class GraderingBuilder {
     var grad: GradType? = null
         private set
-    var graderingsdato: ZonedDateTime = ZonedDateTime.now()
+    var graderingsdato: ZonedDateTime? = null
         private set
     var gradertAv: String? = null
         private set
@@ -25,7 +25,7 @@ class GraderingBuilder {
     fun build() : Gradering {
         return Gradering().also {
             it.grad = grad?.value ?: throw IllegalStateException("Grad er påkrevd for Gradering")
-            it.graderingsdato = graderingsdato
+            it.graderingsdato = checkNotNull(graderingsdato) {"Graderingsdato er påkrevd for Gradering"}
             it.gradertAv = checkNotNull(gradertAv) {"GradertAv er påkrevd for Gradering"}
             it.nedgraderingsdato = nedgraderingsdato
             it.nedgradertAv = nedgradertAv

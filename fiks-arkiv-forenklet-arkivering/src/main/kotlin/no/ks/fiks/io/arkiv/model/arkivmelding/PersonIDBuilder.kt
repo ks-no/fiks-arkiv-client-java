@@ -14,7 +14,7 @@ class PersonIDBuilder {
 
     fun buildApiModel(): PersonID {
         return PersonID().also {
-            it.identifikator = identifikator
+            it.identifikator = checkNotNull(identifikator) { "Identifikator er påkrevd for PersonID" }
             it.landkode = landkode
         }
     }

@@ -1,10 +1,11 @@
-package no.ks.fiks.io.arkiv.model.arkivstruktur
+package no.ks.fiks.io.arkiv.model.arkivmelding
 
+import no.ks.fiks.io.arkiv.model.arkivstruktur.*
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.*
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Dokumentbeskrivelse
+import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Dokumentbeskrivelse
 import java.time.ZonedDateTime
 
-class DokumentbeskrivelseBuilder {
+open class DokumentbeskrivelseBuilder {
     var systemID: SystemIDBuilder? = null
         private set
     var dokumentType: DokumentType? = null
@@ -25,9 +26,9 @@ class DokumentbeskrivelseBuilder {
         private set
     var oppbevaringssted: String? = null
         private set
-    var referanseArkivDeler: List<String> = ArrayList()
+    var arkivdel: KodeBuilder? = null
         private set
-    var tilknyttetRegistreringSom: TilknyttetRegistreringSomType = TilknyttetRegistreringSomType.HOVEDDOKUMENT
+    var tilknyttetRegistreringSom: TilknyttetRegistreringSomType? = null
         private set
     var dokumentnummer: Long? = null
         private set
@@ -64,7 +65,7 @@ class DokumentbeskrivelseBuilder {
     fun opprettetAv(opprettetAv: String) = apply { this.opprettetAv = opprettetAv }
     fun dokumentmedium(dokumentmedium: DokumentmediumType) = apply { this.dokumentmedium = dokumentmedium }
     fun oppbevaringssted(oppbevaringssted: String) = apply { this.oppbevaringssted = oppbevaringssted }
-    fun referanseArkivDeler(referanseArkivDeler: List<String>) = apply { this.referanseArkivDeler = referanseArkivDeler }
+    fun arkivdel(arkivdel: KodeBuilder) = apply { this.arkivdel = arkivdel }
     fun tilknyttetRegistreringSom(tilknyttetRegistreringSom: TilknyttetRegistreringSomType) = apply { this.tilknyttetRegistreringSom = tilknyttetRegistreringSom }
     fun dokumentnummer(dokumentnummer: Long) = apply { this.dokumentnummer = dokumentnummer }
     fun tilknyttetDato(tilknyttetDato: ZonedDateTime) = apply { this.tilknyttetDato = tilknyttetDato }
@@ -81,29 +82,25 @@ class DokumentbeskrivelseBuilder {
 
     fun build() : Dokumentbeskrivelse {
         return Dokumentbeskrivelse().also {
-            it.systemID = systemID?.build() ?: throw IllegalStateException("SystemID er påkrevd for Dokumentbeskrivelse")
+            it.systemID = systemID?.build()
             it.dokumenttype = dokumentType?.value ?: throw IllegalStateException("DokumentType er påkrevd for Dokumentbeskrivelse")
             it.dokumentstatus = dokumentStatus?.value ?: throw IllegalStateException("DokumentStatus er påkrevd for Dokumentbeskrivelse")
             it.tittel = checkNotNull(tittel) {"Tittel er påkrevd for Dokumentbeskrivelse"}
             it.beskrivelse = beskrivelse
             it.forfatters.addAll(forfattere)
             it.opprettetDato = opprettetDato
-            it.opprettetAv = checkNotNull(opprettetAv) {"OpprettetAv er påkrevd for Dokumentbeskrivelse"}
+            it.opprettetAv = opprettetAv
             it.dokumentmedium = dokumentmedium?.value
             it.oppbevaringssted = oppbevaringssted
-            it.referanseArkivdels.addAll(referanseArkivDeler)
-            it.tilknyttetRegistreringSom = tilknyttetRegistreringSom.value
-            it.dokumentnummer = dokumentnummer?.toBigInteger() ?: throw IllegalStateException("Dokumentnummer er påkrevd for Dokumentbeskrivelse")
+            it.arkivdel = arkivdel?.build()
+            it.tilknyttetRegistreringSom = tilknyttetRegistreringSom?.value
+            it.dokumentnummer = dokumentnummer?.toBigInteger()
             it.tilknyttetDato = tilknyttetDato
-            it.tilknyttetAv = checkNotNull(tilknyttetAv)
+            it.tilknyttetAv = tilknyttetAv
             it.parts.addAll(parts.map { p -> p.build() }.toList())
             it.merknads.addAll(merknader.map { m -> m.build() }.toList())
-            it.kassasjon = kassasjon?.build()
-            it.utfoertKassasjon = utfoertKassasjon?.build()
-            it.sletting = sletting?.build()
             it.skjerming = skjerming?.build()
             it.gradering = gradering?.build()
-            it.elektroniskSignatur = elektroniskSignatur?.build()
             it.dokumentobjekts.addAll(dokumentobjekter.map { d -> d.build() }.toList())
         }
     }

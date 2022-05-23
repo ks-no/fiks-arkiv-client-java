@@ -13,7 +13,7 @@ class OrganisasjonsIDBuilder {
 
     fun buildApiModel(): OrganisasjonsID {
         return OrganisasjonsID().also {
-            it.identifikator = identifikator
+            it.identifikator = checkNotNull(identifikator) { "Identifikator er påkrevd for OrganisasjonsID" }
             it.landkode = landkode
         }
     }

@@ -1,9 +1,10 @@
-package no.ks.fiks.io.arkiv.model.arkivstruktur
+package no.ks.fiks.io.arkiv.model.arkivmelding
 
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.PartRolleType
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Part
+import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Part
 
-open class PartBuilder {
+class PartBuilder {
+
     var partID: String? = null
         private set
     var partNavn: String? = null
@@ -24,6 +25,14 @@ open class PartBuilder {
         private set
     var kontaktperson: String? = null
         private set
+    var organisasjonID: OrganisasjonsIDBuilder? = null
+        private set
+    var personID: PersonIDBuilder? = null
+        private set
+    var skjermetObjekt: String? = null
+        private set
+    var personnavn: String? = null
+        private set
 
     fun partID(partID: String) = apply { this.partID = partID }
     fun partNavn(partNavn: String) = apply { this.partNavn = partNavn }
@@ -35,12 +44,16 @@ open class PartBuilder {
     fun epostadresse(epostadresse: String) = apply { this.epostadresse = epostadresse }
     fun telefonnumre(telefonnumre: List<String>) = apply { this.telefonnumre = telefonnumre }
     fun kontaktperson(kontaktperson: String) = apply { this.kontaktperson = kontaktperson }
+    fun organisasjonID(organisasjonID: OrganisasjonsIDBuilder) = apply { if(personID == null) this.organisasjonID = organisasjonID else throw IllegalArgumentException("ArkivmeldingPart kan ikke inneholde både personID og organisasjonsID") }
+    fun personID(personID: PersonIDBuilder) = apply { if(this.organisasjonID == null) this.personID = personID else throw IllegalArgumentException("ArkivmeldingPart kan ikke inneholde både personID og organisasjonsID") }
+    fun skjermetObjekt(skjermetObjekt: String) = apply { this.skjermetObjekt = skjermetObjekt }
+    fun personnavn(personnavn: String) = apply { this.personnavn = personnavn }
 
-    open fun build() : Part {
+    fun build() : Part {
         return Part().also {
             it.partID = partID
             it.partNavn = checkNotNull(partNavn) { feilmeldingPakrevdFelt("PartNavn") }
-            it.partRolle = partRolle?.value ?: throw IllegalStateException(feilmeldingPakrevdFelt("PartRolle"))
+            it.partRolle = partRolle?.value
             it.postadresses.addAll(postadresser)
             it.postnummer = postnummer
             it.poststed = poststed
@@ -48,6 +61,10 @@ open class PartBuilder {
             it.epostadresse = epostadresse
             it.telefonnummers.addAll(telefonnumre)
             it.kontaktperson = kontaktperson
+            it.organisasjonID = organisasjonID?.buildApiModel()
+            it.personID = personID?.buildApiModel()
+            it.skjermetObjekt = skjermetObjekt
+            it.personnavn = personnavn
         }
     }
 
