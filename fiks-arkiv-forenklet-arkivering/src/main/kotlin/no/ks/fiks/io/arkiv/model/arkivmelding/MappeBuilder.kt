@@ -15,7 +15,7 @@ open class MappeBuilder {
         private set
     var mappeId: String? = null
         private set
-    var referanseForeldermappe: SystemIDBuilder? = null
+    var referanseForeldermappe: ReferanseForelderMappeBuilder? = null
         private set
     var tittel: String? = null
         private set
@@ -62,7 +62,7 @@ open class MappeBuilder {
 
     fun systemID(systemID: SystemIDBuilder) = apply { this.systemID = systemID }
     fun mappeId(mappeId: String) = apply { this.mappeId = mappeId }
-    fun referanseForeldermappe(referanseForeldermappe: SystemIDBuilder) = apply { this.referanseForeldermappe = referanseForeldermappe }
+    fun referanseForeldermappe(referanseForeldermappe: ReferanseForelderMappeBuilder) = apply { this.referanseForeldermappe = referanseForeldermappe }
     fun tittel(tittel: String) = apply { this.tittel = tittel }
     fun offentligTittel(offentligTittel: String) = apply { this.offentligTittel = offentligTittel }
     fun beskrivelse(beskrivelse: String) = apply { this.beskrivelse =  beskrivelse }

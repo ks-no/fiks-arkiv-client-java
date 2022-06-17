@@ -2,17 +2,17 @@ package no.ks.fiks.io.arkiv.model
 
 import io.kotest.matchers.shouldBe
 import io.kotest.assertions.throwables.shouldNotThrowAny
+import mu.KotlinLogging
 import no.arkivverket.standarder.noark5.metadatakatalog.v2.Journalposttype
 import no.arkivverket.standarder.noark5.metadatakatalog.v2.Journalstatus
 import no.arkivverket.standarder.noark5.metadatakatalog.v2.Korrespondanseparttype
 import no.arkivverket.standarder.noark5.metadatakatalog.v2.SystemID
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Arkivmelding
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Journalpost
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Korrespondansepart
+import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.*
 import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.EksternNoekkel
 import org.junit.jupiter.api.Test
 import java.io.File
 import java.io.StringWriter
+import java.math.BigInteger
 import java.time.LocalDate
 import java.time.ZonedDateTime
 import java.util.*
@@ -23,6 +23,9 @@ import javax.xml.bind.JAXBContext
 import javax.xml.bind.JAXBElement
 import javax.xml.bind.Marshaller
 import javax.xml.namespace.QName
+
+
+private val logger = KotlinLogging.logger {}
 
 class ArkivmeldingTest {
 
@@ -46,9 +49,8 @@ class ArkivmeldingTest {
                 it.opprettetAv = "Ole"
                 it.arkivertAv = "Kari"
                 it.arkivertDato = arkivertDato
-                it.referanseForelderMappe = SystemID().also {
-                    it.label = "ReferanseMappe"
-                    it.value = UUID.randomUUID().toString()
+                it.referanseForelderMappe = ReferanseForelderMappe().also {
+                    it.saksnummer = Saksnummer().also { it.saksaar = BigInteger.valueOf(2022); it.sakssekvensnummer = BigInteger.valueOf(100) }
                 }
                 it.referanseEksternNoekkel = EksternNoekkel().also {
                     it.noekkel = "Nøkkel"
@@ -88,12 +90,12 @@ class ArkivmeldingTest {
             Arkivmelding::class.java,
             arkivmelding)
 
-        shouldNotThrowAny {
-            validator.validate(JAXBSource(jaxbContext, element))}
-
         val sw = StringWriter()
         val marshaller = jaxbContext.createMarshaller().also { it.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true) }
         marshaller.marshal(element, sw)
+
+        shouldNotThrowAny {
+            validator.validate(JAXBSource(jaxbContext, element))}
 
         val unmarshaller = jaxbContext.createUnmarshaller()
         val parsedArkivmelding: Arkivmelding = unmarshaller.unmarshal(sw.toString().byteInputStream()) as Arkivmelding
