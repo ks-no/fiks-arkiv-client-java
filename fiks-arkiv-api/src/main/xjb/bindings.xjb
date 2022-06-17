@@ -35,17 +35,17 @@
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../../target/schemas/v1/dokumentfilHent.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.innsyn.hent" />
+            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.innsyn.dokument" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../../target/schemas/v1/journalpostHent.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.innsyn.hent" />
+            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.innsyn.journalpost" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../../target/schemas/v1/mappeHent.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.innsyn.hent" />
+            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.innsyn.mappe" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../../target/schemas/v1/sok.xsd">

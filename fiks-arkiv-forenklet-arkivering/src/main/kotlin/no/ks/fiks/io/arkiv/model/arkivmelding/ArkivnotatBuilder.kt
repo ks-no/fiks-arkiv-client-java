@@ -5,6 +5,7 @@ import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.DokumentmediumType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KodeBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Arkivnotat
+import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.ReferanseForelderMappe
 import java.time.LocalDate
 import java.time.ZonedDateTime
 import java.util.*
@@ -22,7 +23,7 @@ class ArkivnotatBuilder : IRegistrering {
         private set
     var arkivertAv: String? = null
         private set
-    var referanseForelderMappe: SystemIDBuilder? = null
+    var referanseForelderMappe: ReferanseForelderMappeBuilder? = null
         private set
     var arkivdel: KodeBuilder? = null
         private set
@@ -86,7 +87,7 @@ class ArkivnotatBuilder : IRegistrering {
     fun opprettetAv(opprettetAv: String) = apply { this.opprettetAv = opprettetAv }
     fun arkivertDato(arkivertDato: ZonedDateTime) = apply { this.arkivertDato = arkivertDato }
     fun arkivertAv(arkivertAv: String) = apply { this.arkivertAv = arkivertAv }
-    fun referanseForelderMappe(referanseForelderMappe: SystemIDBuilder) = apply { if(arkivdel == null) this.referanseForelderMappe = referanseForelderMappe else throw IllegalArgumentException("ReferanseForelderMappe kan ikke settes i kombinasjon med ReferanseArkivdel") }
+    fun referanseForelderMappe(referanseForelderMappe: ReferanseForelderMappeBuilder) = apply { if(arkivdel == null) this.referanseForelderMappe = referanseForelderMappe else throw IllegalArgumentException("ReferanseForelderMappe kan ikke settes i kombinasjon med ReferanseArkivdel") }
     fun arkivdel(arkivdel: KodeBuilder) = apply { if(referanseForelderMappe == null) this.arkivdel = arkivdel else throw IllegalArgumentException("ReferanseArkivdel kan ikke settes i kombinasjon med ReferanseForelderMappe") }
     fun korrespondanseparts(korrespondanseparts: List<KorrespondansepartBuilder>) = apply { this.korrespondanseparts = korrespondanseparts }
     fun referanseEksternNoekkel(referanseEksternNoekkel: EksternNoekkelBuilder) = apply { this.referanseEksternNoekkel =  referanseEksternNoekkel}

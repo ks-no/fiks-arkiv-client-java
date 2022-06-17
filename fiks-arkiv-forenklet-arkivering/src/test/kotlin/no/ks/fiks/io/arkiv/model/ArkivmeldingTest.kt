@@ -8,6 +8,7 @@ import no.ks.fiks.io.arkiv.model.arkivmelding.RegistreringArkivmeldingBuilder
 import no.ks.fiks.io.arkiv.model.arkivstruktur.EksternNoekkelBuilder
 import no.ks.fiks.io.arkiv.model.arkivmelding.JournalpostBuilder
 import no.ks.fiks.io.arkiv.model.arkivmelding.KorrespondansepartBuilder
+import no.ks.fiks.io.arkiv.model.arkivmelding.ReferanseForelderMappeBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.JournalStatus
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.JournalpostType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KorrespondansepartType
@@ -49,7 +50,7 @@ class ArkivmeldingTest {
                 .opprettetAv("Tester")
                 .arkivertDato(ZonedDateTime.now())
                 .arkivertAv("Mr. Arkiv")
-                .referanseForelderMappe(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel"))
+                .referanseForelderMappe(ReferanseForelderMappeBuilder().systemID(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel")))
                 .referanseEksternNoekkel(EksternNoekkelBuilder().fagstystem("Faglig").noekkel("key"))
                 .korrespondanseparts(listOf(
                     KorrespondansepartBuilder()
@@ -99,7 +100,7 @@ class ArkivmeldingTest {
                 .opprettetAv("Tester")
                 .arkivertDato(ZonedDateTime.now())
                 .arkivertAv("Mr. Arkiv")
-                .referanseForelderMappe(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel"))
+                .referanseForelderMappe(ReferanseForelderMappeBuilder().systemID(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel")))
                 .referanseEksternNoekkel(EksternNoekkelBuilder().fagstystem("Faglig").noekkel("key"))
                 .korrespondanseparts(listOf(
                     KorrespondansepartBuilder()

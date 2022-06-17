@@ -37,7 +37,7 @@ open class JournalpostBuilder : IRegistrering {
         private set
     var arkivertAv: String? = null
         private set
-    var referanseForelderMappe: SystemIDBuilder? = null
+    var referanseForelderMappe: ReferanseForelderMappeBuilder? = null
         private set
     var korrespondanseparts: List<KorrespondansepartBuilder> = ArrayList()
         private set
@@ -105,7 +105,7 @@ open class JournalpostBuilder : IRegistrering {
     fun opprettetAv(opprettetAv: String) = apply { this.opprettetAv = opprettetAv }
     fun arkivertDato(arkivertDato: ZonedDateTime) = apply { this.arkivertDato = arkivertDato }
     fun arkivertAv(arkivertAv: String) = apply { this.arkivertAv = arkivertAv }
-    fun referanseForelderMappe(referanseForelderMappe: SystemIDBuilder) = apply { if(arkivdel == null) this.referanseForelderMappe = referanseForelderMappe else throw IllegalArgumentException("ReferanseForelderMappe kan ikke settes i kombinasjon med ReferanseArkivdel") }
+    fun referanseForelderMappe(referanseForelderMappe: ReferanseForelderMappeBuilder) = apply { if(arkivdel == null) this.referanseForelderMappe = referanseForelderMappe else throw IllegalArgumentException("ReferanseForelderMappe kan ikke settes i kombinasjon med ReferanseArkivdel") }
     fun arkivdel(arkivdel: KodeBuilder) = apply { if(referanseForelderMappe == null) this.arkivdel = arkivdel else throw IllegalArgumentException("ReferanseArkivdel kan ikke settes i kombinasjon med ReferanseForelderMappe") }
     fun korrespondanseparts(korrespondanseparts: List<KorrespondansepartBuilder>) = apply { this.korrespondanseparts = korrespondanseparts }
     fun journalstatus(journalstatus: JournalStatus) = apply { this.journalstatus = journalstatus }

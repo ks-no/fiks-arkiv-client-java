@@ -37,10 +37,10 @@ public class ArkivmeldingJavaTest {
                                 .value(UUID.randomUUID())
                                 .label("SystemId label"))
                         .mappeId("mappeId")
-                        .referanseForeldermappe(
+                        .referanseForeldermappe(new ReferanseForelderMappeBuilder().systemID(
                                 new SystemIDBuilder()
                                         .value(UUID.randomUUID())
-                                        .label("label"))
+                                        .label("label")))
                         .tittel("Mappe tittel");
 
         ArkivmeldingBuilder arkivmeldingBuilder = new MappeArkivmeldingBuilder()
