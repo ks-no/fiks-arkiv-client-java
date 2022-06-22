@@ -33,7 +33,7 @@
         <maven-enforcer-plugin.version>3.1.0</maven-enforcer-plugin.version>
         <junit.jupiter.version>5.8.2</junit.jupiter.version>
         <kotest.version>5.0.0</kotest.version>
-        <logback.version>1.2.10</logback.version>
+        <logback.version>1.2.11</logback.version>
         <kotlin-logging.version>2.1.23</kotlin-logging.version>
 
         <connection>scm:git:git@github.com:ks-no/fiks-arkiv-client-java.git</connection>
