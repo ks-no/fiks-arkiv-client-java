@@ -1,6 +1,7 @@
 package no.ks.fiks.io.arkiv.model.metadatakatalog.v2
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Merknadstype
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Merknadstype
+
 
 enum class MerknadsType(val value: Merknadstype) {
     MERKNAD_FRA_SAKSBEHANDLER(Merknadstype().also { it.kode = "MS"; it.beskrivelse = "Merknad fra saksbehandler" }),

@@ -1,8 +1,8 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
+import no.ks.fiks.arkiv.v1.arkivmelding.Merknad
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.MerknadsType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Merknad
 import java.time.ZonedDateTime
 
 open class MerknadBuilder {

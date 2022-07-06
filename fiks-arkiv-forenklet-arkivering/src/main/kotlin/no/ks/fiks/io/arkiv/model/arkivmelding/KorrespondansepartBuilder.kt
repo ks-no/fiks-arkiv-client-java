@@ -1,8 +1,8 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
+import no.ks.fiks.arkiv.v1.arkivmelding.Korrespondansepart
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KorrespondansepartType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Korrespondansepart
 
 open class KorrespondansepartBuilder {
 

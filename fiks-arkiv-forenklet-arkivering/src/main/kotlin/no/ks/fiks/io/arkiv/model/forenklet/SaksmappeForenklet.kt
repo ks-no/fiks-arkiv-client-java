@@ -1,9 +1,7 @@
 package no.ks.fiks.io.arkiv.model.forenklet
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Kode
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KodeBuilder
 import java.time.LocalDate
-import java.time.ZonedDateTime
 
 class SaksmappeForenklet {
 

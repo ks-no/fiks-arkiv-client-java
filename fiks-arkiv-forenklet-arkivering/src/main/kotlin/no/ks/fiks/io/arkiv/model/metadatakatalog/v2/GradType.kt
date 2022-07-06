@@ -1,6 +1,7 @@
 package no.ks.fiks.io.arkiv.model.metadatakatalog.v2
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Grad
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Grad
+
 
 enum class GradType(val value: Grad) {
     STRENGT_HEMMELIG(Grad().also { it.kode = "SH"; it.beskrivelse = "Strengt hemmelig" }),

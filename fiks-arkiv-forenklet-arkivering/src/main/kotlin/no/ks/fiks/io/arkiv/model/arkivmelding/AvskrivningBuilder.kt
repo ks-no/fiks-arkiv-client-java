@@ -1,9 +1,8 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
+import no.ks.fiks.arkiv.v1.arkivmelding.Avskrivning
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.AvskrivningsmaateType
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Avskrivning
 import java.time.LocalDate
-import java.time.ZonedDateTime
 
 class AvskrivningBuilder {
     var avskrivningsdato: LocalDate? = null

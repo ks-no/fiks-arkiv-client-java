@@ -56,7 +56,7 @@ public class ArkivmeldingJavaTest {
         System.out.println(xmlContent);
 
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/arkivmelding.xsd"));
+        Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.xsd"));
         Validator validator = schema.newValidator();
 
         Assertions.assertDoesNotThrow(() -> validator.validate(new JAXBSource(arkivmeldingBuilder.jaxbContext(), arkivmeldingBuilder.JAXBElement())));
@@ -93,7 +93,7 @@ public class ArkivmeldingJavaTest {
         System.out.println(xmlContent);
 
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/arkivmelding.xsd"));
+        Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.xsd"));
         Validator validator = schema.newValidator();
 
         Assertions.assertDoesNotThrow(() -> validator.validate(new JAXBSource(arkivmeldingBuilder.jaxbContext(), arkivmeldingBuilder.JAXBElement())));
@@ -164,7 +164,7 @@ public class ArkivmeldingJavaTest {
                 .meldingId(UUID.randomUUID().toString());
 
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/arkivmelding.xsd"));
+        Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.xsd"));
         Validator validator = schema.newValidator();
         Assertions.assertDoesNotThrow(() -> validator.validate(new JAXBSource(arkivmeldingBuilder.jaxbContext(), arkivmeldingBuilder.JAXBElement())));
     }
@@ -202,7 +202,7 @@ public class ArkivmeldingJavaTest {
                 .byggArkivmelding();
 
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/arkivmelding.xsd"));
+        Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.xsd"));
         Validator validator = schema.newValidator();
         Assertions.assertDoesNotThrow(() -> validator.validate(new JAXBSource(arkivmelding.jaxbContext(), arkivmelding.JAXBElement())));
     }

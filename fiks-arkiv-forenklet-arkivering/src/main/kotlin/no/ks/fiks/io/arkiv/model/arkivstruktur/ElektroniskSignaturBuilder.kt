@@ -1,10 +1,9 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
+import no.ks.fiks.arkiv.v1.arkivstruktur.ElektroniskSignatur
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.ElektroniskSignaturSikkerhetsnivaaType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.ElektroniskSignaturVerifisertType
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.ElektroniskSignatur
 import java.time.LocalDate
-import java.time.ZonedDateTime
 
 class ElektroniskSignaturBuilder {
     var elektroniskSignaturSikkerhetsnivaa: ElektroniskSignaturSikkerhetsnivaaType? = null

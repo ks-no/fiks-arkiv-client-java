@@ -1,7 +1,7 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
+import no.ks.fiks.arkiv.v1.arkivmelding.Gradering
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.GradType
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Gradering
 import java.time.ZonedDateTime
 
 class GraderingBuilder {

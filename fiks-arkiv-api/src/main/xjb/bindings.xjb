@@ -18,69 +18,75 @@
         <xjc:simple/>
     </jaxb:globalBindings>
 
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/metadatakatalog.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
     <jaxb:bindings schemaLocation="../../../target/schemas/v1/arkivstruktur.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur" />
+            <jaxb:package name="no.ks.fiks.arkiv.v1.arkivstruktur" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../../target/schemas/v1/arkivmelding.xsd">
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.arkivmelding" />
+            <jaxb:package name="no.ks.fiks.arkiv.v1.arkivmelding" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../../target/schemas/v1/arkivmeldingKvittering.xsd">
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.kvittering.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.arkivmeldingkvittering" />
+            <jaxb:package name="no.ks.fiks.arkiv.v1.arkivmelding.kvittering" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../../target/schemas/v1/dokumentfilHent.xsd">
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.innsyn.dokumentfil.hent.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.innsyn.dokument" />
+            <jaxb:package name="no.ks.fiks.arkiv.v1.innsyn.dokument" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../../target/schemas/v1/journalpostHent.xsd">
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.innsyn.journalpost.hent.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.innsyn.journalpost" />
+            <jaxb:package name="no.ks.fiks.arkiv.v1.innsyn.journalpost" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../../target/schemas/v1/mappeHent.xsd">
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.innsyn.mappe.hent.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.innsyn.mappe" />
+            <jaxb:package name="no.ks.fiks.arkiv.v1.innsyn.mappe" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../../target/schemas/v1/sok.xsd">
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.innsyn.sok.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.innsyn.sok" />
+            <jaxb:package name="no.ks.fiks.arkiv.v1.innsyn.sok" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../../target/schemas/v1/sokeresultatMinimum.xsd">
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.innsyn.sok.resultat.minimum.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.innsyn.sok" />
+            <jaxb:package name="no.ks.fiks.arkiv.v1.innsyn.sok" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../../target/schemas/v1/arkivstrukturNoekler.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.nokler" />
+            <jaxb:package name="no.ks.fiks.arkiv.v1.arkivstruktur.nokler" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../../target/schemas/v1/arkivstrukturMinimum.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.minimum" />
+            <jaxb:package name="no.ks.fiks.arkiv.v1.arkivstruktur.minimum" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../../target/schemas/v1/serverfeil.xsd">
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.feilmelding.serverfeil.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.feilmelding" />
+            <jaxb:package name="no.ks.fiks.arkiv.v1.feilmelding" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../../target/schemas/v1/ikkefunnet.xsd">
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.feilmelding.ikkefunnet.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.feilmelding" />
+            <jaxb:package name="no.ks.fiks.arkiv.v1.feilmelding" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../../target/schemas/v1/ugyldigforespoersel.xsd">
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.feilmelding.ugyldigforespoersel.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="no.ks.fiks.io.arkiv.v1.client.models.feilmelding" />
+            <jaxb:package name="no.ks.fiks.arkiv.v1.feilmelding" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
 </jaxb:bindings>

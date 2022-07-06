@@ -1,11 +1,10 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
+import no.ks.fiks.arkiv.v1.arkivmelding.Saksmappe
 import no.ks.fiks.io.arkiv.model.arkivstruktur.AdresseBuilder
 import no.ks.fiks.io.arkiv.model.arkivstruktur.PresedensBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SaksstatusType
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Saksmappe
 import java.time.LocalDate
-import java.time.ZonedDateTime
 
 /**
  * Mappe er det overordnede objektet for å samle saker i. Det er mulig å ha mapper i mapper.

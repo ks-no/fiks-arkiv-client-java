@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.metadatakatalog.v2
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Tilgangsrestriksjon
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Tilgangsrestriksjon
 
 
 enum class TilgangrestriksjonType(val value: Tilgangsrestriksjon) {

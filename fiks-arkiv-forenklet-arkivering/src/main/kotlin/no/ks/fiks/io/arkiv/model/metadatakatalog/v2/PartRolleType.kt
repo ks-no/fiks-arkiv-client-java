@@ -1,6 +1,7 @@
 package no.ks.fiks.io.arkiv.model.metadatakatalog.v2
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.PartRolle
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.PartRolle
+
 
 enum class PartRolleType(val value: PartRolle) {
     KLIENT(PartRolle().also { it.kode = "K"; it.beskrivelse = "Klient" }),

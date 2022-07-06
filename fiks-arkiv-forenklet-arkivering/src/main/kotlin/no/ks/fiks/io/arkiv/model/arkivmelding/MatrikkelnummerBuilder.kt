@@ -1,6 +1,7 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Matrikkelnummer
+import no.ks.fiks.arkiv.v1.arkivmelding.Matrikkelnummer
+
 
 class MatrikkelnummerBuilder {
     var kommunenummer: String? = null

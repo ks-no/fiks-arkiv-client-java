@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.metadatakatalog.v2
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.SystemID
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.SystemID
 import java.util.*
 
 class SystemIDBuilder {

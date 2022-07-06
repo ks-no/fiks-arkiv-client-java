@@ -1,6 +1,7 @@
 package no.ks.fiks.io.arkiv.model.metadatakatalog.v2
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Korrespondanseparttype
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Korrespondanseparttype
+
 
 enum class KorrespondansepartType(val value: Korrespondanseparttype) {
     AVSENDER(Korrespondanseparttype().also { it.kode = "EA"; it.beskrivelse = "Avsender" }),

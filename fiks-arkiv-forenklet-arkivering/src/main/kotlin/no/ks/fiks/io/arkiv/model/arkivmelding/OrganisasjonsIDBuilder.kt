@@ -1,6 +1,7 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.OrganisasjonsID
+import no.ks.fiks.arkiv.v1.arkivmelding.OrganisasjonsID
+
 
 class OrganisasjonsIDBuilder {
     var identifikator: String? = null

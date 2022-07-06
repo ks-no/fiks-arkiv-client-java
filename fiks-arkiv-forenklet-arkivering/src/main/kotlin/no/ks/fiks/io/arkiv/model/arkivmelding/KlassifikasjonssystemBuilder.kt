@@ -1,8 +1,8 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
+import no.ks.fiks.arkiv.v1.arkivmelding.Klassifikasjonssystem
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KlassifikasjonsType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Klassifikasjonssystem
 import java.time.ZonedDateTime
 
 class KlassifikasjonssystemBuilder {

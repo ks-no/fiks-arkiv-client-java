@@ -1,6 +1,7 @@
 package no.ks.fiks.io.arkiv.model.metadatakatalog.v2
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Klassifikasjonstype
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Klassifikasjonstype
+
 
 enum class KlassifikasjonsType(val value: Klassifikasjonstype) {
     GARDS_OG_BRUKSNUMMER(Klassifikasjonstype().also { it.kode = "GBN"; it.beskrivelse = "Gårds- og bruksnummer" }),

@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.metadatakatalog.v2
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.TilknyttetRegistreringSom
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.TilknyttetRegistreringSom
 
 enum class TilknyttetRegistreringSomType(val value: TilknyttetRegistreringSom) {
     HOVEDDOKUMENT(TilknyttetRegistreringSom().also { it.kode = "H"; it.beskrivelse = "Hoveddokument" }),

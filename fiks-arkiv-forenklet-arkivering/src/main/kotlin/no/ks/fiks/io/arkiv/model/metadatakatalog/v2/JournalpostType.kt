@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.metadatakatalog.v2
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Journalposttype
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Journalposttype
 
 enum class JournalpostType(val value: Journalposttype) {
     INNGAENDE_DOKUMENT(Journalposttype().also { it.kode = "I"; it.beskrivelse = "Inngående dokument" }),

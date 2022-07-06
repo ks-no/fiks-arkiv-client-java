@@ -1,7 +1,6 @@
 package no.ks.fiks.io.arkiv.model.metadatakatalog.v2
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Kode
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.SystemID
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Kode
 import java.util.*
 
 class KodeBuilder {

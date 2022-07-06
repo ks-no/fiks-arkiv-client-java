@@ -1,6 +1,7 @@
 package no.ks.fiks.io.arkiv.model.metadatakatalog.v2
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Kassasjonsvedtak
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Kassasjonsvedtak
+
 
 enum class KassasjonsvedtakType(val value: Kassasjonsvedtak) {
     BEVARES(Kassasjonsvedtak().also { it.kode = "B"; it.beskrivelse = "Bevares" }),

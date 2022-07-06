@@ -79,7 +79,7 @@ class ArkivmeldingTest {
         xmlContent shouldContain "<mottattDato>2022-10-12T10:15:11.0000001+02:00</mottattDato>"
 
         val schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
-        val schema = schemaFactory.newSchema(File("target/schemas/v1/arkivmelding.xsd"))
+        val schema = schemaFactory.newSchema(File("target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.xsd"))
         val validator = schema.newValidator()
 
         shouldNotThrowAny {

@@ -1,6 +1,7 @@
 package no.ks.fiks.io.arkiv.model.metadatakatalog.v2
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Dokumentmedium
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Dokumentmedium
+
 
 enum class DokumentmediumType(val value: Dokumentmedium) {
     FYSISK_MEDIUM(Dokumentmedium().also { it.kode = "F"; it.beskrivelse = "Fysisk medium" }),

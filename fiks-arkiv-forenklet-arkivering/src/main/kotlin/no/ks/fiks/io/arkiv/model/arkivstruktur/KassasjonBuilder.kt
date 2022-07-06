@@ -1,9 +1,8 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
+import no.ks.fiks.arkiv.v1.arkivmelding.Kassasjon
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KassasjonsvedtakType
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Kassasjon
 import java.time.LocalDate
-import java.time.ZonedDateTime
 
 class KassasjonBuilder {
     var kassasjonsvedtak: KassasjonsvedtakType? = null

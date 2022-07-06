@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Konvertering
+import no.ks.fiks.arkiv.v1.arkivstruktur.Konvertering
 import java.time.ZonedDateTime
 
 class KonverteringBuilder {

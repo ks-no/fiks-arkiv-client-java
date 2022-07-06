@@ -2,13 +2,13 @@ package no.ks.fiks.io.arkiv.model
 
 import io.kotest.matchers.shouldBe
 import io.kotest.assertions.throwables.shouldNotThrowAny
-import mu.KotlinLogging
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Journalposttype
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Journalstatus
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Korrespondanseparttype
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.SystemID
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.*
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.EksternNoekkel
+import no.ks.fiks.arkiv.v1.arkivmelding.Arkivmelding
+import no.ks.fiks.arkiv.v1.arkivmelding.*
+import no.ks.fiks.arkiv.v1.arkivmelding.EksternNoekkel
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Journalposttype
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Journalstatus
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Korrespondanseparttype
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.SystemID
 import org.junit.jupiter.api.Test
 import java.io.File
 import java.io.StringWriter
@@ -24,8 +24,6 @@ import javax.xml.bind.JAXBElement
 import javax.xml.bind.Marshaller
 import javax.xml.namespace.QName
 
-
-private val logger = KotlinLogging.logger {}
 
 class ArkivmeldingTest {
 
@@ -82,11 +80,11 @@ class ArkivmeldingTest {
 
         val jaxbContext = JAXBContext.newInstance(Arkivmelding::class.java)
         val schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
-        val schema = schemaFactory.newSchema(File("target/schemas/v1/arkivmelding.xsd"))
+        val schema = schemaFactory.newSchema(File("target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.xsd"))
         val validator = schema.newValidator()
 
         val element = JAXBElement(
-            QName("http://www.arkivverket.no/standarder/noark5/arkivmelding/v2", "arkivmelding"),
+            QName("https://ks-no.github.io/standarder/fiks-protokoll/fiks-arkiv/arkivmelding/v1", "arkivmelding"),
             Arkivmelding::class.java,
             arkivmelding)
 

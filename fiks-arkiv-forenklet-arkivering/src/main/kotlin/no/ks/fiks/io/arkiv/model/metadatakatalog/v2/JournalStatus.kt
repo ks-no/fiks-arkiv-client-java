@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.metadatakatalog.v2
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Journalstatus
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Journalstatus
 
 enum class JournalStatus(val value: Journalstatus) {
     JOURNALFORT(Journalstatus().also { it.kode = "J"; it.beskrivelse = "Journalført" }),

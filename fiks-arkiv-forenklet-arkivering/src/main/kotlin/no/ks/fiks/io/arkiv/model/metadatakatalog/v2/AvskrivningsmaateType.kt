@@ -1,6 +1,7 @@
 package no.ks.fiks.io.arkiv.model.metadatakatalog.v2
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Avskrivningsmaate
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Avskrivningsmaate
+
 
 enum class AvskrivningsmaateType(val value: Avskrivningsmaate) {
     BESVART_MED_BREV(Avskrivningsmaate().also { it.kode = "BU"; it.beskrivelse = "Besvart med brev" }),

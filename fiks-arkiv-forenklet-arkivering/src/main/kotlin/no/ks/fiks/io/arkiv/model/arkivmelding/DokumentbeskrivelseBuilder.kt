@@ -1,8 +1,8 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
+import no.ks.fiks.arkiv.v1.arkivmelding.Dokumentbeskrivelse
 import no.ks.fiks.io.arkiv.model.arkivstruktur.*
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.*
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Dokumentbeskrivelse
 import java.time.ZonedDateTime
 
 open class DokumentbeskrivelseBuilder {

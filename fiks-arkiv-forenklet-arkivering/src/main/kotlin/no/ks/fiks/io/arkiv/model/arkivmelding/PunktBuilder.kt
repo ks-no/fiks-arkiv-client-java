@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Punkt
+import no.ks.fiks.arkiv.v1.arkivmelding.Punkt
 
 class PunktBuilder {
     var koordinatsystem: String? = null

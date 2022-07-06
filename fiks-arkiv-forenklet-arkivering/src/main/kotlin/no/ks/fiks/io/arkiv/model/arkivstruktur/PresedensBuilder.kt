@@ -1,7 +1,7 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
+import no.ks.fiks.arkiv.v1.arkivmelding.Presedens
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.PresedensStatusType
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Presedens
 import java.time.LocalDate
 import java.time.ZonedDateTime
 

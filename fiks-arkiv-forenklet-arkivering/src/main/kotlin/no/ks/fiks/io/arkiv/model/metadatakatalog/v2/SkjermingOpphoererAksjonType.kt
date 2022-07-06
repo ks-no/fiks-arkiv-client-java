@@ -1,6 +1,7 @@
 package no.ks.fiks.io.arkiv.model.metadatakatalog.v2
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Kode
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Kode
+
 
 enum class SkjermingOpphoererAksjonType(val value: Kode) {
     AVGRADERES(Kode().also { it.kode = "A"; it.beskrivelse = "Avgraderes ved første kjøring av funksjon for avgradering etter at avgraderingstidspunktet er nådd" }),

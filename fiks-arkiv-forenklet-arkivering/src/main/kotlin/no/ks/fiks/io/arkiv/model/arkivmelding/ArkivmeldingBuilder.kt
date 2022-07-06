@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Arkivmelding
+import no.ks.fiks.arkiv.v1.arkivmelding.Arkivmelding
 import org.w3c.dom.Node
 import org.xml.sax.ContentHandler
 import java.io.File
@@ -74,7 +74,7 @@ open class ArkivmeldingBuilder {
 
     fun JAXBElement(): JAXBElement<Arkivmelding> {
         return JAXBElement(
-            QName("http://www.arkivverket.no/standarder/noark5/arkivmelding/v2", "arkivmelding"),
+            QName("https://ks-no.github.io/standarder/fiks-protokoll/fiks-arkiv/arkivmelding/v1", "arkivmelding"),
             Arkivmelding::class.java,
             build()
         )

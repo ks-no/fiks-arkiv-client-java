@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.metadatakatalog.v2
 
-import no.arkivverket.standarder.noark5.metadatakatalog.v2.Dokumenttype
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Dokumenttype
 
 
 enum class DokumentType(val value: Dokumenttype) {

@@ -1,11 +1,9 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
-import no.ks.fiks.io.arkiv.model.arkivstruktur.ElektroniskSignaturBuilder
-import no.ks.fiks.io.arkiv.model.arkivstruktur.KonverteringBuilder
+import no.ks.fiks.arkiv.v1.arkivmelding.Dokumentobjekt
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.FormatType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.VariantFormatType
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.Dokumentobjekt
 import java.time.ZonedDateTime
 
 class DokumentObjektBuilder {

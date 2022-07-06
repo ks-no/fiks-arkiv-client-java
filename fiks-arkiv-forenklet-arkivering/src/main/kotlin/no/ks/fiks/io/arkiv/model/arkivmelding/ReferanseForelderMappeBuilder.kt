@@ -1,8 +1,8 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
+import no.ks.fiks.arkiv.v1.arkivmelding.ReferanseForelderMappe
 import no.ks.fiks.io.arkiv.model.arkivstruktur.EksternNoekkelBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
-import no.ks.fiks.io.arkiv.v1.client.models.arkivmelding.ReferanseForelderMappe
 
 class ReferanseForelderMappeBuilder {
     var systemID: SystemIDBuilder? = null

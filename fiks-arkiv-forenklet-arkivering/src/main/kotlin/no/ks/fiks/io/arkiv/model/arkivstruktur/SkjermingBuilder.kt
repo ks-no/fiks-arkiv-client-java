@@ -1,10 +1,9 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
+import no.ks.fiks.arkiv.v1.arkivmelding.Skjerming
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SkjermingOpphoererAksjonType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.TilgangrestriksjonType
-import no.ks.fiks.io.arkiv.v1.client.models.arkivstruktur.Skjerming
 import java.time.LocalDate
-import java.time.ZonedDateTime
 
 open class SkjermingBuilder {
     var tilgangsrestriksjon: TilgangrestriksjonType? = null
