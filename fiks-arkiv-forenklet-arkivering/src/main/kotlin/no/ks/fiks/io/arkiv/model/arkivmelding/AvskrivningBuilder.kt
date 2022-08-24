@@ -1,6 +1,7 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
 import no.ks.fiks.arkiv.v1.arkivmelding.Avskrivning
+import no.ks.fiks.arkiv.v1.arkivmelding.ReferanseJournalpost
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.AvskrivningsmaateType
 import java.time.LocalDate
 
@@ -11,13 +12,13 @@ class AvskrivningBuilder {
         private set
     var avskrivningsmaate: AvskrivningsmaateType? = null
         private set
-    var referanseAvskrivesAvJournalpost: String? = null
+    var referanseAvskrivesAvJournalpost: ReferanseJournalpost? = null
         private set
 
     fun avskrivningsdato(avskrivningsdato: LocalDate) = apply { this.avskrivningsdato = avskrivningsdato }
     fun avskrevetAv(avskrevetAv: String) = apply { this.avskrevetAv = avskrevetAv }
     fun avskrivningsmaate(avskrivningsmaate: AvskrivningsmaateType) = apply { this.avskrivningsmaate =  avskrivningsmaate }
-    fun referanseAvskrivesAvJournalpost(referanseAvskrivesAvJournalpost: String) = apply { this.referanseAvskrivesAvJournalpost = referanseAvskrivesAvJournalpost }
+    fun referanseAvskrivesAvJournalpost(referanseAvskrivesAvJournalpost: ReferanseJournalpost) = apply { this.referanseAvskrivesAvJournalpost = referanseAvskrivesAvJournalpost }
 
     fun build(): Avskrivning {
         return Avskrivning().also {

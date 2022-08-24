@@ -1,6 +1,7 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
-import no.ks.fiks.arkiv.v1.arkivmelding.Saksnummer
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Saksnummer
+
 
 class SaksnummerBuilder {
     var saksaar: Long? = null

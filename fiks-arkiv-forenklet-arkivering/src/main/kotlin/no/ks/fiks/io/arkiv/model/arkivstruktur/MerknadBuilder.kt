@@ -6,8 +6,6 @@ import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import java.time.ZonedDateTime
 
 open class MerknadBuilder {
-    var systemID: SystemIDBuilder? = null
-        private set
     var merknadstekst: String? = null
         private set
     var merknadstype: MerknadsType? = null
@@ -20,7 +18,6 @@ open class MerknadBuilder {
         private set
 
 
-    fun systemID(systemID: SystemIDBuilder) = apply { this.systemID = systemID }
     fun merknadstekst(merknadstekst: String) = apply { this.merknadstekst = merknadstekst }
     fun merknadstype(merknadstype: MerknadsType) = apply { this.merknadstype = merknadstype }
     fun merknadRegistrertAv(merknadRegistrertAv: String) = apply { this.merknadRegistrertAv = merknadRegistrertAv }
@@ -28,7 +25,6 @@ open class MerknadBuilder {
 
     open fun build() : Merknad {
         return Merknad().also {
-            it.systemID = systemID?.build()
             it.merknadstekst = checkNotNull(merknadstekst) {"Merknadstekst er påkrevd for Klasse"}
             it.merknadstype = merknadstype?.value
             it.merknadsdato = checkNotNull(merknadsDato) {"Merknadsdato er påkrevd fro Merknad"}

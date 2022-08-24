@@ -3,12 +3,10 @@ package no.ks.fiks.io.arkiv.model
 import io.kotest.matchers.shouldBe
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import no.ks.fiks.arkiv.v1.arkivmelding.Arkivmelding
-import no.ks.fiks.arkiv.v1.arkivmelding.*
-import no.ks.fiks.arkiv.v1.arkivmelding.EksternNoekkel
-import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Journalposttype
-import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Journalstatus
-import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Korrespondanseparttype
-import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.SystemID
+import no.ks.fiks.arkiv.v1.arkivmelding.Journalpost
+import no.ks.fiks.arkiv.v1.arkivmelding.Korrespondansepart
+import no.ks.fiks.arkiv.v1.arkivmelding.ReferanseForelderMappe
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.*
 import org.junit.jupiter.api.Test
 import java.io.File
 import java.io.StringWriter

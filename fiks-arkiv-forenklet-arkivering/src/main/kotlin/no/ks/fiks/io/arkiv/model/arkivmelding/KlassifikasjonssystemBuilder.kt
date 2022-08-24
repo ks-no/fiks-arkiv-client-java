@@ -6,8 +6,6 @@ import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import java.time.ZonedDateTime
 
 class KlassifikasjonssystemBuilder {
-    var systemID: SystemIDBuilder? = null
-        private set
     var klassifikasjonstype: KlassifikasjonsType? = null
         private set
     var tittel: String? = null
@@ -25,7 +23,6 @@ class KlassifikasjonssystemBuilder {
     var klasse: List<KlasseBuilder> = ArrayList()
         private set
 
-    fun systemID(systemID: SystemIDBuilder) = apply { this.systemID = systemID }
     fun klassifikasjonstype(klassifikasjonstype: KlassifikasjonsType) = apply { this.klassifikasjonstype = klassifikasjonstype }
     fun tittel(tittel: String) = apply { this.tittel = tittel }
     fun beskrivelse(beskrivelse: String) = apply { this.beskrivelse = beskrivelse }
@@ -37,7 +34,6 @@ class KlassifikasjonssystemBuilder {
 
     fun build() : Klassifikasjonssystem {
         return Klassifikasjonssystem().also {
-            it.systemID = systemID?.build()
             it.klassifikasjonstype = klassifikasjonstype?.value
             it.tittel = checkNotNull(tittel) {"Tittel er påkrevd for Klassifikasjonsystem"}
             it.beskrivelse = beskrivelse

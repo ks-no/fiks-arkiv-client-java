@@ -4,8 +4,6 @@ import no.ks.fiks.arkiv.v1.arkivmelding.Klassifikasjon
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 
 class KlassifikasjonBuilder {
-    var systemID: SystemIDBuilder? = null
-        private set
     var klassifikasjonssystem: String? = null
         private set
     var tittel: String? = null
@@ -15,7 +13,6 @@ class KlassifikasjonBuilder {
     var skjermetObjekt: String? = null
         private set
 
-    fun systemID(systemID: SystemIDBuilder) = apply { this.systemID = systemID }
     fun klassifikasjonssystem(klassifikasjonssystem: String) = apply { this.klassifikasjonssystem = klassifikasjonssystem }
     fun klasseID(klasseID: String) = apply { this.klasseID = klasseID }
     fun skjermetObjekt(skjermetObjekt: String) = apply { this.skjermetObjekt = skjermetObjekt }
@@ -24,7 +21,6 @@ class KlassifikasjonBuilder {
 
     fun build() : Klassifikasjon {
         return Klassifikasjon().also {
-            it.systemID = systemID?.build()
             it.klassifikasjonssystem = checkNotNull(klassifikasjonssystem) {"Klassifikasjonssystem er påkrevd for Klassifikasjon"}
             it.tittel = checkNotNull(tittel) {"Tittel er påkrevd for Klassifikasjon"}
             it.klasseID = klasseID
