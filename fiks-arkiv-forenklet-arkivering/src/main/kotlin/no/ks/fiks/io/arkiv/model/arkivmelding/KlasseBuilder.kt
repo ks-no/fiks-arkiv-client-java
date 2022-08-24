@@ -8,8 +8,6 @@ import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import java.time.ZonedDateTime
 
 open class KlasseBuilder {
-    var systemID: SystemIDBuilder? = null
-        private set
     var klasseID: String? = null
         private set
     var tittel: String? = null
@@ -33,7 +31,6 @@ open class KlasseBuilder {
     var gradering: GraderingBuilder? = null
         private set
 
-    fun systemID(systemID: SystemIDBuilder) = apply { this.systemID = systemID }
     fun klasseID(klasseID: String) = apply { this.klasseID = klasseID }
     fun tittel(tittel: String) = apply { this.tittel = tittel }
     fun beskrivelse(beskrivelse: String) = apply { this.beskrivelse = beskrivelse }
@@ -48,7 +45,6 @@ open class KlasseBuilder {
 
     open fun build() : Klasse {
         return Klasse().also {
-            it.systemID = systemID?.build()
             it.klasseID = klasseID
             it.tittel = checkNotNull(tittel) {"Tittel er påkrevd for Klasse"}
             it.beskrivelse = beskrivelse

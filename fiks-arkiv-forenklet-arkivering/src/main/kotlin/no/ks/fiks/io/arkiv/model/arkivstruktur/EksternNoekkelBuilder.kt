@@ -1,6 +1,7 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
-import no.ks.fiks.arkiv.v1.arkivmelding.EksternNoekkel
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.EksternNoekkel
+
 
 class EksternNoekkelBuilder {
     var fagsystem: String? = null

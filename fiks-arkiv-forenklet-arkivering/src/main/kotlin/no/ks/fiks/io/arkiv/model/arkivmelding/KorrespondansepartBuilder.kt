@@ -6,8 +6,6 @@ import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 
 open class KorrespondansepartBuilder {
 
-    var systemID: SystemIDBuilder? = null
-        private set
     var korrespondansepartType: KorrespondansepartType? = null
         private set
     var korrespondansepartNavn: String? = null
@@ -43,7 +41,6 @@ open class KorrespondansepartBuilder {
     var personid: String? = null
         private set
 
-    fun systemID(systemID: SystemIDBuilder) = apply { this.systemID = systemID }
     fun korrespondansepartType(korrespondansepartType: KorrespondansepartType) = apply { this.korrespondansepartType = korrespondansepartType }
     fun korrespondansepartNavn(korrespondansepartNavn: String) = apply { this.korrespondansepartNavn = korrespondansepartNavn }
     fun postadresse(postadresse: List<String>) = apply { this.postadresse = postadresse }
@@ -64,7 +61,6 @@ open class KorrespondansepartBuilder {
 
     open fun build(): Korrespondansepart {
         return Korrespondansepart().also {
-            it.systemID = systemID?.build()
             it.korrespondanseparttype = korrespondansepartType?.value ?: throw IllegalStateException("Korrespondanseparttype er påkrevd for Korrespondansepart")
             it.korrespondansepartNavn = checkNotNull(korrespondansepartNavn) {"KorrespondansepartNavn er påkrevd for Korrespondansepart"}
             it.postadresses.addAll(postadresse)
