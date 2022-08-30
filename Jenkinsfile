@@ -100,24 +100,6 @@ pipeline {
                 }
             }
         }
-        stage('Sonar') {
-            when {
-                anyOf {
-                    branch 'master'
-                    branch 'main'
-                }
-            }
-            steps {
-                withSonarQubeEnv('SonarCloud') {
-                    rtMavenRun (
-                            pom: 'pom.xml',
-                            goals: '-B sonar:sonar',
-                            resolverId: "MAVEN_RESOLVER",
-                            opts: "-Dsonar.organization=ks-no")
-                }
-            }
-
-        }
 
         stage('Validate') {
             steps {
