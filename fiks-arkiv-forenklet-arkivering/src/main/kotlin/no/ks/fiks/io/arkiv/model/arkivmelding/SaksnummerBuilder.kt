@@ -4,18 +4,18 @@ import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Saksnummer
 
 
 class SaksnummerBuilder {
-    var saksaar: Long? = null
+    var saksaar: Int? = null
         private set
-    var sakssekvensnummer: Long? = null
+    var sakssekvensnummer: Int? = null
         private set
 
-    fun saksaar(saksaar: Long) = apply { this.saksaar = saksaar }
-    fun sakssekvensnummer(sakssekvensnummer: Long) = apply { this.sakssekvensnummer = sakssekvensnummer }
+    fun saksaar(saksaar: Int) = apply { this.saksaar = saksaar }
+    fun sakssekvensnummer(sakssekvensnummer: Int) = apply { this.sakssekvensnummer = sakssekvensnummer }
 
     fun build() : Saksnummer {
         return Saksnummer().also {
-            it.saksaar = saksaar?.toBigInteger()
-            it.sakssekvensnummer = sakssekvensnummer?.toBigInteger()
+            it.saksaar = saksaar ?: throw IllegalArgumentException("Saksnummer krever saksaar")
+            it.sakssekvensnummer = sakssekvensnummer ?: throw IllegalArgumentException("Saksnummer krever sakssekvensnummer")
         }
     }
 }

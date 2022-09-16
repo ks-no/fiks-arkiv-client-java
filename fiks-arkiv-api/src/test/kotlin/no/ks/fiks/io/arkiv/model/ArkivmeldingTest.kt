@@ -2,15 +2,12 @@ package no.ks.fiks.io.arkiv.model
 
 import io.kotest.matchers.shouldBe
 import io.kotest.assertions.throwables.shouldNotThrowAny
-import no.ks.fiks.arkiv.v1.arkivmelding.Arkivmelding
-import no.ks.fiks.arkiv.v1.arkivmelding.Journalpost
-import no.ks.fiks.arkiv.v1.arkivmelding.Korrespondansepart
-import no.ks.fiks.arkiv.v1.arkivmelding.ReferanseForelderMappe
+import no.ks.fiks.arkiv.v1.arkivmelding.*
+import no.ks.fiks.arkiv.v1.arkivmelding.ReferanseTilMappe
 import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.*
 import org.junit.jupiter.api.Test
 import java.io.File
 import java.io.StringWriter
-import java.math.BigInteger
 import java.time.LocalDate
 import java.time.ZonedDateTime
 import java.util.*
@@ -32,10 +29,30 @@ class ArkivmeldingTest {
 
         val arkivmelding = Arkivmelding().also {
             it.registrerings.addAll(listOf(Journalpost().also {
+                it.dokumentetsDato = journalDate
+                it.mottattDato = arkivertDato
+                it.sendtDato = arkivertDato
+                it.forfallsdato = journalDate
+                it.offentlighetsvurdertDato = journalDate
                 it.journaldato = journalDate
-                it.journalpostnummer = 5000.toBigInteger()
-                it.journalsekvensnummer = 1234.toBigInteger()
-                it.journalaar = 2022.toBigInteger()
+                it.utlaantDato = journalDate
+                it.journalenhet = "JournalEnhet"
+                it.avskrivningsdato = journalDate
+                it.dokumentflyts.addAll(listOf(Dokumentflyt().also {
+                    it.flytFra = "flytFra"
+                    it.flytMerknad = "flytMerknad"
+                    it.flytMottattDato = arkivertDato
+                    it.flytTil = "flytTil"
+                    it.flytStatus = FlytStatus().also {
+                        it.kode = "F"
+                        it.beskrivelse = "Beskrivelse"
+                    }
+                    it.flytSendtDato = arkivertDato
+                }))
+                it.antallVedlegg = 1
+                it.journalpostnummer = 5000
+                it.journalsekvensnummer = 1234
+                it.journalaar = 2022
                 it.systemID = SystemID().also {
                     it.label = "JournalId"
                     it.value = UUID.randomUUID().toString()
@@ -45,8 +62,8 @@ class ArkivmeldingTest {
                 it.opprettetAv = "Ole"
                 it.arkivertAv = "Kari"
                 it.arkivertDato = arkivertDato
-                it.referanseForelderMappe = ReferanseForelderMappe().also {
-                    it.saksnummer = Saksnummer().also { it.saksaar = BigInteger.valueOf(2022); it.sakssekvensnummer = BigInteger.valueOf(100) }
+                it.referanseForelderMappe = ReferanseTilMappe().also {
+                    it.saksnummer = Saksnummer().also { it.saksaar = 2022; it.sakssekvensnummer = 100 }
                 }
                 it.referanseEksternNoekkel = EksternNoekkel().also {
                     it.noekkel = "Nøkkel"
@@ -58,8 +75,8 @@ class ArkivmeldingTest {
                     it.postadresses.addAll(listOf("Gate 1"))
                     it.postnummer = "1234"
                     it.poststed = "Poststed"
-                    it.saksbehandler = "Saksbehandler"
-                    it.administrativEnhet = "administrasjonsenhet"
+                    it.saksbehandler = Saksbehandler().also { it.identifikator = "Saksbehandler"}
+                    it.administrativEnhet = AdministrativEnhet().also { it.identifikator = "administrasjonsenhet" }
                 }))
                 it.journalposttype = Journalposttype().also {
                     it.kode = "T"

@@ -24,6 +24,7 @@ class ArkivmeldingForenkletUtgaaende {
 
         val journalpost = nyUtgaaendeJournalpost?.let {
             val builder = JournalpostBuilder()
+                .avskrivningsdato(checkNotNull(it.avskrivningsdato) {"Avskrivningsdato er påkrevd for journalpost"} )
                 .journalposttype(JournalpostType.UTGAENDE_DOKUMENT)
                 .journalstatus(JournalStatus.JOURNALFORT)
             it.tittel?.let { tittel -> builder.tittel(tittel) }
@@ -68,7 +69,7 @@ class ArkivmeldingForenkletUtgaaende {
                 builder.dokumentbeskrivelser(builder.dokumentbeskrivelser + dokumentBuilder)
             }
 
-            builder.antallVedlegg(builder.dokumentbeskrivelser.size.toLong())
+            builder.antallVedlegg(builder.dokumentbeskrivelser.size)
 
             it.mottakere.forEach { mottaker ->
                 val korrespondansepartBuilder = korrespondansepartMapper(KorrespondansepartType.MOTTAKER, mottaker)
@@ -125,7 +126,7 @@ class ArkivmeldingForenkletUtgaaende {
             saksMappeBuilder.klassifikasjoner(
                 klasser.map { k ->
                     val klassifikasjonBuilder = KlassifikasjonBuilder()
-                    k.klassifikasjonssystem?.let { klassifikasjonBuilder.klassifikasjonssystem(it) }
+                    k.klassifikasjonssystem?.let { klassifikasjonBuilder.klassifikasjonssystemID(it) }
                     k.klasseID?.let { klassifikasjonBuilder.klasseID(it) }
                     k.tittel?.let { klassifikasjonBuilder.tittel(it) }
                     klassifikasjonBuilder
@@ -154,10 +155,14 @@ class ArkivmeldingForenkletUtgaaende {
         val type = KorrespondansepartType.INTER_AVSENDER
         val korrespondansepartBuilder = KorrespondansepartBuilder()
         part.saksbehandler?.let {
-            korrespondansepartBuilder.korrespondansepartNavn(it)
+            it.navn?.let { navn ->
+                korrespondansepartBuilder.korrespondansepartNavn(navn)
+            }
             korrespondansepartBuilder.saksbehandler(it)
         } ?: part.administrativEnhet?.let {
-            korrespondansepartBuilder.korrespondansepartNavn(it)
+            it.navn?.let { navn ->
+                korrespondansepartBuilder.korrespondansepartNavn(navn)
+            }
             korrespondansepartBuilder.administrativEnhet(it)
         }
         korrespondansepartBuilder.korrespondansepartType(type)

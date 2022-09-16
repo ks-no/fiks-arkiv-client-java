@@ -37,7 +37,7 @@ public class ArkivmeldingJavaTest {
                                 .value(UUID.randomUUID())
                                 .label("SystemId label"))
                         .mappeId("mappeId")
-                        .referanseForeldermappe(new ReferanseForelderMappeBuilder().systemID(
+                        .referanseForeldermappe(new ReferanseTilMappeBuilder().systemID(
                                 new SystemIDBuilder()
                                         .value(UUID.randomUUID())
                                         .label("label")))
@@ -66,6 +66,7 @@ public class ArkivmeldingJavaTest {
     @DisplayName("Opprett Arkivmelding med Journalposter")
     public void opprettArkivmeldingMedJournalposterTest() throws Exception {
         JournalpostBuilder journalPostBuilder = new JournalpostBuilder()
+                .avskrivningsdato(LocalDate.now())
                 .journalposttype(JournalpostType.UTGAENDE_DOKUMENT)
                 .journalstatus(JournalStatus.FERDIGSTILT_FRA_SAKSBEHANDLER)
                 .systemID(new SystemIDBuilder().value(UUID.randomUUID()).label("Journalpost label"))
@@ -74,11 +75,11 @@ public class ArkivmeldingJavaTest {
                 .referanseEksternNoekkel(new EksternNoekkelBuilder().noekkel("Key").fagstystem("System A"))
                 .opprettetAv("Ole Olsen")
                 .arkivertAv("Petter Pettersen")
-                .journalsekvensnummer(111L)
+                .journalsekvensnummer(111)
                 .dokumentetsDato(LocalDate.now())
                 .offentlighetsvurdertDato(LocalDate.now())
                 .mottattDato(ZonedDateTime.now())
-                .journalpostnummer(222L);
+                .journalpostnummer(222);
 
         ArkivmeldingBuilder arkivmeldingBuilder = new RegistreringArkivmeldingBuilder()
                 .registrering(Collections.singletonList(journalPostBuilder))
@@ -103,14 +104,16 @@ public class ArkivmeldingJavaTest {
     @DisplayName("ArkivmeldingForenkletUtgaaende, Opprett Journalpost med dokumenter")
     public void OpprettJournalpostMedDokument() throws Exception{
         List<KorrespondansepartBuilder> korrespondanseparts = new ArrayList<>();
+        SaksbehandlerBuilder saksbehandlerBuilder = new SaksbehandlerBuilder();
+        saksbehandlerBuilder.navn("Birger Brannmann");
         korrespondanseparts.add(new KorrespondansepartBuilder()
                 .korrespondansepartType(KorrespondansepartType.MOTTAKER)
                 .korrespondansepartNavn("Birger Brannmann")
-                .saksbehandler("Birger Brannmann"));
+                .saksbehandler(saksbehandlerBuilder));
         korrespondanseparts.add(new KorrespondansepartBuilder()
                 .korrespondansepartType(KorrespondansepartType.MOTTAKER)
                 .korrespondansepartNavn("Mons Mottaker")
-                .saksbehandler("Mons Mottaker")
+                .saksbehandler(saksbehandlerBuilder)
                 .postadresse(Collections.singletonList("Gate 1"))
                 .postnummer("3801")
                 .land("NO")
@@ -119,10 +122,11 @@ public class ArkivmeldingJavaTest {
 
         final List<JournalpostBuilder> journalposter = Collections.singletonList(
                 new JournalpostBuilder()
+                        .avskrivningsdato(LocalDate.now())
                         .journalposttype(JournalpostType.UTGAENDE_DOKUMENT)
                         .journalstatus(JournalStatus.JOURNALFORT)
                         .systemID(new SystemIDBuilder().value(UUID.randomUUID()).label("Journalpost label"))
-                        .journalsekvensnummer(7L)
+                        .journalsekvensnummer(7)
                         .opprettetAv("Kari")
                         .arkivertAv("Kari")
                         .tittel("Vedtak etter tilsyn")
@@ -131,14 +135,14 @@ public class ArkivmeldingJavaTest {
                                 .fagstystem("Fagsystem X")
                                 .noekkel(UUID.randomUUID().toString()))
                         .korrespondanseparts(korrespondanseparts)
-                        .journalpostnummer(222L)
+                        .journalpostnummer(222)
                         .dokumentbeskrivelser(
                                 Collections.singletonList(
                                         new DokumentbeskrivelseBuilder()
                                                 .systemID(new SystemIDBuilder().value(UUID.randomUUID()).label("Dokumentbeskrivelse label"))
                                                 .dokumentType(DokumentType.KORRESPONDANSE)
                                                 .dokumentStatus(DokumentStatus.DOKUMENTET_ER_FERDIGSTILT)
-                                                .dokumentnummer(1L)
+                                                .dokumentnummer(1)
                                                 .opprettetAv("Kari")
                                                 .tittel("Vedtak")
                                                 .tilknyttetRegistreringSom(TilknyttetRegistreringSomType.HOVEDDOKUMENT)
@@ -148,13 +152,13 @@ public class ArkivmeldingJavaTest {
                                                             new DokumentObjektBuilder()
                                                                     .systemID(new SystemIDBuilder().value(UUID.randomUUID()).label("Dokumentobjekt label"))
                                                                     .filnavn("vedtak.pdf")
-                                                                    .versjonsnummer(1L)
+                                                                    .versjonsnummer(1)
                                                                     .variantformat(VariantFormatType.ARKIVFORMAT)
                                                                     .mimeType("application/pdf")
                                                                     .opprettetAv("Kari")
                                                                     .sjekksum(UUID.randomUUID().toString())
                                                                     .sjekksumAlgoritme("hash")
-                                                                    .filstoerrelse(12345L)
+                                                                    .filstoerrelse(12345)
                                                                     .referanseDokumentfil("/en/path")
                                                                     .format(FormatType.PDF_A_ISO_19005_1_2005))))));
         ArkivmeldingBuilder arkivmeldingBuilder = new RegistreringArkivmeldingBuilder()
@@ -172,15 +176,18 @@ public class ArkivmeldingJavaTest {
     @Test
     @DisplayName("ArkivmeldingForenkletUtgaaende, brukerhistorie 4 med forenklet modell")
     public void Brukerhistorie4ProAktivTest() throws Exception{
+        SaksbehandlerBuilder saksbehandlerBuilder = new SaksbehandlerBuilder();
+        saksbehandlerBuilder.navn("Birger Brannmann");
         ArkivmeldingBuilder arkivmelding = new ArkivmeldingForenkletUtgaaende()
                 .sluttbrukerIdentifikator("ABC")
                 .nyUtgaaendeJournalpost(new UtgaaendeJournalpost()
+                        .avskrivningsdato(LocalDate.now())
                         .tittel("Vedtak etter tilsyn")
                         .referanseEksternNoekkelForenklet(new EksternNoekkelForenklet()
                                 .noekkel(UUID.randomUUID().toString())
                                 .fagstystem("Fagsystem X"))
                         .internAvsender(Collections.singletonList(new KorrespondansepartIntern()
-                                .saksbehandler("Birger Brannmann")
+                                .saksbehandler(saksbehandlerBuilder)
                                 .referanseSaksbehandler("60577438-1f97-4c5f-b254-aa758c8786c4")))
                         .mottakere(Collections.singletonList(new KorrespondansepartForenklet()
                                 .navn("Mons Mottaker")

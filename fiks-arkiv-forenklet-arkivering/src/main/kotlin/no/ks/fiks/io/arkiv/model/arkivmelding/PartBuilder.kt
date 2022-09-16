@@ -64,7 +64,6 @@ class PartBuilder {
             it.organisasjonID = organisasjonID?.buildApiModel()
             it.personID = personID?.buildApiModel()
             it.skjermetObjekt = skjermetObjekt
-            it.personnavn = personnavn
         }
     }
 

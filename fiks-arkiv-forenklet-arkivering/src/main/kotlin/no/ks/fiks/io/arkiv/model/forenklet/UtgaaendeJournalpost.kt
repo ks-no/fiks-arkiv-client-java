@@ -5,9 +5,10 @@ import java.time.LocalDate
 import java.time.ZonedDateTime
 
 class UtgaaendeJournalpost {
+    var avskrivningsdato: LocalDate? = null
     var journalaar: Int? = null
-    var journalsekvensnummer: Long? = null
-    var journalpostnummer: Long? = null
+    var journalsekvensnummer: Int? = null
+    var journalpostnummer: Int? = null
     var dokumentetsDato: LocalDate? = null
     var sendtDato: ZonedDateTime? = null
     var hoveddokument: ForenkletDokument? = null
@@ -23,9 +24,10 @@ class UtgaaendeJournalpost {
     var avsender: List<KorrespondansepartForenklet> = ArrayList()
     var internAvsender: List<KorrespondansepartIntern> = ArrayList()
 
+    fun avskrivningsdato(avskrivningsdato: LocalDate) = apply { this.avskrivningsdato = avskrivningsdato }
     fun journalaar(journalaar: Int) = apply { this.journalaar = journalaar }
-    fun journalsekvensnummer(journalsekvensnummer: Long) = apply { this.journalsekvensnummer = journalsekvensnummer }
-    fun journalpostnummer(journalpostnummer: Long) = apply { this.journalpostnummer = journalpostnummer }
+    fun journalsekvensnummer(journalsekvensnummer: Int) = apply { this.journalsekvensnummer = journalsekvensnummer }
+    fun journalpostnummer(journalpostnummer: Int) = apply { this.journalpostnummer = journalpostnummer }
     fun dokumentetsDato(dokumentetsDato: LocalDate) = apply { this.dokumentetsDato = dokumentetsDato }
     fun sendtDato(sendtDato: ZonedDateTime) = apply { this.sendtDato = sendtDato }
     fun hoveddokument(hoveddokument: ForenkletDokument) = apply { this.hoveddokument = hoveddokument }

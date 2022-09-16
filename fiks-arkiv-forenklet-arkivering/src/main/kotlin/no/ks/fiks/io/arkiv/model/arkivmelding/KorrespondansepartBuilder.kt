@@ -1,8 +1,9 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
 import no.ks.fiks.arkiv.v1.arkivmelding.Korrespondansepart
+import no.ks.fiks.io.arkiv.model.arkivstruktur.AdministrativEnhetBuilder
+import no.ks.fiks.io.arkiv.model.arkivstruktur.SaksbehandlerBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KorrespondansepartType
-import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 
 open class KorrespondansepartBuilder {
 
@@ -20,17 +21,15 @@ open class KorrespondansepartBuilder {
         private set
     var epostadresse: String? = null
         private set
-    var saksbehandler: String? = null
+    var saksbehandler: SaksbehandlerBuilder? = null
         private set
-    var administrativEnhet: String? = null
+    var administrativEnhet: AdministrativEnhetBuilder? = null
         private set
     var kontaktperson: String? = null
         private set
     var telefonnumre: List<String> = ArrayList()
         private set
     var skjermetObjekt: String? = null
-        private set
-    var personnavn: String? = null
         private set
     var forsendelsesmaate: String? = null
         private set
@@ -48,12 +47,11 @@ open class KorrespondansepartBuilder {
     fun poststed(poststed: String) = apply { this.poststed = poststed }
     fun land(land: String) = apply { this.land = land }
     fun epostadresse(epostadresse: String) = apply { this.epostadresse = epostadresse }
-    fun saksbehandler(saksbehandler: String) = apply { this.saksbehandler = saksbehandler }
-    fun administrativEnhet(administrativEnhet: String) = apply { this.administrativEnhet = administrativEnhet }
+    fun saksbehandler(saksbehandler: SaksbehandlerBuilder) = apply { this.saksbehandler = saksbehandler }
+    fun administrativEnhet(administrativEnhet: AdministrativEnhetBuilder) = apply { this.administrativEnhet = administrativEnhet }
     fun kontaktperson(kontaktperson: String) = apply { this.kontaktperson = kontaktperson }
     fun telefonnumre(telefonnumre: List<String>) = apply { this.telefonnumre = telefonnumre }
     fun skjermetObjekt(skjermetObjekt: String) = apply { this.skjermetObjekt = skjermetObjekt }
-    fun personnavn(personnavn: String) = apply { this.personnavn = personnavn }
     fun forsendelsesmaate(forsendelsesmaate: String) = apply { this.forsendelsesmaate = forsendelsesmaate }
     fun deresReferanse(deresReferanse: String) = apply { this.deresReferanse = deresReferanse }
     fun organisasjonid(organisasjonid: String) = apply { if(this.personid == null) this.organisasjonid = organisasjonid else throw IllegalStateException("Personid kan ikke settes i kombinasjon med organisasjonsid") }
@@ -70,10 +68,9 @@ open class KorrespondansepartBuilder {
             it.epostadresse = epostadresse
             it.telefonnummers.addAll(telefonnumre)
             it.kontaktperson = kontaktperson
-            it.administrativEnhet = administrativEnhet
-            it.saksbehandler = saksbehandler
+            it.administrativEnhet = administrativEnhet?.build()
+            it.saksbehandler = saksbehandler?.build()
             it.skjermetObjekt = skjermetObjekt
-            it.personnavn = personnavn
             it.forsendelsesmaate = forsendelsesmaate
             it.deresReferanse = deresReferanse
             it.organisasjonid = organisasjonid

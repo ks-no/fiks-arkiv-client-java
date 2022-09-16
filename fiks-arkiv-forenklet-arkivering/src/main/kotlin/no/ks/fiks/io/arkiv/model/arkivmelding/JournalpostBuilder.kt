@@ -13,13 +13,15 @@ import kotlin.collections.ArrayList
  * @see http://arkivverket.metakat.no/Objekttype/Index/EAID_EA66ABBF_7124_485c_AB57_BC5159EB8F56
  */
 open class JournalpostBuilder : IRegistrering {
+    var avskrivningsdato: LocalDate? = null
+        private set
     var arkivdel: KodeBuilder? = null
         private set
     var journaldato: LocalDate = LocalDate.now()
         private set
-    var journalpostnummer: Long? = null
+    var journalpostnummer: Int? = null
         private set
-    var journalsekvensnummer: Long? = null
+    var journalsekvensnummer: Int? = null
         private set
     var journalaar: Int = ZonedDateTime.now().year
         private set
@@ -37,7 +39,7 @@ open class JournalpostBuilder : IRegistrering {
         private set
     var arkivertAv: String? = null
         private set
-    var referanseForelderMappe: ReferanseForelderMappeBuilder? = null
+    var referanseForelderMappe: ReferanseTilMappeBuilder? = null
         private set
     var korrespondanseparts: List<KorrespondansepartBuilder> = ArrayList()
         private set
@@ -59,15 +61,13 @@ open class JournalpostBuilder : IRegistrering {
         private set
     var offentlighetsvurdertDato: LocalDate? = null
         private set
-    var antallVedlegg: Long? = null
+    var antallVedlegg: Int? = null
         private set
     var utlaantDato: LocalDate? = null
         private set
     var utlaantTil: String? = null
         private set
     var journalenhet: String? = null
-        private set
-    var avskrivninger: List<AvskrivningBuilder> = ArrayList()
         private set
     var dokumentflyt: List<DokumentflytBuilder> = ArrayList()
         private set
@@ -98,6 +98,7 @@ open class JournalpostBuilder : IRegistrering {
     var skjerming: SkjermingBuilder? = null
         private set
 
+    fun avskrivningsdato(avskrivningsdato: LocalDate) = apply { this.avskrivningsdato =  avskrivningsdato }
     fun systemID(systemID: SystemIDBuilder) = apply { this.systemID = systemID }
     fun journalposttype(journalposttype: JournalpostType) = apply { this.journalposttype = journalposttype }
     fun tittel(tittel: String) = apply { this.tittel = tittel }
@@ -105,7 +106,7 @@ open class JournalpostBuilder : IRegistrering {
     fun opprettetAv(opprettetAv: String) = apply { this.opprettetAv = opprettetAv }
     fun arkivertDato(arkivertDato: ZonedDateTime) = apply { this.arkivertDato = arkivertDato }
     fun arkivertAv(arkivertAv: String) = apply { this.arkivertAv = arkivertAv }
-    fun referanseForelderMappe(referanseForelderMappe: ReferanseForelderMappeBuilder) = apply { if(arkivdel == null) this.referanseForelderMappe = referanseForelderMappe else throw IllegalArgumentException("ReferanseForelderMappe kan ikke settes i kombinasjon med ReferanseArkivdel") }
+    fun referanseForelderMappe(referanseForelderMappe: ReferanseTilMappeBuilder) = apply { if(arkivdel == null) this.referanseForelderMappe = referanseForelderMappe else throw IllegalArgumentException("ReferanseForelderMappe kan ikke settes i kombinasjon med ReferanseArkivdel") }
     fun arkivdel(arkivdel: KodeBuilder) = apply { if(referanseForelderMappe == null) this.arkivdel = arkivdel else throw IllegalArgumentException("ReferanseArkivdel kan ikke settes i kombinasjon med ReferanseForelderMappe") }
     fun korrespondanseparts(korrespondanseparts: List<KorrespondansepartBuilder>) = apply { this.korrespondanseparts = korrespondanseparts }
     fun journalstatus(journalstatus: JournalStatus) = apply { this.journalstatus = journalstatus }
@@ -115,8 +116,8 @@ open class JournalpostBuilder : IRegistrering {
      * Viser året journalposten ble opprettet Kilde: Registreres automatisk når journalposten opprettes Kommentar: (ingen) M013 journalaar
      */
     fun journalaar(journalaar: Int) = apply { this.journalaar = journalaar }
-    fun journalsekvensnummer(journalsekvensnummer: Long) = apply { this.journalsekvensnummer = journalsekvensnummer }
-    fun journalpostnummer(journalpostnummer: Long) = apply { this.journalpostnummer = journalpostnummer }
+    fun journalsekvensnummer(journalsekvensnummer: Int) = apply { this.journalsekvensnummer = journalsekvensnummer }
+    fun journalpostnummer(journalpostnummer: Int) = apply { this.journalpostnummer = journalpostnummer }
     fun journaldato(journaldato: LocalDate) = apply { this.journaldato = journaldato }
     fun parts(parts: List<PartBuilder>) = apply { this.parts = parts }
     fun beskrivelse(beskrivelse: String) = apply { this.beskrivelse = beskrivelse }
@@ -125,11 +126,10 @@ open class JournalpostBuilder : IRegistrering {
     fun sendtDato(sendtDato: ZonedDateTime) = apply { this.sendtDato = sendtDato }
     fun forfallsdato(forfallsdato: LocalDate) = apply { this.forfallsdato = forfallsdato }
     fun offentlighetsvurdertDato(offentlighetsvurdertDato: LocalDate) = apply { this.offentlighetsvurdertDato = offentlighetsvurdertDato }
-    fun antallVedlegg(antallVedlegg: Long) = apply { this.antallVedlegg = antallVedlegg }
+    fun antallVedlegg(antallVedlegg: Int) = apply { this.antallVedlegg = antallVedlegg }
     fun utlaantDato(utlaantDato: LocalDate) = apply { this.utlaantDato = utlaantDato }
     fun utlaantTil(utlaantTil: String) = apply { this.utlaantTil = utlaantTil }
     fun journalenhet(journalenhet: String) = apply { this.journalenhet = journalenhet }
-    fun avskrivninger(avskrivninger: List<AvskrivningBuilder>) = apply { this.avskrivninger = avskrivninger }
     fun dokumentflyt(dokumentflyt: List<DokumentflytBuilder>) = apply { this.dokumentflyt = dokumentflyt }
     fun presedens(presedens: List<PresedensBuilder>) = apply { this.presedens = presedens }
     fun klassifikasjoner(klassifikasjoner: List<KlassifikasjonBuilder>) = apply { this.klassifikasjoner = klassifikasjoner }
@@ -147,6 +147,7 @@ open class JournalpostBuilder : IRegistrering {
 
     override fun build() : Journalpost {
         return Journalpost().also {
+            it.avskrivningsdato = avskrivningsdato ?: throw IllegalStateException(feilmeldingPakrevdFelt("avskrivningsdato"))
             it.systemID = systemID?.build()
             it.opprettetDato = opprettetDato
             it.opprettetAv = opprettetAv
@@ -154,7 +155,7 @@ open class JournalpostBuilder : IRegistrering {
             it.arkivertAv = arkivertAv
             it.referanseForelderMappe = referanseForelderMappe?.build()
             it.arkivdel = arkivdel?.build()
-            it.journalsekvensnummer = journalsekvensnummer?.toBigInteger()
+            it.journalsekvensnummer = journalsekvensnummer
             it.parts.addAll(parts.map { p -> p.build() })
 
             it.skjerming = skjerming?.build()
@@ -174,8 +175,8 @@ open class JournalpostBuilder : IRegistrering {
             it.klassifikasjons.addAll(klassifikasjoner.map { k -> k.build() }.toList())
             it.referanseEksternNoekkel = referanseEksternNoekkel?.build() ?: throw IllegalStateException(feilmeldingPakrevdFelt("ReferanseEksternNoekkel"))
 
-            it.journalaar = journalaar.toBigInteger()
-            it.journalpostnummer = journalpostnummer?.toBigInteger()
+            it.journalaar = journalaar
+            it.journalpostnummer = journalpostnummer
             it.journalposttype = journalposttype?.value ?: throw IllegalStateException(feilmeldingPakrevdFelt("Journalposttype"))
             it.journalstatus = journalstatus?.value ?: throw IllegalStateException(feilmeldingPakrevdFelt("Journalstatus"))
             it.journaldato = journaldato
@@ -184,11 +185,10 @@ open class JournalpostBuilder : IRegistrering {
             it.sendtDato = sendtDato
             it.forfallsdato = forfallsdato
             it.offentlighetsvurdertDato = offentlighetsvurdertDato
-            it.antallVedlegg = antallVedlegg?.toBigInteger()
+            it.antallVedlegg = antallVedlegg
             it.utlaantDato = utlaantDato
             it.utlaantTil = utlaantTil
             it.journalenhet = journalenhet
-            it.avskrivnings.addAll(avskrivninger.map { a -> a.build() }.toList())
             it.dokumentflyts.addAll(dokumentflyt.map { d -> d.build() }.toList())
             it.presedens.addAll(presedens.map { p -> p.build() }.toList())
         }

@@ -8,7 +8,9 @@ import no.ks.fiks.io.arkiv.model.arkivmelding.RegistreringArkivmeldingBuilder
 import no.ks.fiks.io.arkiv.model.arkivstruktur.EksternNoekkelBuilder
 import no.ks.fiks.io.arkiv.model.arkivmelding.JournalpostBuilder
 import no.ks.fiks.io.arkiv.model.arkivmelding.KorrespondansepartBuilder
-import no.ks.fiks.io.arkiv.model.arkivmelding.ReferanseForelderMappeBuilder
+import no.ks.fiks.io.arkiv.model.arkivmelding.ReferanseTilMappeBuilder
+import no.ks.fiks.io.arkiv.model.arkivstruktur.AdministrativEnhetBuilder
+import no.ks.fiks.io.arkiv.model.arkivstruktur.SaksbehandlerBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.JournalStatus
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.JournalpostType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KorrespondansepartType
@@ -33,16 +35,21 @@ class ArkivmeldingTest {
     fun `Test gyldig arkivmelding`() {
         val mottattDato = ZonedDateTime.of(2022, 10, 12, 10, 15, 11, 100, ZoneId.of("Europe/Oslo") )
 
+        val saksbehandlerBuilder = SaksbehandlerBuilder()
+        saksbehandlerBuilder.navn("saksbehandler")
+        val administrativEnhetBuilder = AdministrativEnhetBuilder()
+        administrativEnhetBuilder.navn("Administrativenhet")
         val registrering =
             JournalpostBuilder()
+                .avskrivningsdato(mottattDato.toLocalDate())
                 .dokumentetsDato(mottattDato.toLocalDate())
                 .offentlighetsvurdertDato(LocalDate.now())
                 .mottattDato(mottattDato)
                 .journalstatus(JournalStatus.GODKJENT_AV_LEDER)
                 .journalposttype(JournalpostType.UTGAENDE_DOKUMENT)
                 .journaldato(LocalDate.now())
-                .journalpostnummer(42213L)
-                .journalsekvensnummer(1234L)
+                .journalpostnummer(42213)
+                .journalsekvensnummer(1234)
                 .journalaar(2022)
                 .systemID(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel"))
                 .tittel("Reg tittel")
@@ -50,7 +57,7 @@ class ArkivmeldingTest {
                 .opprettetAv("Tester")
                 .arkivertDato(ZonedDateTime.now())
                 .arkivertAv("Mr. Arkiv")
-                .referanseForelderMappe(ReferanseForelderMappeBuilder().systemID(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel")))
+                .referanseForelderMappe(ReferanseTilMappeBuilder().systemID(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel")))
                 .referanseEksternNoekkel(EksternNoekkelBuilder().fagstystem("Faglig").noekkel("key"))
                 .korrespondanseparts(listOf(
                     KorrespondansepartBuilder()
@@ -59,8 +66,8 @@ class ArkivmeldingTest {
                     .postadresse(emptyList())
                     .postnummer("1234")
                     .poststed("poststed")
-                    .saksbehandler("saksbehandler")
-                    .administrativEnhet("administrativEnhet")
+                    .saksbehandler(saksbehandlerBuilder)
+                    .administrativEnhet(administrativEnhetBuilder)
                 ))
 
         val arkivmelding = RegistreringArkivmeldingBuilder()
@@ -88,11 +95,17 @@ class ArkivmeldingTest {
 
     @Test
     fun `Test arkivmelding uten system definert, skal kaste exception`() {
+        val saksbehandlerBuilder = SaksbehandlerBuilder()
+        saksbehandlerBuilder.navn("saksbehandler")
+        val administrativEnhetBuilder = AdministrativEnhetBuilder()
+        administrativEnhetBuilder.navn("Administrativenhet")
+
         val registrering =
             JournalpostBuilder()
+                .avskrivningsdato(LocalDate.now())
                 .journaldato(LocalDate.now())
-                .journalpostnummer(42213L)
-                .journalsekvensnummer(1234L)
+                .journalpostnummer(42213)
+                .journalsekvensnummer(1234)
                 .journalaar(2022)
                 .systemID(SystemIDBuilder().value(UUID.randomUUID()))
                 .tittel("Reg tittel")
@@ -100,7 +113,7 @@ class ArkivmeldingTest {
                 .opprettetAv("Tester")
                 .arkivertDato(ZonedDateTime.now())
                 .arkivertAv("Mr. Arkiv")
-                .referanseForelderMappe(ReferanseForelderMappeBuilder().systemID(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel")))
+                .referanseForelderMappe(ReferanseTilMappeBuilder().systemID(SystemIDBuilder().value(UUID.randomUUID()).label("registreringLabel")))
                 .referanseEksternNoekkel(EksternNoekkelBuilder().fagstystem("Faglig").noekkel("key"))
                 .korrespondanseparts(listOf(
                     KorrespondansepartBuilder()
@@ -109,8 +122,8 @@ class ArkivmeldingTest {
                     .postadresse(emptyList())
                     .postnummer("1234")
                     .poststed("poststed")
-                    .saksbehandler("saksbehandler")
-                    .administrativEnhet("administrativEnhet")
+                    .saksbehandler(saksbehandlerBuilder)
+                    .administrativEnhet(administrativEnhetBuilder)
                 ))
 
         val arkivmelding = RegistreringArkivmeldingBuilder()

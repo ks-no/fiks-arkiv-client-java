@@ -1,8 +1,10 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
 import no.ks.fiks.arkiv.v1.arkivmelding.Saksmappe
+import no.ks.fiks.io.arkiv.model.arkivstruktur.AdministrativEnhetBuilder
 import no.ks.fiks.io.arkiv.model.arkivstruktur.AdresseBuilder
 import no.ks.fiks.io.arkiv.model.arkivstruktur.PresedensBuilder
+import no.ks.fiks.io.arkiv.model.arkivstruktur.SaksansvarligBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SaksstatusType
 import java.time.LocalDate
 
@@ -10,15 +12,15 @@ import java.time.LocalDate
  * Mappe er det overordnede objektet for å samle saker i. Det er mulig å ha mapper i mapper.
  */
 open class SaksmappeBuilder : MappeBuilder() {
-    var saksaar: Long? = null
+    var saksaar: Int? = null
         private set
-    var sakssekvensnummer: Long? = null
+    var sakssekvensnummer: Int? = null
         private set
     var saksdato: LocalDate? = null
         private set
-    var administrativEnhet: String? = null
+    var administrativEnhet: AdministrativEnhetBuilder? = null
         private set
-    var saksansvarlig: String? = null
+    var saksansvarlig: SaksansvarligBuilder? = null
         private set
     var journalenhet: String? = null
         private set
@@ -41,11 +43,11 @@ open class SaksmappeBuilder : MappeBuilder() {
     var punkt: PunktBuilder? = null
         private set
 
-    fun saksaar(saksaar: Long) = apply { this.saksaar = saksaar }
-    fun sakssekvensnummer(sakssekvensnummer: Long) = apply { this.sakssekvensnummer = sakssekvensnummer }
+    fun saksaar(saksaar: Int) = apply { this.saksaar = saksaar }
+    fun sakssekvensnummer(sakssekvensnummer: Int) = apply { this.sakssekvensnummer = sakssekvensnummer }
     fun saksdato(saksdato: LocalDate) = apply { this.saksdato = saksdato }
-    fun administrativEnhet(administrativEnhet: String) = apply { this.administrativEnhet = administrativEnhet }
-    fun saksansvarlig(saksansvarlig: String) = apply { this.saksansvarlig = saksansvarlig }
+    fun administrativEnhet(administrativEnhet: AdministrativEnhetBuilder) = apply { this.administrativEnhet = administrativEnhet }
+    fun saksansvarlig(saksansvarlig: SaksansvarligBuilder) = apply { this.saksansvarlig = saksansvarlig }
     fun journalenhet(journalenhet: String) = apply { this.journalenhet = journalenhet }
     fun saksstatus(saksstatus: SaksstatusType) = apply { this.saksstatus = saksstatus }
     fun utlaantDato(utlaantDato: LocalDate) = apply { this.utlaantDato = utlaantDato }
@@ -84,11 +86,11 @@ open class SaksmappeBuilder : MappeBuilder() {
             it.mappes.addAll(mapper.map { m -> m.build() }.toList())
             it.mappetype = mappetype?.build()
 
-            it.saksaar = saksaar?.toBigInteger()
-            it.sakssekvensnummer = sakssekvensnummer?.toBigInteger()
+            it.saksaar = saksaar
+            it.sakssekvensnummer = sakssekvensnummer
             it.saksdato = saksdato
-            it.administrativEnhet = administrativEnhet
-            it.saksansvarlig = saksansvarlig
+            it.administrativEnhet = administrativEnhet?.build()
+            it.saksansvarlig = saksansvarlig?.build()
             it.journalenhet = journalenhet
             it.saksstatus = saksstatus?.value
             it.utlaantDato = utlaantDato

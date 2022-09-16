@@ -7,7 +7,6 @@ import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KodeBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import java.time.LocalDate
 import java.time.ZonedDateTime
-import java.util.*
 import kotlin.collections.ArrayList
 
 class ArkivnotatBuilder : IRegistrering {
@@ -22,7 +21,7 @@ class ArkivnotatBuilder : IRegistrering {
         private set
     var arkivertAv: String? = null
         private set
-    var referanseForelderMappe: ReferanseForelderMappeBuilder? = null
+    var referanseForelderMappe: ReferanseTilMappeBuilder? = null
         private set
     var arkivdel: KodeBuilder? = null
         private set
@@ -70,7 +69,7 @@ class ArkivnotatBuilder : IRegistrering {
         private set
     var offentlighetsvurdertDato: LocalDate? = null
         private set
-    var antallVedlegg: Long? = null
+    var antallVedlegg: Int? = null
         private set
     var utlaantDato: LocalDate? = null
         private set
@@ -86,7 +85,7 @@ class ArkivnotatBuilder : IRegistrering {
     fun opprettetAv(opprettetAv: String) = apply { this.opprettetAv = opprettetAv }
     fun arkivertDato(arkivertDato: ZonedDateTime) = apply { this.arkivertDato = arkivertDato }
     fun arkivertAv(arkivertAv: String) = apply { this.arkivertAv = arkivertAv }
-    fun referanseForelderMappe(referanseForelderMappe: ReferanseForelderMappeBuilder) = apply { if(arkivdel == null) this.referanseForelderMappe = referanseForelderMappe else throw IllegalArgumentException("ReferanseForelderMappe kan ikke settes i kombinasjon med ReferanseArkivdel") }
+    fun referanseForelderMappe(referanseForelderMappe: ReferanseTilMappeBuilder) = apply { if(arkivdel == null) this.referanseForelderMappe = referanseForelderMappe else throw IllegalArgumentException("ReferanseForelderMappe kan ikke settes i kombinasjon med ReferanseArkivdel") }
     fun arkivdel(arkivdel: KodeBuilder) = apply { if(referanseForelderMappe == null) this.arkivdel = arkivdel else throw IllegalArgumentException("ReferanseArkivdel kan ikke settes i kombinasjon med ReferanseForelderMappe") }
     fun korrespondanseparts(korrespondanseparts: List<KorrespondansepartBuilder>) = apply { this.korrespondanseparts = korrespondanseparts }
     fun referanseEksternNoekkel(referanseEksternNoekkel: EksternNoekkelBuilder) = apply { this.referanseEksternNoekkel =  referanseEksternNoekkel}
@@ -110,7 +109,7 @@ class ArkivnotatBuilder : IRegistrering {
     fun sendtDato(sendtDato: ZonedDateTime) = apply { this.sendtDato = sendtDato }
     fun forfallsdato(forfallsdato: LocalDate) = apply { this.forfallsdato = forfallsdato }
     fun offentlighetsvurdertDato(offentlighetsvurdertDato: LocalDate) = apply { this.offentlighetsvurdertDato = offentlighetsvurdertDato }
-    fun antallVedlegg(antallVedlegg: Long) = apply { this.antallVedlegg = antallVedlegg }
+    fun antallVedlegg(antallVedlegg: Int) = apply { this.antallVedlegg = antallVedlegg }
     fun utlaantDato(utlaantDato: LocalDate) = apply { this.utlaantDato = utlaantDato }
     fun utlaantTil(utlaantTil: String) = apply { this.utlaantTil = utlaantTil }
     fun dokumentflyt(dokumentflyt: List<DokumentflytBuilder>) = apply { this.dokumentflyt = dokumentflyt }
@@ -149,7 +148,7 @@ class ArkivnotatBuilder : IRegistrering {
             it.sendtDato = sendtDato
             it.forfallsdato = forfallsdato
             it.offentlighetsvurdertDato = offentlighetsvurdertDato
-            it.antallVedlegg = antallVedlegg?.toBigInteger()
+            it.antallVedlegg = antallVedlegg
             it.utlaantDato = utlaantDato
             it.utlaantTil = utlaantTil
             it.dokumentflyts.addAll( dokumentflyt.map { d -> d.build() }.toList() )

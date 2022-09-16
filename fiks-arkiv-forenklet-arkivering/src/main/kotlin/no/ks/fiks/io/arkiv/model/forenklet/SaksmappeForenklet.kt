@@ -1,13 +1,15 @@
 package no.ks.fiks.io.arkiv.model.forenklet
 
+import no.ks.fiks.io.arkiv.model.arkivstruktur.AdministrativEnhetBuilder
+import no.ks.fiks.io.arkiv.model.arkivstruktur.SaksansvarligBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KodeBuilder
 import java.time.LocalDate
 
 class SaksmappeForenklet {
 
-    var saksaar: Long? = null
+    var saksaar: Int? = null
         private set
-    var sakssekvensnummer: Long? = null
+    var sakssekvensnummer: Int? = null
         private set
     var mappetype: KodeBuilder? = null
         private set
@@ -15,13 +17,13 @@ class SaksmappeForenklet {
         private set
     var tittel: String? = null
         private set
-    var administrativEnhet: String? = null
+    var administrativEnhet: AdministrativEnhetBuilder? = null
         private set
     var referanseAdministrativEnhet: String? = null
         private set
     var offentligTittel: String? = null
         private set
-    var saksansvarlig: String? = null
+    var saksansvarlig: SaksansvarligBuilder? = null
         private set
     var referanseSaksansvarlig: String? = null
         private set
@@ -36,15 +38,15 @@ class SaksmappeForenklet {
     var klasse: List<KlasseForenklet> = ArrayList()
         private set
 
-    fun saksaar(saksaar: Long) = apply { this.saksaar = saksaar }
-    fun sakssekvensnummer(sakssekvensnummer: Long) = apply { this.sakssekvensnummer = sakssekvensnummer }
+    fun saksaar(saksaar: Int) = apply { this.saksaar = saksaar }
+    fun sakssekvensnummer(sakssekvensnummer: Int) = apply { this.sakssekvensnummer = sakssekvensnummer }
     fun mappetype(mappetype: KodeBuilder) = apply { this.mappetype = mappetype }
     fun saksdato(saksdato: LocalDate) = apply { this.saksdato = saksdato }
-    fun administrativEnhet(administrativEnhet: String) = apply { this.administrativEnhet = administrativEnhet }
+    fun administrativEnhet(administrativEnhet: AdministrativEnhetBuilder) = apply { this.administrativEnhet = administrativEnhet }
     fun tittel(tittel: String) = apply { this.tittel = tittel }
     fun referanseAdministrativEnhet(referanseAdministrativEnhet: String) = apply { this.referanseAdministrativEnhet = referanseAdministrativEnhet }
     fun offentligTittel(offentligTittel: String) = apply { this.offentligTittel = offentligTittel }
-    fun saksansvarlig(saksansvarlig: String) = apply { this.saksansvarlig = saksansvarlig }
+    fun saksansvarlig(saksansvarlig: SaksansvarligBuilder) = apply { this.saksansvarlig = saksansvarlig }
     fun referanseSaksansvarlig(referanseSaksansvarlig: String) = apply { this.referanseSaksansvarlig = referanseSaksansvarlig }
     fun saksstatus(saksstatus: String) = apply { this.saksstatus = saksstatus }
     fun avsluttetAv(avsluttetAv: String) = apply { this.avsluttetAv = avsluttetAv }

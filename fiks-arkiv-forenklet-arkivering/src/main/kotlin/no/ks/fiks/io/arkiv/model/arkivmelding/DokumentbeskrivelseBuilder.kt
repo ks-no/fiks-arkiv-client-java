@@ -30,7 +30,7 @@ open class DokumentbeskrivelseBuilder {
         private set
     var tilknyttetRegistreringSom: TilknyttetRegistreringSomType? = null
         private set
-    var dokumentnummer: Long? = null
+    var dokumentnummer: Int? = null
         private set
     var tilknyttetDato: ZonedDateTime = ZonedDateTime.now()
         private set
@@ -67,7 +67,7 @@ open class DokumentbeskrivelseBuilder {
     fun oppbevaringssted(oppbevaringssted: String) = apply { this.oppbevaringssted = oppbevaringssted }
     fun arkivdel(arkivdel: KodeBuilder) = apply { this.arkivdel = arkivdel }
     fun tilknyttetRegistreringSom(tilknyttetRegistreringSom: TilknyttetRegistreringSomType) = apply { this.tilknyttetRegistreringSom = tilknyttetRegistreringSom }
-    fun dokumentnummer(dokumentnummer: Long) = apply { this.dokumentnummer = dokumentnummer }
+    fun dokumentnummer(dokumentnummer: Int) = apply { this.dokumentnummer = dokumentnummer }
     fun tilknyttetDato(tilknyttetDato: ZonedDateTime) = apply { this.tilknyttetDato = tilknyttetDato }
     fun tilknyttetAv(tilknyttetAv: String) = apply { this.tilknyttetAv = tilknyttetAv }
     fun parts(parts: List<PartBuilder>) = apply { this.parts = parts }
@@ -94,7 +94,7 @@ open class DokumentbeskrivelseBuilder {
             it.oppbevaringssted = oppbevaringssted
             it.arkivdel = arkivdel?.build()
             it.tilknyttetRegistreringSom = tilknyttetRegistreringSom?.value
-            it.dokumentnummer = dokumentnummer?.toBigInteger()
+            it.dokumentnummer = dokumentnummer
             it.tilknyttetDato = tilknyttetDato
             it.tilknyttetAv = tilknyttetAv
             it.parts.addAll(parts.map { p -> p.build() }.toList())
