@@ -14,14 +14,11 @@ open class MerknadBuilder {
         private set
     var merknadRegistrertAv: String? = null
         private set
-    var skjermetObjekt: String? = null
-        private set
 
 
     fun merknadstekst(merknadstekst: String) = apply { this.merknadstekst = merknadstekst }
     fun merknadstype(merknadstype: MerknadsType) = apply { this.merknadstype = merknadstype }
     fun merknadRegistrertAv(merknadRegistrertAv: String) = apply { this.merknadRegistrertAv = merknadRegistrertAv }
-    fun skjermetObjekt(skjermetObjekt: String) = apply { this.skjermetObjekt = skjermetObjekt }
 
     open fun build() : Merknad {
         return Merknad().also {
@@ -29,7 +26,6 @@ open class MerknadBuilder {
             it.merknadstype = merknadstype?.value
             it.merknadsdato = checkNotNull(merknadsDato) {"Merknadsdato er påkrevd fro Merknad"}
             it.merknadRegistrertAv = checkNotNull(merknadRegistrertAv) {"MerknadRegistrertAv er påkrevd for klasse"}
-            it.skjermetObjekt = skjermetObjekt
         }
     }
 }

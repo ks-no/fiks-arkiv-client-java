@@ -46,7 +46,6 @@ public class ArkivmeldingJavaTest {
         ArkivmeldingBuilder arkivmeldingBuilder = new MappeArkivmeldingBuilder()
                 .mapper(Collections.singletonList(mappe))
                 .system("System A")
-                .meldingId("MeldingsId")
                 .tidspunkt(ZonedDateTime.now())
                 .antallFiler(0);
 
@@ -84,7 +83,6 @@ public class ArkivmeldingJavaTest {
         ArkivmeldingBuilder arkivmeldingBuilder = new RegistreringArkivmeldingBuilder()
                 .registrering(Collections.singletonList(journalPostBuilder))
                 .system("System A")
-                .meldingId("MeldingsId")
                 .tidspunkt(ZonedDateTime.now())
                 .antallFiler(1);
 
@@ -164,8 +162,7 @@ public class ArkivmeldingJavaTest {
         ArkivmeldingBuilder arkivmeldingBuilder = new RegistreringArkivmeldingBuilder()
                 .registrering(journalposter)
                 .system("Fagsystem X")
-                .antallFiler(1)
-                .meldingId(UUID.randomUUID().toString());
+                .antallFiler(1);
 
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.xsd"));
@@ -200,7 +197,7 @@ public class ArkivmeldingJavaTest {
                                         .adresselinje3("Tredje adresselinje")
                                         .postnr("3801")
                                         .poststed("Bø"))
-                                .forsendelsemåte("SvarUt")))
+                                .forsendelsemaate("SvarUt")))
                         .hoveddokument(new ForenkletDokument()
                                 .tittel("Vedtak")
                                 .filnavn("vedtak.pdf")

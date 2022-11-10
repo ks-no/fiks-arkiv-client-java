@@ -9,12 +9,9 @@ class KlassifikasjonBuilder {
         private set
     var klasseID: String? = null
         private set
-    var skjermetObjekt: String? = null
-        private set
 
     fun klassifikasjonssystemID(klassifikasjonssystemID: String) = apply { this.klassifikasjonssystemID = klassifikasjonssystemID }
     fun klasseID(klasseID: String) = apply { this.klasseID = klasseID }
-    fun skjermetObjekt(skjermetObjekt: String) = apply { this.skjermetObjekt = skjermetObjekt }
     fun tittel(tittel: String) = apply { this.tittel = tittel }
 
 
@@ -23,7 +20,6 @@ class KlassifikasjonBuilder {
             it.klassifikasjonssystemID = checkNotNull(klassifikasjonssystemID) {"Klassifikasjonssystem er påkrevd for Klassifikasjon"}
             it.tittel = checkNotNull(tittel) {"Tittel er påkrevd for Klassifikasjon"}
             it.klasseID = klasseID
-            it.skjermetObjekt = skjermetObjekt
         }
     }
 }

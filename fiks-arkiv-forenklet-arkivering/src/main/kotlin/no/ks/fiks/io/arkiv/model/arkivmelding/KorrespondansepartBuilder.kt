@@ -29,8 +29,6 @@ open class KorrespondansepartBuilder {
         private set
     var telefonnumre: List<String> = ArrayList()
         private set
-    var skjermetObjekt: String? = null
-        private set
     var forsendelsesmaate: String? = null
         private set
     var deresReferanse: String? = null
@@ -51,7 +49,6 @@ open class KorrespondansepartBuilder {
     fun administrativEnhet(administrativEnhet: AdministrativEnhetBuilder) = apply { this.administrativEnhet = administrativEnhet }
     fun kontaktperson(kontaktperson: String) = apply { this.kontaktperson = kontaktperson }
     fun telefonnumre(telefonnumre: List<String>) = apply { this.telefonnumre = telefonnumre }
-    fun skjermetObjekt(skjermetObjekt: String) = apply { this.skjermetObjekt = skjermetObjekt }
     fun forsendelsesmaate(forsendelsesmaate: String) = apply { this.forsendelsesmaate = forsendelsesmaate }
     fun deresReferanse(deresReferanse: String) = apply { this.deresReferanse = deresReferanse }
     fun organisasjonid(organisasjonid: String) = apply { if(this.personid == null) this.organisasjonid = organisasjonid else throw IllegalStateException("Personid kan ikke settes i kombinasjon med organisasjonsid") }
@@ -70,7 +67,6 @@ open class KorrespondansepartBuilder {
             it.kontaktperson = kontaktperson
             it.administrativEnhet = administrativEnhet?.build()
             it.saksbehandler = saksbehandler?.build()
-            it.skjermetObjekt = skjermetObjekt
             it.forsendelsesmaate = forsendelsesmaate
             it.deresReferanse = deresReferanse
             it.organisasjonid = organisasjonid

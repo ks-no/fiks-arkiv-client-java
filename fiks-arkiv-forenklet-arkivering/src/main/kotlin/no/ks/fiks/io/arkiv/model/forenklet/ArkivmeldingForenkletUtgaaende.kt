@@ -98,14 +98,12 @@ class ArkivmeldingForenkletUtgaaende {
                 .mapper(listOf(saksMappeBuilder))
                 .antallFiler(journalpost.dokumentbeskrivelser.size)
             journalpost.referanseEksternNoekkel?.fagsystem?.let { fs -> arkivmelding.system(fs) }
-            journalpost.referanseEksternNoekkel?.noekkel?.let { mid -> arkivmelding.meldingId(mid) }
             return arkivmelding
         } ?: run {
             val arkivmelding = RegistreringArkivmeldingBuilder()
                 .registrering(listOf(journalpost))
                 .antallFiler(journalpost.dokumentbeskrivelser.size)
             journalpost.referanseEksternNoekkel?.fagsystem?.let { fs -> arkivmelding.system(fs) }
-            journalpost.referanseEksternNoekkel?.noekkel?.let { mid -> arkivmelding.meldingId(mid) }
             return arkivmelding
         }
 

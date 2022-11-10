@@ -36,5 +36,5 @@ class KorrespondansepartForenklet {
     fun kontaktinformasjonForenklet(kontaktinformasjonForenklet: KontaktinformasjonForenklet) = apply { this.kontaktinformasjonForenklet = kontaktinformasjonForenklet }
     fun kontaktperson(kontaktperson: String) = apply { this.kontaktperson = kontaktperson }
     fun deresReferanse(deresReferanse: String) = apply { this.deresReferanse = deresReferanse }
-    fun forsendelsemåte(forsendelsemåte: String) = apply { this.forsendelsemåte = forsendelsemåte }
+    fun forsendelsemaate(forsendelsemåte: String) = apply { this.forsendelsemåte = forsendelsemåte }
 }

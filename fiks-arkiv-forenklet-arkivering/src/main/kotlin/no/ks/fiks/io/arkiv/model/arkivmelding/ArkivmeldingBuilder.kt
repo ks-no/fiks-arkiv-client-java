@@ -19,8 +19,6 @@ import javax.xml.stream.XMLStreamWriter
 open class ArkivmeldingBuilder {
     var system: String? = null
         private set
-    var meldingId: String? = null
-        private set
     var antallFiler: Int? = null
         private set
     var tidspunkt: ZonedDateTime = ZonedDateTime.now()
@@ -29,14 +27,12 @@ open class ArkivmeldingBuilder {
     open fun build(): Arkivmelding {
         return Arkivmelding().also {
             it.system = checkNotNull(system) {"System er påkrevd felt for Arkivmelding"}
-            it.meldingId = checkNotNull(meldingId) {"MeldingId er påkrevd felt for Arkivmelding"}
             it.tidspunkt = tidspunkt
             it.antallFiler = checkNotNull(antallFiler) {"Antall filer er påkrevd felt for Arkivmelding"}
         }
     }
 
     fun system(system: String) = apply { this.system = system }
-    fun meldingId(meldingId: String) = apply { this.meldingId = meldingId }
     fun tidspunkt(tidspunkt: ZonedDateTime) = apply { this.tidspunkt = tidspunkt }
     fun antallFiler(antallFiler: Int) = apply { this.antallFiler = antallFiler }
 

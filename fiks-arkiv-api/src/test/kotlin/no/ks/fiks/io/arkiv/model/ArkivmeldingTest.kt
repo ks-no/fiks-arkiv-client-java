@@ -87,7 +87,6 @@ class ArkivmeldingTest {
                 }
             }))
             it.system = "System"
-            it.meldingId = "MeldingsId"
             it.tidspunkt = ZonedDateTime.now()
             it.antallFiler = 2
         }
