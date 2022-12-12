@@ -1,21 +1,22 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
-import no.ks.fiks.arkiv.v1.arkivmelding.Mappe
-import no.ks.fiks.io.arkiv.model.arkivstruktur.*
+import no.ks.fiks.arkiv.v1.arkivmelding.*
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.EksternNoekkel
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Kode
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.ReferanseTilMappe
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.SystemID
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.DokumentmediumType
-import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KodeBuilder
-import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import java.time.ZonedDateTime
 
 /**
  * Mappe er det overordnede objektet for å samle saker i. Det er mulig å ha mapper i mapper.
  */
 open class MappeBuilder {
-    var systemID: SystemIDBuilder? = null
+    var systemID: SystemID? = null
         private set
     var mappeId: String? = null
         private set
-    var referanseForeldermappe: ReferanseTilMappeBuilder? = null
+    var referanseForeldermappe: ReferanseTilMappe? = null
         private set
     var tittel: String? = null
         private set
@@ -37,32 +38,32 @@ open class MappeBuilder {
         private set
     var avsluttetAv: String? = null
         private set
-    var arkivdel: KodeBuilder? = null
+    var arkivdel: Kode? = null
         private set
-    var parts: List<PartBuilder> = ArrayList()
+    var parts: List<Part> = ArrayList()
         private set
-    var kryssreferanser: List<KryssreferanseBuilder> = ArrayList()
+    var kryssreferanser: List<Kryssreferanse> = ArrayList()
         private set
-    var merknader: List<MerknadBuilder> = ArrayList()
+    var merknader: List<Merknad> = ArrayList()
         private set
-    var skjerming: SkjermingBuilder? = null
+    var skjerming: Skjerming? = null
         private set
-    var gradering: GraderingBuilder? = null
+    var gradering: Gradering? = null
         private set
-    var klassifikasjoner: List<KlassifikasjonBuilder> = ArrayList()
+    var klassifikasjoner: List<Klassifikasjon> = ArrayList()
         private set
-    var referanseEksternNoekkel: EksternNoekkelBuilder? = null
+    var referanseEksternNoekkel: EksternNoekkel? = null
         private set
     var registreringer: List<IRegistrering> = emptyList()
         private set
-    var mapper: List<MappeBuilder> = emptyList()
+    var mapper: List<Mappe> = emptyList()
         private set
-    var mappetype: KodeBuilder? = null
+    var mappetype: Kode? = null
         private set
 
-    fun systemID(systemID: SystemIDBuilder) = apply { this.systemID = systemID }
+    fun systemID(systemID: SystemID) = apply { this.systemID = systemID }
     fun mappeId(mappeId: String) = apply { this.mappeId = mappeId }
-    fun referanseForeldermappe(referanseForeldermappe: ReferanseTilMappeBuilder) = apply { this.referanseForeldermappe = referanseForeldermappe }
+    fun referanseForeldermappe(referanseForeldermappe: ReferanseTilMappe) = apply { this.referanseForeldermappe = referanseForeldermappe }
     fun tittel(tittel: String) = apply { this.tittel = tittel }
     fun offentligTittel(offentligTittel: String) = apply { this.offentligTittel = offentligTittel }
     fun beskrivelse(beskrivelse: String) = apply { this.beskrivelse =  beskrivelse }
@@ -73,23 +74,23 @@ open class MappeBuilder {
     fun opprettetAv(opprettetAv: String) = apply { this.opprettetAv = opprettetAv }
     fun avsluttetDato(avsluttetDato: ZonedDateTime) = apply { this.avsluttetDato = avsluttetDato }
     fun avsluttetAv(avsluttetAv: String) = apply { this.avsluttetAv = avsluttetAv }
-    fun arkivdel(arkivdel: KodeBuilder) = apply { this.arkivdel = arkivdel }
-    fun parts(parts: List<PartBuilder>) = apply { this.parts = parts }
-    fun kryssreferanser(kryssreferanser: List<KryssreferanseBuilder>) = apply { this.kryssreferanser = kryssreferanser }
-    fun merknader(merknader: List<MerknadBuilder>) = apply { this.merknader = merknader }
-    fun skjerming(skjerming: SkjermingBuilder) = apply { this.skjerming = skjerming }
-    fun gradering(gradering: GraderingBuilder) = apply { this.gradering = gradering }
-    fun klassifikasjoner(klassifikasjoner: List<KlassifikasjonBuilder>) = apply { this.klassifikasjoner = klassifikasjoner }
-    fun referanseEksternNoekkel(referanseEksternNoekkel: EksternNoekkelBuilder) = apply { this.referanseEksternNoekkel = referanseEksternNoekkel }
+    fun arkivdel(arkivdel: Kode) = apply { this.arkivdel = arkivdel }
+    fun parts(parts: List<Part>) = apply { this.parts = parts }
+    fun kryssreferanser(kryssreferanser: List<Kryssreferanse>) = apply { this.kryssreferanser = kryssreferanser }
+    fun merknader(merknader: List<Merknad>) = apply { this.merknader = merknader }
+    fun skjerming(skjerming: Skjerming) = apply { this.skjerming = skjerming }
+    fun gradering(gradering: Gradering) = apply { this.gradering = gradering }
+    fun klassifikasjoner(klassifikasjoner: List<Klassifikasjon>) = apply { this.klassifikasjoner = klassifikasjoner }
+    fun referanseEksternNoekkel(referanseEksternNoekkel: EksternNoekkel) = apply { this.referanseEksternNoekkel = referanseEksternNoekkel }
     fun registreringer(registreringer: List<IRegistrering>) = apply { if(mapper.isEmpty()) this.registreringer = registreringer else throw IllegalArgumentException("Det er ikke mulig å registrere både undermapper og registreringer til samme mappe") }
-    fun mapper(mapper: List<MappeBuilder>) = apply { if(mapper.isEmpty()) this.mapper = mapper else throw IllegalArgumentException("Det er ikke mulig å registrere både undermapper og registreringer til samme mappe") }
-    fun mappetype(mappetype: KodeBuilder) = apply { this.mappetype = mappetype }
+    fun mapper(mapper: List<Mappe>) = apply { if(mapper.isEmpty()) this.mapper = mapper else throw IllegalArgumentException("Det er ikke mulig å registrere både undermapper og registreringer til samme mappe") }
+    fun mappetype(mappetype: Kode) = apply { this.mappetype = mappetype }
 
     open fun build(): Mappe {
         return Mappe().also {
-            it.systemID = systemID?.build()
+            it.systemID = systemID
             it.mappeID = mappeId
-            it.referanseForeldermappe = referanseForeldermappe?.build()
+            it.referanseForeldermappe = referanseForeldermappe
             it.tittel = checkNotNull(tittel) {"Tittel er påkrevd felt for Mappe"}
             it.offentligTittel = offentligTittel
             it.beskrivelse = beskrivelse
@@ -100,17 +101,17 @@ open class MappeBuilder {
             it.opprettetAv = opprettetAv
             it.avsluttetDato = avsluttetDato
             it.avsluttetAv = avsluttetAv
-            it.arkivdel = arkivdel?.build()
-            it.parts.addAll(parts.map { p -> p.build() }.toList())
-            it.kryssreferanses.addAll(kryssreferanser.map { k -> k.build() }.toList())
-            it.merknads.addAll(merknader.map { m -> m.build() }.toList())
-            it.skjerming = skjerming?.build()
-            it.gradering = gradering?.build()
-            it.klassifikasjons.addAll(klassifikasjoner.map { k -> k.build() }.toList())
-            it.referanseEksternNoekkel = referanseEksternNoekkel?.build()
+            it.arkivdel = arkivdel
+            it.parts.addAll(parts)
+            it.kryssreferanses.addAll(kryssreferanser)
+            it.merknads.addAll(merknader)
+            it.skjerming = skjerming
+            it.gradering = gradering
+            it.klassifikasjons.addAll(klassifikasjoner)
+            it.referanseEksternNoekkel = referanseEksternNoekkel
             it.registrerings.addAll(registreringer.map { r -> r.build() }.toList())
-            it.mappes.addAll(mapper.map { m -> m.build() }.toList())
-            it.mappetype = mappetype?.build()
+            it.mappes.addAll(mapper)
+            it.mappetype = mappetype
         }
     }
 }

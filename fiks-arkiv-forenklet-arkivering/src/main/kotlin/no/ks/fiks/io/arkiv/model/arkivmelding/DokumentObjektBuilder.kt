@@ -1,14 +1,14 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
 import no.ks.fiks.arkiv.v1.arkivmelding.Dokumentobjekt
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.SystemID
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.FormatType
-import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.VariantFormatType
 import java.time.ZonedDateTime
 
 class DokumentObjektBuilder {
 
-    var systemID: SystemIDBuilder? = null
+    var systemID: SystemID? = null
         private set
     var versjonsnummer: Int? = null
         private set
@@ -35,7 +35,7 @@ class DokumentObjektBuilder {
     var filstoerrelse: Int? = null
         private set
 
-    fun systemID(systemID: SystemIDBuilder) = apply { this.systemID = systemID }
+    fun systemID(systemID: SystemID) = apply { this.systemID = systemID }
     fun versjonsnummer(versjonsnummer: Int) = apply { this.versjonsnummer = versjonsnummer }
     fun variantformat(variantformat: VariantFormatType) = apply { this.variantformat = variantformat }
     fun filnavn(filnavn: String) = apply { this.filnavn = filnavn }
@@ -52,7 +52,7 @@ class DokumentObjektBuilder {
 
     fun build() : Dokumentobjekt {
         return Dokumentobjekt().also {
-            it.systemID = systemID?.build()
+            it.systemID = systemID
             it.versjonsnummer = versjonsnummer ?: throw IllegalStateException("Versjonsnummer er påkrevd for Dokumentobjekt")
             it.variantformat = variantformat?.value ?: throw IllegalStateException("Variantformat er påkrevd for Dokumentobjekt")
             it.filnavn = checkNotNull(filnavn) {"Filnavn er påkrevd for Dokumentobject"}

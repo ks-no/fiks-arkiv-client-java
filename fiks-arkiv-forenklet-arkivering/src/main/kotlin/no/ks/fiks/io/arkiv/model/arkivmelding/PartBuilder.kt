@@ -1,6 +1,8 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
+import no.ks.fiks.arkiv.v1.arkivmelding.OrganisasjonsID
 import no.ks.fiks.arkiv.v1.arkivmelding.Part
+import no.ks.fiks.arkiv.v1.arkivmelding.PersonID
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.PartRolleType
 
 class PartBuilder {
@@ -25,9 +27,9 @@ class PartBuilder {
         private set
     var kontaktperson: String? = null
         private set
-    var organisasjonID: OrganisasjonsIDBuilder? = null
+    var organisasjonID: OrganisasjonsID? = null
         private set
-    var personID: PersonIDBuilder? = null
+    var personID: PersonID? = null
         private set
     var personnavn: String? = null
         private set
@@ -42,8 +44,8 @@ class PartBuilder {
     fun epostadresse(epostadresse: String) = apply { this.epostadresse = epostadresse }
     fun telefonnumre(telefonnumre: List<String>) = apply { this.telefonnumre = telefonnumre }
     fun kontaktperson(kontaktperson: String) = apply { this.kontaktperson = kontaktperson }
-    fun organisasjonID(organisasjonID: OrganisasjonsIDBuilder) = apply { if(personID == null) this.organisasjonID = organisasjonID else throw IllegalArgumentException("ArkivmeldingPart kan ikke inneholde både personID og organisasjonsID") }
-    fun personID(personID: PersonIDBuilder) = apply { if(this.organisasjonID == null) this.personID = personID else throw IllegalArgumentException("ArkivmeldingPart kan ikke inneholde både personID og organisasjonsID") }
+    fun organisasjonID(organisasjonID: OrganisasjonsID) = apply { if(personID == null) this.organisasjonID = organisasjonID else throw IllegalArgumentException("ArkivmeldingPart kan ikke inneholde både personID og organisasjonsID") }
+    fun personID(personID: PersonID) = apply { if(this.organisasjonID == null) this.personID = personID else throw IllegalArgumentException("ArkivmeldingPart kan ikke inneholde både personID og organisasjonsID") }
     fun personnavn(personnavn: String) = apply { this.personnavn = personnavn }
 
     fun build() : Part {
@@ -58,8 +60,8 @@ class PartBuilder {
             it.epostadresse = epostadresse
             it.telefonnummers.addAll(telefonnumre)
             it.kontaktperson = kontaktperson
-            it.organisasjonID = organisasjonID?.buildApiModel()
-            it.personID = personID?.buildApiModel()
+            it.organisasjonID = organisasjonID
+            it.personID = personID
         }
     }
 

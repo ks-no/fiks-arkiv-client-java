@@ -1,10 +1,8 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
-import no.ks.fiks.arkiv.v1.arkivmelding.Saksmappe
-import no.ks.fiks.io.arkiv.model.arkivstruktur.AdministrativEnhetBuilder
-import no.ks.fiks.io.arkiv.model.arkivstruktur.AdresseBuilder
-import no.ks.fiks.io.arkiv.model.arkivstruktur.PresedensBuilder
-import no.ks.fiks.io.arkiv.model.arkivstruktur.SaksansvarligBuilder
+import no.ks.fiks.arkiv.v1.arkivmelding.*
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.AdministrativEnhet
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Saksansvarlig
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SaksstatusType
 import java.time.LocalDate
 
@@ -18,9 +16,9 @@ open class SaksmappeBuilder : MappeBuilder() {
         private set
     var saksdato: LocalDate? = null
         private set
-    var administrativEnhet: AdministrativEnhetBuilder? = null
+    var administrativEnhet: AdministrativEnhet? = null
         private set
-    var saksansvarlig: SaksansvarligBuilder? = null
+    var saksansvarlig: Saksansvarlig? = null
         private set
     var journalenhet: String? = null
         private set
@@ -30,40 +28,40 @@ open class SaksmappeBuilder : MappeBuilder() {
         private set
     var utlaantTil: String? = null
         private set
-    var presedens: List<PresedensBuilder> = ArrayList()
+    var presedens: List<Presedens> = ArrayList()
         private set
-    var adresser: List<AdresseBuilder> = ArrayList()
+    var adresser: List<Adresse> = ArrayList()
         private set
-    var matrikkelnumre: List<MatrikkelnummerBuilder> = ArrayList()
+    var matrikkelnumre: List<Matrikkelnummer> = ArrayList()
         private set
-    var byggindenter: List<ByggidentBuilder> = ArrayList()
+    var byggindenter: List<Byggident> = ArrayList()
         private set
-    var planident: PlanidentBuilder? = null
+    var planident: Planident? = null
         private set
-    var punkt: PunktBuilder? = null
+    var punkt: Punkt? = null
         private set
 
     fun saksaar(saksaar: Int) = apply { this.saksaar = saksaar }
     fun sakssekvensnummer(sakssekvensnummer: Int) = apply { this.sakssekvensnummer = sakssekvensnummer }
     fun saksdato(saksdato: LocalDate) = apply { this.saksdato = saksdato }
-    fun administrativEnhet(administrativEnhet: AdministrativEnhetBuilder) = apply { this.administrativEnhet = administrativEnhet }
-    fun saksansvarlig(saksansvarlig: SaksansvarligBuilder) = apply { this.saksansvarlig = saksansvarlig }
+    fun administrativEnhet(administrativEnhet: AdministrativEnhet) = apply { this.administrativEnhet = administrativEnhet }
+    fun saksansvarlig(saksansvarlig: Saksansvarlig) = apply { this.saksansvarlig = saksansvarlig }
     fun journalenhet(journalenhet: String) = apply { this.journalenhet = journalenhet }
     fun saksstatus(saksstatus: SaksstatusType) = apply { this.saksstatus = saksstatus }
     fun utlaantDato(utlaantDato: LocalDate) = apply { this.utlaantDato = utlaantDato }
     fun utlaantTil(utlaantTil: String) = apply { this.utlaantTil = utlaantTil }
-    fun presedens(presedens: List<PresedensBuilder>) = apply { this.presedens = presedens }
-    fun adresser(adresser: List<AdresseBuilder>) = apply { this.adresser = adresser }
-    fun matrikkelnumre(matrikkelnumre: List<MatrikkelnummerBuilder>) = apply { this.matrikkelnumre = matrikkelnumre }
-    fun byggindenter(byggindenter: List<ByggidentBuilder>) = apply { this.byggindenter = byggindenter }
-    fun planident(planident: PlanidentBuilder) = apply { this.planident = planident }
-    fun punkt(punkt: PunktBuilder) = apply { this.punkt = punkt }
+    fun presedens(presedens: List<Presedens>) = apply { this.presedens = presedens }
+    fun adresser(adresser: List<Adresse>) = apply { this.adresser = adresser }
+    fun matrikkelnumre(matrikkelnumre: List<Matrikkelnummer>) = apply { this.matrikkelnumre = matrikkelnumre }
+    fun byggindenter(byggindenter: List<Byggident>) = apply { this.byggindenter = byggindenter }
+    fun planident(planident: Planident) = apply { this.planident = planident }
+    fun punkt(punkt: Punkt) = apply { this.punkt = punkt }
 
     override fun build(): Saksmappe {
         return Saksmappe().also {
-            it.systemID = systemID?.build()
+            it.systemID = systemID
             it.mappeID = mappeId
-            it.referanseForeldermappe = referanseForeldermappe?.build()
+            it.referanseForeldermappe = referanseForeldermappe
             it.tittel = checkNotNull(tittel) { "Tittel er påkrevd for Saksmappe" }
             it.offentligTittel = offentligTittel
             it.beskrivelse = beskrivelse
@@ -74,33 +72,33 @@ open class SaksmappeBuilder : MappeBuilder() {
             it.opprettetAv = opprettetAv
             it.avsluttetDato = avsluttetDato
             it.avsluttetAv = avsluttetAv
-            it.arkivdel = arkivdel?.build()
-            it.parts.addAll(parts.map { p -> p.build() }.toList())
-            it.kryssreferanses.addAll(kryssreferanser.map { k -> k.build() }.toList())
-            it.merknads.addAll(merknader.map { m -> m.build() }.toList())
-            it.skjerming = skjerming?.build()
-            it.gradering = gradering?.build()
-            it.klassifikasjons.addAll(klassifikasjoner.map { k -> k.build() }.toList())
-            it.referanseEksternNoekkel = referanseEksternNoekkel?.build()
+            it.arkivdel = arkivdel
+            it.parts.addAll(parts)
+            it.kryssreferanses.addAll(kryssreferanser)
+            it.merknads.addAll(merknader)
+            it.skjerming = skjerming
+            it.gradering = gradering
+            it.klassifikasjons.addAll(klassifikasjoner)
+            it.referanseEksternNoekkel = referanseEksternNoekkel
             it.registrerings.addAll(registreringer.map { r -> r.build() }.toList())
-            it.mappes.addAll(mapper.map { m -> m.build() }.toList())
-            it.mappetype = mappetype?.build()
+            it.mappes.addAll(mapper)
+            it.mappetype = mappetype
 
             it.saksaar = saksaar
             it.sakssekvensnummer = sakssekvensnummer
             it.saksdato = saksdato
-            it.administrativEnhet = administrativEnhet?.build()
-            it.saksansvarlig = saksansvarlig?.build()
+            it.administrativEnhet = administrativEnhet
+            it.saksansvarlig = saksansvarlig
             it.journalenhet = journalenhet
             it.saksstatus = saksstatus?.value
             it.utlaantDato = utlaantDato
             it.utlaantTil = utlaantTil
-            it.presedens.addAll(presedens.map { p -> p.build() }.toList())
-            it.matrikkelnummers.addAll(matrikkelnumre.map { m -> m.build() }.toList())
-            it.byggidents.addAll(byggindenter.map { b -> b.build() }.toList())
-            it.planident = planident?.build()
-            it.punkt = punkt?.build()
-            it.adresses.addAll(adresser.map { a -> a.build() }.toList())
+            it.presedens.addAll(presedens)
+            it.matrikkelnummers.addAll(matrikkelnumre)
+            it.byggidents.addAll(byggindenter)
+            it.planident = planident
+            it.punkt = punkt
+            it.adresses.addAll(adresser)
         }
     }
 }

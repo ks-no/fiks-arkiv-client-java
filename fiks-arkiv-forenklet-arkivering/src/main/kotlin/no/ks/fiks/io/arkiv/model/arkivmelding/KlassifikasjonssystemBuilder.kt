@@ -1,5 +1,6 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
+import no.ks.fiks.arkiv.v1.arkivmelding.Klasse
 import no.ks.fiks.arkiv.v1.arkivmelding.Klassifikasjonssystem
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KlassifikasjonsType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
@@ -20,7 +21,7 @@ class KlassifikasjonssystemBuilder {
         private set
     var avsluttetAv: String? = null
         private set
-    var klasse: List<KlasseBuilder> = ArrayList()
+    var klasse: List<Klasse> = ArrayList()
         private set
 
     fun klassifikasjonstype(klassifikasjonstype: KlassifikasjonsType) = apply { this.klassifikasjonstype = klassifikasjonstype }
@@ -30,7 +31,7 @@ class KlassifikasjonssystemBuilder {
     fun opprettetAv(opprettetAv: String) = apply { this.opprettetAv = opprettetAv }
     fun avsluttetDato(avsluttetDato: ZonedDateTime) = apply { this.avsluttetDato = avsluttetDato }
     fun avsluttetAv(avsluttetAv: String) = apply { this.avsluttetAv = avsluttetAv }
-    fun klasse(klasse: List<KlasseBuilder>) = apply { this.klasse = klasse }
+    fun klasse(klasse: List<Klasse>) = apply { this.klasse = klasse }
 
     fun build() : Klassifikasjonssystem {
         return Klassifikasjonssystem().also {
@@ -41,7 +42,7 @@ class KlassifikasjonssystemBuilder {
             it.opprettetAv = opprettetAv
             it.avsluttetDato = avsluttetDato
             it.avsluttetAv = avsluttetAv
-            it.klasses.addAll(klasse.map { k -> k.build() }.toList())
+            it.klasses.addAll(klasse)
             if(klasse.isEmpty()) throw IllegalStateException("En eller flere klasser er påkrevd for klassifikasjonssystem")
         }
     }

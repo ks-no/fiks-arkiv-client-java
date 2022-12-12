@@ -1,8 +1,8 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
 import no.ks.fiks.arkiv.v1.arkivmelding.Korrespondansepart
-import no.ks.fiks.io.arkiv.model.arkivstruktur.AdministrativEnhetBuilder
-import no.ks.fiks.io.arkiv.model.arkivstruktur.SaksbehandlerBuilder
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.AdministrativEnhet
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Saksbehandler
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KorrespondansepartType
 
 open class KorrespondansepartBuilder {
@@ -21,9 +21,9 @@ open class KorrespondansepartBuilder {
         private set
     var epostadresse: String? = null
         private set
-    var saksbehandler: SaksbehandlerBuilder? = null
+    var saksbehandler: Saksbehandler? = null
         private set
-    var administrativEnhet: AdministrativEnhetBuilder? = null
+    var administrativEnhet: AdministrativEnhet? = null
         private set
     var kontaktperson: String? = null
         private set
@@ -45,8 +45,8 @@ open class KorrespondansepartBuilder {
     fun poststed(poststed: String) = apply { this.poststed = poststed }
     fun land(land: String) = apply { this.land = land }
     fun epostadresse(epostadresse: String) = apply { this.epostadresse = epostadresse }
-    fun saksbehandler(saksbehandler: SaksbehandlerBuilder) = apply { this.saksbehandler = saksbehandler }
-    fun administrativEnhet(administrativEnhet: AdministrativEnhetBuilder) = apply { this.administrativEnhet = administrativEnhet }
+    fun saksbehandler(saksbehandler: Saksbehandler) = apply { this.saksbehandler = saksbehandler }
+    fun administrativEnhet(administrativEnhet: AdministrativEnhet) = apply { this.administrativEnhet = administrativEnhet }
     fun kontaktperson(kontaktperson: String) = apply { this.kontaktperson = kontaktperson }
     fun telefonnumre(telefonnumre: List<String>) = apply { this.telefonnumre = telefonnumre }
     fun forsendelsesmaate(forsendelsesmaate: String) = apply { this.forsendelsesmaate = forsendelsesmaate }
@@ -65,8 +65,8 @@ open class KorrespondansepartBuilder {
             it.epostadresse = epostadresse
             it.telefonnummers.addAll(telefonnumre)
             it.kontaktperson = kontaktperson
-            it.administrativEnhet = administrativEnhet?.build()
-            it.saksbehandler = saksbehandler?.build()
+            it.administrativEnhet = administrativEnhet
+            it.saksbehandler = saksbehandler
             it.forsendelsesmaate = forsendelsesmaate
             it.deresReferanse = deresReferanse
             it.organisasjonid = organisasjonid
