@@ -1,6 +1,10 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
-import no.ks.fiks.arkiv.v1.arkivmelding.Journalpost
+import no.ks.fiks.arkiv.v1.arkivmelding.*
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.EksternNoekkel
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Kode
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.ReferanseTilMappe
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.SystemID
 import no.ks.fiks.io.arkiv.model.arkivstruktur.*
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.*
 import java.time.LocalDate
@@ -15,7 +19,7 @@ import kotlin.collections.ArrayList
 open class JournalpostBuilder : IRegistrering {
     var avskrivningsdato: LocalDate? = null
         private set
-    var arkivdel: KodeBuilder? = null
+    var arkivdel: Kode? = null
         private set
     var journaldato: LocalDate = LocalDate.now()
         private set
@@ -25,7 +29,7 @@ open class JournalpostBuilder : IRegistrering {
         private set
     var journalaar: Int = ZonedDateTime.now().year
         private set
-    var systemID: SystemIDBuilder? = null
+    var systemID: SystemID? = null
         private set
     var journalposttype: JournalpostType? = null
         private set
@@ -39,15 +43,15 @@ open class JournalpostBuilder : IRegistrering {
         private set
     var arkivertAv: String? = null
         private set
-    var referanseForelderMappe: ReferanseTilMappeBuilder? = null
+    var referanseForelderMappe: ReferanseTilMappe? = null
         private set
-    var korrespondanseparts: List<KorrespondansepartBuilder> = ArrayList()
+    var korrespondanseparts: List<Korrespondansepart> = ArrayList()
         private set
     var journalstatus: JournalStatus? = null
         private set
-    var referanseEksternNoekkel: EksternNoekkelBuilder? = null
+    var referanseEksternNoekkel: EksternNoekkel? = null
         private set
-    var parts: List<PartBuilder> = ArrayList()
+    var parts: List<Part> = ArrayList()
         private set
     var beskrivelse: String? = null
         private set
@@ -69,15 +73,15 @@ open class JournalpostBuilder : IRegistrering {
         private set
     var journalenhet: String? = null
         private set
-    var dokumentflyt: List<DokumentflytBuilder> = ArrayList()
+    var dokumentflyt: List<Dokumentflyt> = ArrayList()
         private set
-    var presedens: List<PresedensBuilder> = ArrayList()
+    var presedens: List<Presedens> = ArrayList()
         private set
-    var klassifikasjoner: List<KlassifikasjonBuilder> = ArrayList()
+    var klassifikasjoner: List<Klassifikasjon> = ArrayList()
         private set
-    var kryssreferanser: List<KryssreferanseBuilder> = ArrayList()
+    var kryssreferanser: List<Kryssreferanse> = ArrayList()
         private set
-    var merknader: List<MerknadBuilder> = ArrayList()
+    var merknader: List<Merknad> = ArrayList()
         private set
     var oppbevaringssteder: List<String> = ArrayList()
         private set
@@ -91,26 +95,26 @@ open class JournalpostBuilder : IRegistrering {
         private set
     var registreringsID: String? = null
         private set
-    var dokumentbeskrivelser: List<DokumentbeskrivelseBuilder> = ArrayList()
+    var dokumentbeskrivelser: List<Dokumentbeskrivelse> = ArrayList()
         private set
-    var gradering: GraderingBuilder? = null
+    var gradering: Gradering? = null
         private set
-    var skjerming: SkjermingBuilder? = null
+    var skjerming: Skjerming? = null
         private set
 
     fun avskrivningsdato(avskrivningsdato: LocalDate) = apply { this.avskrivningsdato =  avskrivningsdato }
-    fun systemID(systemID: SystemIDBuilder) = apply { this.systemID = systemID }
+    fun systemID(systemID: SystemID) = apply { this.systemID = systemID }
     fun journalposttype(journalposttype: JournalpostType) = apply { this.journalposttype = journalposttype }
     fun tittel(tittel: String) = apply { this.tittel = tittel }
     fun opprettetDato(opprettetDato: ZonedDateTime) = apply { this.opprettetDato = opprettetDato }
     fun opprettetAv(opprettetAv: String) = apply { this.opprettetAv = opprettetAv }
     fun arkivertDato(arkivertDato: ZonedDateTime) = apply { this.arkivertDato = arkivertDato }
     fun arkivertAv(arkivertAv: String) = apply { this.arkivertAv = arkivertAv }
-    fun referanseForelderMappe(referanseForelderMappe: ReferanseTilMappeBuilder) = apply { if(arkivdel == null) this.referanseForelderMappe = referanseForelderMappe else throw IllegalArgumentException("ReferanseForelderMappe kan ikke settes i kombinasjon med ReferanseArkivdel") }
-    fun arkivdel(arkivdel: KodeBuilder) = apply { if(referanseForelderMappe == null) this.arkivdel = arkivdel else throw IllegalArgumentException("ReferanseArkivdel kan ikke settes i kombinasjon med ReferanseForelderMappe") }
-    fun korrespondanseparts(korrespondanseparts: List<KorrespondansepartBuilder>) = apply { this.korrespondanseparts = korrespondanseparts }
+    fun referanseForelderMappe(referanseForelderMappe: ReferanseTilMappe) = apply { if(arkivdel == null) this.referanseForelderMappe = referanseForelderMappe else throw IllegalArgumentException("ReferanseForelderMappe kan ikke settes i kombinasjon med ReferanseArkivdel") }
+    fun arkivdel(arkivdel: Kode) = apply { if(referanseForelderMappe == null) this.arkivdel = arkivdel else throw IllegalArgumentException("ReferanseArkivdel kan ikke settes i kombinasjon med ReferanseForelderMappe") }
+    fun korrespondanseparts(korrespondanseparts: List<Korrespondansepart>) = apply { this.korrespondanseparts = korrespondanseparts }
     fun journalstatus(journalstatus: JournalStatus) = apply { this.journalstatus = journalstatus }
-    fun referanseEksternNoekkel(referanseEksternNoekkel: EksternNoekkelBuilder) = apply { this.referanseEksternNoekkel =  referanseEksternNoekkel}
+    fun referanseEksternNoekkel(referanseEksternNoekkel: EksternNoekkel) = apply { this.referanseEksternNoekkel =  referanseEksternNoekkel}
 
     /**
      * Viser året journalposten ble opprettet Kilde: Registreres automatisk når journalposten opprettes Kommentar: (ingen) M013 journalaar
@@ -119,7 +123,7 @@ open class JournalpostBuilder : IRegistrering {
     fun journalsekvensnummer(journalsekvensnummer: Int) = apply { this.journalsekvensnummer = journalsekvensnummer }
     fun journalpostnummer(journalpostnummer: Int) = apply { this.journalpostnummer = journalpostnummer }
     fun journaldato(journaldato: LocalDate) = apply { this.journaldato = journaldato }
-    fun parts(parts: List<PartBuilder>) = apply { this.parts = parts }
+    fun parts(parts: List<Part>) = apply { this.parts = parts }
     fun beskrivelse(beskrivelse: String) = apply { this.beskrivelse = beskrivelse }
     fun dokumentetsDato(dokumentetsDato: LocalDate) = apply { this.dokumentetsDato = dokumentetsDato }
     fun mottattDato(mottattDato: ZonedDateTime) = apply { this.mottattDato = mottattDato }
@@ -130,37 +134,37 @@ open class JournalpostBuilder : IRegistrering {
     fun utlaantDato(utlaantDato: LocalDate) = apply { this.utlaantDato = utlaantDato }
     fun utlaantTil(utlaantTil: String) = apply { this.utlaantTil = utlaantTil }
     fun journalenhet(journalenhet: String) = apply { this.journalenhet = journalenhet }
-    fun dokumentflyt(dokumentflyt: List<DokumentflytBuilder>) = apply { this.dokumentflyt = dokumentflyt }
-    fun presedens(presedens: List<PresedensBuilder>) = apply { this.presedens = presedens }
-    fun klassifikasjoner(klassifikasjoner: List<KlassifikasjonBuilder>) = apply { this.klassifikasjoner = klassifikasjoner }
-    fun kryssreferanser(kryssreferanser: List<KryssreferanseBuilder>) = apply { this.kryssreferanser = kryssreferanser }
-    fun merknader(merknader: List<MerknadBuilder>) = apply { this.merknader = merknader }
+    fun dokumentflyt(dokumentflyt: List<Dokumentflyt>) = apply { this.dokumentflyt = dokumentflyt }
+    fun presedens(presedens: List<Presedens>) = apply { this.presedens = presedens }
+    fun klassifikasjoner(klassifikasjoner: List<Klassifikasjon>) = apply { this.klassifikasjoner = klassifikasjoner }
+    fun kryssreferanser(kryssreferanser: List<Kryssreferanse>) = apply { this.kryssreferanser = kryssreferanser }
+    fun merknader(merknader: List<Merknad>) = apply { this.merknader = merknader }
     fun oppbevaringssteder(oppbevaringssteder: List<String>) = apply { this.oppbevaringssteder = oppbevaringssteder }
     fun dokumentmedium(dokumentmedium: DokumentmediumType) = apply { this.dokumentmedium = dokumentmedium }
     fun forfattere(forfattere: List<String>) = apply { this.forfattere = forfattere }
     fun nokkelord(nokkelord: List<String>) = apply { this.nokkelord = nokkelord }
     fun offentligTittel(offentligTittel: String) = apply { this.offentligTittel = offentligTittel }
     fun registreringsID(registreringsID: String) = apply { this.registreringsID = registreringsID }
-    fun dokumentbeskrivelser(dokumentbeskrivelser: List<DokumentbeskrivelseBuilder>) = apply { this.dokumentbeskrivelser = dokumentbeskrivelser }
-    fun gradering(gradering: GraderingBuilder) = apply { this.gradering = gradering }
-    fun skjerming(skjerming: SkjermingBuilder) = apply { this.skjerming = skjerming }
+    fun dokumentbeskrivelser(dokumentbeskrivelser: List<Dokumentbeskrivelse>) = apply { this.dokumentbeskrivelser = dokumentbeskrivelser }
+    fun gradering(gradering: Gradering) = apply { this.gradering = gradering }
+    fun skjerming(skjerming: Skjerming) = apply { this.skjerming = skjerming }
 
     override fun build() : Journalpost {
         return Journalpost().also {
             it.avskrivningsdato = avskrivningsdato ?: throw IllegalStateException(feilmeldingPakrevdFelt("avskrivningsdato"))
-            it.systemID = systemID?.build()
+            it.systemID = systemID
             it.opprettetDato = opprettetDato
             it.opprettetAv = opprettetAv
             it.arkivertDato = arkivertDato
             it.arkivertAv = arkivertAv
-            it.referanseForelderMappe = referanseForelderMappe?.build()
-            it.arkivdel = arkivdel?.build()
+            it.referanseForelderMappe = referanseForelderMappe
+            it.arkivdel = arkivdel
             it.journalsekvensnummer = journalsekvensnummer
-            it.parts.addAll(parts.map { p -> p.build() })
+            it.parts.addAll(parts)
 
-            it.skjerming = skjerming?.build()
-            it.gradering = gradering?.build()
-            it.dokumentbeskrivelses.addAll(dokumentbeskrivelser.map { d -> d.build() }.toList())
+            it.skjerming = skjerming
+            it.gradering = gradering
+            it.dokumentbeskrivelses.addAll(dokumentbeskrivelser)
             it.registreringsID = registreringsID
             it.tittel = checkNotNull(tittel) { feilmeldingPakrevdFelt("Tittel") }
             it.offentligTittel = offentligTittel
@@ -169,11 +173,11 @@ open class JournalpostBuilder : IRegistrering {
             it.forfatters.addAll(forfattere)
             it.dokumentmedium = dokumentmedium?.value
             it.oppbevaringssteds.addAll(oppbevaringssteder)
-            it.merknads.addAll(merknader.map { m -> m.build() }.toList())
-            it.kryssreferanses.addAll(kryssreferanser.map { k -> k.build() }.toList())
-            it.korrespondanseparts.addAll(korrespondanseparts.map { part -> part.build() }.toCollection(ArrayList()) )
-            it.klassifikasjons.addAll(klassifikasjoner.map { k -> k.build() }.toList())
-            it.referanseEksternNoekkel = referanseEksternNoekkel?.build() ?: throw IllegalStateException(feilmeldingPakrevdFelt("ReferanseEksternNoekkel"))
+            it.merknads.addAll(merknader)
+            it.kryssreferanses.addAll(kryssreferanser)
+            it.korrespondanseparts.addAll(korrespondanseparts )
+            it.klassifikasjons.addAll(klassifikasjoner)
+            it.referanseEksternNoekkel = referanseEksternNoekkel ?: throw IllegalStateException(feilmeldingPakrevdFelt("ReferanseEksternNoekkel"))
 
             it.journalaar = journalaar
             it.journalpostnummer = journalpostnummer
@@ -189,8 +193,8 @@ open class JournalpostBuilder : IRegistrering {
             it.utlaantDato = utlaantDato
             it.utlaantTil = utlaantTil
             it.journalenhet = journalenhet
-            it.dokumentflyts.addAll(dokumentflyt.map { d -> d.build() }.toList())
-            it.presedens.addAll(presedens.map { p -> p.build() }.toList())
+            it.dokumentflyts.addAll(dokumentflyt)
+            it.presedens.addAll(presedens)
         }
     }
 

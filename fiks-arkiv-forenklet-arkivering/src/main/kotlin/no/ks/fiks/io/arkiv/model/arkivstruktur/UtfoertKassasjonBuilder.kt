@@ -3,7 +3,7 @@ package no.ks.fiks.io.arkiv.model.arkivstruktur
 import no.ks.fiks.arkiv.v1.arkivstruktur.UtfoertKassasjon
 import java.time.ZonedDateTime
 
-open class UtfortKassasjonBuilder {
+open class UtfoertKassasjonBuilder {
     var kassertDato: ZonedDateTime? = null
         private set
     var kassertAv: String? = null

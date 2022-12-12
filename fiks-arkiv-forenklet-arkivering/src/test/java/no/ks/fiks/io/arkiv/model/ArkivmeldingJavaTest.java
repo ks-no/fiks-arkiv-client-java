@@ -1,5 +1,6 @@
 package no.ks.fiks.io.arkiv.model;
 
+import no.ks.fiks.arkiv.v1.arkivmelding.Korrespondansepart;
 import no.ks.fiks.io.arkiv.model.arkivmelding.*;
 import no.ks.fiks.io.arkiv.model.arkivstruktur.*;
 import no.ks.fiks.io.arkiv.model.forenklet.*;
@@ -35,16 +36,16 @@ public class ArkivmeldingJavaTest {
                         .opprettetDato(ZonedDateTime.now())
                         .systemID(new SystemIDBuilder()
                                 .value(UUID.randomUUID())
-                                .label("SystemId label"))
+                                .label("SystemId label").build())
                         .mappeId("mappeId")
                         .referanseForeldermappe(new ReferanseTilMappeBuilder().systemID(
                                 new SystemIDBuilder()
                                         .value(UUID.randomUUID())
-                                        .label("label")))
+                                        .label("label").build()).build())
                         .tittel("Mappe tittel");
 
         ArkivmeldingBuilder arkivmeldingBuilder = new MappeArkivmeldingBuilder()
-                .mapper(Collections.singletonList(mappe))
+                .mapper(Collections.singletonList(mappe.build()))
                 .system("System A")
                 .tidspunkt(ZonedDateTime.now())
                 .antallFiler(0);
@@ -68,10 +69,10 @@ public class ArkivmeldingJavaTest {
                 .avskrivningsdato(LocalDate.now())
                 .journalposttype(JournalpostType.UTGAENDE_DOKUMENT)
                 .journalstatus(JournalStatus.FERDIGSTILT_FRA_SAKSBEHANDLER)
-                .systemID(new SystemIDBuilder().value(UUID.randomUUID()).label("Journalpost label"))
+                .systemID(new SystemIDBuilder().value(UUID.randomUUID()).label("Journalpost label").build())
                 .tittel("Journalpost tittel")
                 .beskrivelse("Journalpost beskrivelse")
-                .referanseEksternNoekkel(new EksternNoekkelBuilder().noekkel("Key").fagstystem("System A"))
+                .referanseEksternNoekkel(new EksternNoekkelBuilder().noekkel("Key").fagstystem("System A").build())
                 .opprettetAv("Ole Olsen")
                 .arkivertAv("Petter Pettersen")
                 .journalsekvensnummer(111)
@@ -101,21 +102,21 @@ public class ArkivmeldingJavaTest {
     @Test
     @DisplayName("ArkivmeldingForenkletUtgaaende, Opprett Journalpost med dokumenter")
     public void OpprettJournalpostMedDokument() throws Exception{
-        List<KorrespondansepartBuilder> korrespondanseparts = new ArrayList<>();
+        List<Korrespondansepart> korrespondanseparts = new ArrayList<>();
         SaksbehandlerBuilder saksbehandlerBuilder = new SaksbehandlerBuilder();
         saksbehandlerBuilder.navn("Birger Brannmann");
         korrespondanseparts.add(new KorrespondansepartBuilder()
                 .korrespondansepartType(KorrespondansepartType.MOTTAKER)
                 .korrespondansepartNavn("Birger Brannmann")
-                .saksbehandler(saksbehandlerBuilder));
+                .saksbehandler(saksbehandlerBuilder.build()).build());
         korrespondanseparts.add(new KorrespondansepartBuilder()
                 .korrespondansepartType(KorrespondansepartType.MOTTAKER)
                 .korrespondansepartNavn("Mons Mottaker")
-                .saksbehandler(saksbehandlerBuilder)
+                .saksbehandler(saksbehandlerBuilder.build())
                 .postadresse(Collections.singletonList("Gate 1"))
                 .postnummer("3801")
                 .land("NO")
-                .poststed("Bø"));
+                .poststed("Bø").build());
 
 
         final List<JournalpostBuilder> journalposter = Collections.singletonList(
@@ -123,7 +124,7 @@ public class ArkivmeldingJavaTest {
                         .avskrivningsdato(LocalDate.now())
                         .journalposttype(JournalpostType.UTGAENDE_DOKUMENT)
                         .journalstatus(JournalStatus.JOURNALFORT)
-                        .systemID(new SystemIDBuilder().value(UUID.randomUUID()).label("Journalpost label"))
+                        .systemID(new SystemIDBuilder().value(UUID.randomUUID()).label("Journalpost label").build())
                         .journalsekvensnummer(7)
                         .opprettetAv("Kari")
                         .arkivertAv("Kari")
@@ -131,13 +132,13 @@ public class ArkivmeldingJavaTest {
                         .referanseEksternNoekkel(
                                 new EksternNoekkelBuilder()
                                 .fagstystem("Fagsystem X")
-                                .noekkel(UUID.randomUUID().toString()))
+                                .noekkel(UUID.randomUUID().toString()).build())
                         .korrespondanseparts(korrespondanseparts)
                         .journalpostnummer(222)
                         .dokumentbeskrivelser(
                                 Collections.singletonList(
                                         new DokumentbeskrivelseBuilder()
-                                                .systemID(new SystemIDBuilder().value(UUID.randomUUID()).label("Dokumentbeskrivelse label"))
+                                                .systemID(new SystemIDBuilder().value(UUID.randomUUID()).label("Dokumentbeskrivelse label").build())
                                                 .dokumentType(DokumentType.KORRESPONDANSE)
                                                 .dokumentStatus(DokumentStatus.DOKUMENTET_ER_FERDIGSTILT)
                                                 .dokumentnummer(1)
@@ -148,7 +149,7 @@ public class ArkivmeldingJavaTest {
                                                 .dokumentobjekter(
                                                     Collections.singletonList(
                                                             new DokumentObjektBuilder()
-                                                                    .systemID(new SystemIDBuilder().value(UUID.randomUUID()).label("Dokumentobjekt label"))
+                                                                    .systemID(new SystemIDBuilder().value(UUID.randomUUID()).label("Dokumentobjekt label").build())
                                                                     .filnavn("vedtak.pdf")
                                                                     .versjonsnummer(1)
                                                                     .variantformat(VariantFormatType.ARKIVFORMAT)
@@ -158,7 +159,7 @@ public class ArkivmeldingJavaTest {
                                                                     .sjekksumAlgoritme("hash")
                                                                     .filstoerrelse(12345)
                                                                     .referanseDokumentfil("/en/path")
-                                                                    .format(FormatType.PDF_A_ISO_19005_1_2005))))));
+                                                                    .format(FormatType.PDF_A_ISO_19005_1_2005).build())).build())));
         ArkivmeldingBuilder arkivmeldingBuilder = new RegistreringArkivmeldingBuilder()
                 .registrering(journalposter)
                 .system("Fagsystem X")
@@ -184,7 +185,7 @@ public class ArkivmeldingJavaTest {
                                 .noekkel(UUID.randomUUID().toString())
                                 .fagstystem("Fagsystem X"))
                         .internAvsender(Collections.singletonList(new KorrespondansepartIntern()
-                                .saksbehandler(saksbehandlerBuilder)
+                                .saksbehandler(saksbehandlerBuilder.build())
                                 .referanseSaksbehandler("60577438-1f97-4c5f-b254-aa758c8786c4")))
                         .mottakere(Collections.singletonList(new KorrespondansepartForenklet()
                                 .navn("Mons Mottaker")
@@ -204,6 +205,11 @@ public class ArkivmeldingJavaTest {
                                 .referanseDokumentFil("/en/path")))
                 .referanseSaksmappeForenklet(new SaksmappeForenklet().tittel("Tilsyn eiendom 21/400"))
                 .byggArkivmelding();
+
+        StringWriter sw = new StringWriter();
+        arkivmelding.marshal(sw);
+        String xmlContent = sw.toString();
+        System.out.println(xmlContent);
 
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.xsd"));

@@ -1,10 +1,9 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
+import no.ks.fiks.arkiv.v1.arkivmelding.Gradering
+import no.ks.fiks.arkiv.v1.arkivmelding.Kassasjon
 import no.ks.fiks.arkiv.v1.arkivmelding.Klasse
-import no.ks.fiks.io.arkiv.model.arkivstruktur.GraderingBuilder
-import no.ks.fiks.io.arkiv.model.arkivstruktur.KassasjonBuilder
-import no.ks.fiks.io.arkiv.model.arkivstruktur.KryssreferanseBuilder
-import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
+import no.ks.fiks.arkiv.v1.arkivmelding.Kryssreferanse
 import java.time.ZonedDateTime
 
 open class KlasseBuilder {
@@ -24,11 +23,11 @@ open class KlasseBuilder {
         private set
     var avsluttetAv: String? = null
         private set
-    var kryssreferanse: List<KryssreferanseBuilder> = ArrayList()
+    var kryssreferanse: List<Kryssreferanse> = ArrayList()
         private set
-    var kassasjon: KassasjonBuilder? = null
+    var kassasjon: Kassasjon? = null
         private set
-    var gradering: GraderingBuilder? = null
+    var gradering: Gradering? = null
         private set
 
     fun klasseID(klasseID: String) = apply { this.klasseID = klasseID }
@@ -39,9 +38,9 @@ open class KlasseBuilder {
     fun opprettetAv(opprettetAv: String) = apply { this.opprettetAv = opprettetAv }
     fun avsluttetDato(avsluttetDato: ZonedDateTime) = apply { this.avsluttetDato = avsluttetDato }
     fun avsluttetAv(avsluttetAv: String) = apply { this.avsluttetAv = avsluttetAv }
-    fun kryssreferanse(kryssreferanse: List<KryssreferanseBuilder>) = apply { this.kryssreferanse = kryssreferanse }
-    fun kassasjon(kassasjon: KassasjonBuilder) = apply { this.kassasjon = kassasjon }
-    fun gradering(gradering: GraderingBuilder) = apply { this.gradering = gradering }
+    fun kryssreferanse(kryssreferanse: List<Kryssreferanse>) = apply { this.kryssreferanse = kryssreferanse }
+    fun kassasjon(kassasjon: Kassasjon) = apply { this.kassasjon = kassasjon }
+    fun gradering(gradering: Gradering) = apply { this.gradering = gradering }
 
     open fun build() : Klasse {
         return Klasse().also {
@@ -53,9 +52,9 @@ open class KlasseBuilder {
             it.opprettetAv = opprettetAv
             it.avsluttetDato = avsluttetDato
             it.avsluttetAv = avsluttetAv
-            it.kryssreferanses.addAll(kryssreferanse.map { k -> k.build() }.toList())
-            it.kassasjon = kassasjon?.build()
-            it.gradering = gradering?.build()
+            it.kryssreferanses.addAll(kryssreferanse)
+            it.kassasjon = kassasjon
+            it.gradering = gradering
         }
     }
 }

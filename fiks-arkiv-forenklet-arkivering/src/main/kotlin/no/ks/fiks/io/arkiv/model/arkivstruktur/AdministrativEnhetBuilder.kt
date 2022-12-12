@@ -6,7 +6,7 @@ open class AdministrativEnhetBuilder : IdentifikatorerBuilder() {
 
     fun build() : AdministrativEnhet {
         return AdministrativEnhet().also {
-            it.kode = kode?.build()
+            it.kode = kode
             it.epostadresse = epostadresse
             it.identifikator = identifikator
             it.initialer = initialer

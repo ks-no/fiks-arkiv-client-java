@@ -4,14 +4,14 @@ import no.ks.fiks.arkiv.v1.arkivmelding.Klasse
 
 
 class KlasseKlasseBuilder: KlasseBuilder() {
-    var klasser: List<KlasseBuilder> = ArrayList()
+    var klasser: List<Klasse> = ArrayList()
         private set
 
-    fun klasser(klasser: List<KlasseBuilder>) = apply { this.klasser = klasser }
+    fun klasser(klasser: List<Klasse>) = apply { this.klasser = klasser }
 
     override fun build(): Klasse {
         return super.build().also {
-            it.klasses.addAll(klasser.map { j -> j.build() }.toList())
+            it.klasses.addAll(klasser)
         }
     }
 }

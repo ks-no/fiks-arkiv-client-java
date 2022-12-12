@@ -41,7 +41,7 @@ class ArkivmeldingForenkletUtgaaende {
 
             if(it.skjermetTittel){
                 builder.skjerming(SkjermingBuilder()
-                    .skjermingshjemmel(SKJERMINGSHJEMMEL))
+                    .skjermingshjemmel(SKJERMINGSHJEMMEL).build())
             }
             it.hoveddokument?.let {doc ->
                 val dokumentBuilder = DokumentbeskrivelseBuilder()
@@ -51,11 +51,11 @@ class ArkivmeldingForenkletUtgaaende {
                     .tilknyttetRegistreringSom(TilknyttetRegistreringSomType.HOVEDDOKUMENT)
                 if(doc.skjermetDokument == true) {
                     dokumentBuilder.skjerming(SkjermingBuilder()
-                        .skjermingshjemmel(SKJERMINGSHJEMMEL)
+                        .skjermingshjemmel(SKJERMINGSHJEMMEL).build()
                     )
                 }
-                dokumentBuilder.dokumentobjekter(listOf(getDokumentObjektBuilder(doc)))
-                builder.dokumentbeskrivelser(builder.dokumentbeskrivelser + dokumentBuilder)
+                dokumentBuilder.dokumentobjekter(listOf(getDokumentObjektBuilder(doc).build()))
+                builder.dokumentbeskrivelser(builder.dokumentbeskrivelser + dokumentBuilder.build())
             }
             it.vedlegg.forEach {
                     doc ->
@@ -65,29 +65,29 @@ class ArkivmeldingForenkletUtgaaende {
                     .tittel(checkNotNull(doc.tittel) { "Tittel er påkrevd for hoveddokument" })
                     .tilknyttetRegistreringSom(TilknyttetRegistreringSomType.VEDLEGG)
 
-                dokumentBuilder.dokumentobjekter(listOf(getDokumentObjektBuilder(doc)))
-                builder.dokumentbeskrivelser(builder.dokumentbeskrivelser + dokumentBuilder)
+                dokumentBuilder.dokumentobjekter(listOf(getDokumentObjektBuilder(doc).build()))
+                builder.dokumentbeskrivelser(builder.dokumentbeskrivelser + dokumentBuilder.build())
             }
 
             builder.antallVedlegg(builder.dokumentbeskrivelser.size)
 
             it.mottakere.forEach { mottaker ->
                 val korrespondansepartBuilder = korrespondansepartMapper(KorrespondansepartType.MOTTAKER, mottaker)
-                builder.korrespondanseparts(builder.korrespondanseparts + korrespondansepartBuilder)
+                builder.korrespondanseparts(builder.korrespondanseparts + korrespondansepartBuilder.build())
             }
             it.avsender.forEach { avsender ->
                 val korrespondansepartBuilder = korrespondansepartMapper(KorrespondansepartType.AVSENDER, avsender)
-                builder.korrespondanseparts(builder.korrespondanseparts + korrespondansepartBuilder)
+                builder.korrespondanseparts(builder.korrespondanseparts + korrespondansepartBuilder.build())
             }
             it.internAvsender.forEach { avsender ->
                 val korrespondansepartBuilder = korrespondansepartMapper(avsender)
-                builder.korrespondanseparts(builder.korrespondanseparts + korrespondansepartBuilder)
+                builder.korrespondanseparts(builder.korrespondanseparts + korrespondansepartBuilder.build())
             }
             it.referanseEksternNoekkelForenklet?.let { rn ->
                 val referanseEksternNoekkel = EksternNoekkelBuilder()
                 rn.fagstystem?.let { fs -> referanseEksternNoekkel.fagstystem(fs) }
                 rn.noekkel?.let { n -> referanseEksternNoekkel.noekkel(n) }
-                builder.referanseEksternNoekkel(referanseEksternNoekkel)
+                builder.referanseEksternNoekkel(referanseEksternNoekkel.build())
             }
         } ?: throw IllegalStateException("UtgaaendeJournalpost er påkrevd for ForenkletUtgåendeArkvimelding")
 
@@ -95,7 +95,7 @@ class ArkivmeldingForenkletUtgaaende {
             val saksMappeBuilder = opprettSaksmappe(saksmappe, journalpost)
 
             val arkivmelding = MappeArkivmeldingBuilder()
-                .mapper(listOf(saksMappeBuilder))
+                .mapper(listOf(saksMappeBuilder.build()))
                 .antallFiler(journalpost.dokumentbeskrivelser.size)
             journalpost.referanseEksternNoekkel?.fagsystem?.let { fs -> arkivmelding.system(fs) }
             return arkivmelding
@@ -127,7 +127,7 @@ class ArkivmeldingForenkletUtgaaende {
                     k.klassifikasjonssystem?.let { klassifikasjonBuilder.klassifikasjonssystemID(it) }
                     k.klasseID?.let { klassifikasjonBuilder.klasseID(it) }
                     k.tittel?.let { klassifikasjonBuilder.tittel(it) }
-                    klassifikasjonBuilder
+                    klassifikasjonBuilder.build()
                 }.toList()
             )
         }
@@ -146,7 +146,7 @@ class ArkivmeldingForenkletUtgaaende {
         val noekkelBuilder = EksternNoekkelBuilder()
         noekkel.fagstystem?.let { f -> noekkelBuilder.fagstystem(f) }
         noekkel.noekkel?.let { n -> noekkelBuilder.noekkel(n) }
-        return saksMappeBuilder.referanseEksternNoekkel(noekkelBuilder)
+        return saksMappeBuilder.referanseEksternNoekkel(noekkelBuilder.build())
     }
 
     private fun korrespondansepartMapper(part: KorrespondansepartIntern): KorrespondansepartBuilder {
