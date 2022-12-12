@@ -206,11 +206,6 @@ public class ArkivmeldingJavaTest {
                 .referanseSaksmappeForenklet(new SaksmappeForenklet().tittel("Tilsyn eiendom 21/400"))
                 .byggArkivmelding();
 
-        StringWriter sw = new StringWriter();
-        arkivmelding.marshal(sw);
-        String xmlContent = sw.toString();
-        System.out.println(xmlContent);
-
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.xsd"));
         Validator validator = schema.newValidator();
