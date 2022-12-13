@@ -1,5 +1,6 @@
 package no.ks.fiks.io.arkiv.model.forenklet
 
+import no.ks.fiks.arkiv.v1.arkivmelding.Registrering
 import no.ks.fiks.io.arkiv.model.arkivmelding.*
 import no.ks.fiks.io.arkiv.model.arkivstruktur.*
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.*
@@ -92,7 +93,7 @@ class ArkivmeldingForenkletUtgaaende {
         } ?: throw IllegalStateException("UtgaaendeJournalpost er påkrevd for ForenkletUtgåendeArkvimelding")
 
         this.referanseSaksmappeForenklet?.let { saksmappe ->
-            val saksMappeBuilder = opprettSaksmappe(saksmappe, journalpost)
+            val saksMappeBuilder = opprettSaksmappe(saksmappe, journalpost.build())
 
             val arkivmelding = MappeArkivmeldingBuilder()
                 .mapper(listOf(saksMappeBuilder.build()))
@@ -111,7 +112,7 @@ class ArkivmeldingForenkletUtgaaende {
 
     private fun opprettSaksmappe(
         saksmappe: SaksmappeForenklet,
-        journalpost: JournalpostBuilder
+        journalpost: Registrering
     ): SaksmappeBuilder {
         val saksMappeBuilder = SaksmappeBuilder()
         saksmappe.saksansvarlig?.let { a -> saksMappeBuilder.saksansvarlig(a) }

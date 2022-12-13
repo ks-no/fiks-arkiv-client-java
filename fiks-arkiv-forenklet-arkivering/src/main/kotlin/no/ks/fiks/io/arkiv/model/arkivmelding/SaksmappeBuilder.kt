@@ -80,7 +80,7 @@ open class SaksmappeBuilder : MappeBuilder() {
             it.gradering = gradering
             it.klassifikasjons.addAll(klassifikasjoner)
             it.referanseEksternNoekkel = referanseEksternNoekkel
-            it.registrerings.addAll(registreringer.map { r -> r.build() }.toList())
+            it.registrerings.addAll(registreringer)
             it.mappes.addAll(mapper)
             it.mappetype = mappetype
 

@@ -121,11 +121,11 @@ public class ArkivmeldingJavaTest {
 
         final List<JournalpostBuilder> journalposter = Collections.singletonList(
                 new JournalpostBuilder()
+                        .systemID(new SystemIDBuilder().value(UUID.randomUUID()).label("Journalpost label").build())
+                        .journalsekvensnummer(7)
                         .avskrivningsdato(LocalDate.now())
                         .journalposttype(JournalpostType.UTGAENDE_DOKUMENT)
                         .journalstatus(JournalStatus.JOURNALFORT)
-                        .systemID(new SystemIDBuilder().value(UUID.randomUUID()).label("Journalpost label").build())
-                        .journalsekvensnummer(7)
                         .opprettetAv("Kari")
                         .arkivertAv("Kari")
                         .tittel("Vedtak etter tilsyn")
