@@ -7,7 +7,6 @@ open class SaksansvarligBuilder : IdentifikatorerBuilder() {
 
     fun build() : Saksansvarlig {
         return Saksansvarlig().also {
-            it.kode = kode
             it.epostadresse = epostadresse
             it.identifikator = identifikator
             it.initialer = initialer
