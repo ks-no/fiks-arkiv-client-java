@@ -126,6 +126,7 @@
                 <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
                     <excludePackageNames>no.ks.fiks.arkiv.v1.*:com.*</excludePackageNames>
+                    <additionalOptions>-Xdoclint:none</additionalOptions>
                 </configuration>
                 <executions>
                     <execution>
