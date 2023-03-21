@@ -29,14 +29,29 @@
             <jaxb:package name="no.ks.fiks.arkiv.v1.arkivstruktur" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.xsd">
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.opprett.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="no.ks.fiks.arkiv.v1.arkivmelding" />
+            <jaxb:package name="no.ks.fiks.arkiv.v1.arkivmelding.opprett" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
-    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.kvittering.xsd">
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.opprett.kvittering.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="no.ks.fiks.arkiv.v1.arkivmelding.kvittering" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.oppdater.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.arkiv.v1.arkivmelding.oppdater" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.dokumentobjekt.opprett.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.arkiv.v1.dokumentobjekt.opprett" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.dokumentobjekt.opprett.kvittering.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.arkiv.v1.dokumentobjekt.opprett.kvittering" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.innsyn.dokumentfil.hent.xsd">
@@ -60,6 +75,16 @@
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.innsyn.sok.resultat.minimum.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.arkiv.v1.innsyn.sok" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.innsyn.sok.resultat.noekler.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.arkiv.v1.innsyn.sok" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.innsyn.sok.resultat.utvidet.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="no.ks.fiks.arkiv.v1.innsyn.sok" />
         </jaxb:schemaBindings>

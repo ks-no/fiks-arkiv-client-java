@@ -93,11 +93,11 @@ class ArkivmeldingTest {
 
         val jaxbContext = JAXBContext.newInstance(Arkivmelding::class.java)
         val schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
-        val schema = schemaFactory.newSchema(File("target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.xsd"))
+        val schema = schemaFactory.newSchema(File("target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.opprett.xsd"))
         val validator = schema.newValidator()
 
         val element = JAXBElement(
-            QName("https://ks-no.github.io/standarder/fiks-protokoll/fiks-arkiv/arkivmelding/v1", "arkivmelding"),
+            QName("https://ks-no.github.io/standarder/fiks-protokoll/fiks-arkiv/arkivmelding/opprett/v1", "arkivmelding"),
             Arkivmelding::class.java,
             arkivmelding)
 
