@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
-import no.ks.fiks.arkiv.v1.arkivmelding.Adresse
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Adresse
 
 class AdresseBuilder {
     var adresse: String? = null

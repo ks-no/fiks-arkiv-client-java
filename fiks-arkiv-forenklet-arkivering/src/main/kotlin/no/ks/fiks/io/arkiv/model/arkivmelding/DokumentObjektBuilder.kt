@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
-import no.ks.fiks.arkiv.v1.arkivmelding.Dokumentobjekt
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Dokumentobjekt
 import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.SystemID
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.FormatType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.VariantFormatType

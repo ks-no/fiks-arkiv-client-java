@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
-import no.ks.fiks.arkiv.v1.arkivmelding.*
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.*
 import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.EksternNoekkel
 import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Kode
 import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.ReferanseTilMappe

@@ -2,7 +2,7 @@ package no.ks.fiks.io.arkiv.model
 
 import io.kotest.matchers.shouldBe
 import io.kotest.assertions.throwables.shouldNotThrowAny
-import no.ks.fiks.arkiv.v1.arkivmelding.*
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.*
 import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.*
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -93,11 +93,11 @@ class ArkivmeldingTest {
 
         val jaxbContext = JAXBContext.newInstance(Arkivmelding::class.java)
         val schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
-        val schema = schemaFactory.newSchema(File("target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.xsd"))
+        val schema = schemaFactory.newSchema(File("target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.opprett.xsd"))
         val validator = schema.newValidator()
 
         val element = JAXBElement(
-            QName("https://ks-no.github.io/standarder/fiks-protokoll/fiks-arkiv/arkivmelding/v1", "arkivmelding"),
+            QName("https://ks-no.github.io/standarder/fiks-protokoll/fiks-arkiv/arkivmelding/opprett/v1", "arkivmelding"),
             Arkivmelding::class.java,
             arkivmelding)
 
