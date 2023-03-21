@@ -1,9 +1,9 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
-import no.ks.fiks.arkiv.v1.arkivmelding.Gradering
-import no.ks.fiks.arkiv.v1.arkivmelding.Kassasjon
-import no.ks.fiks.arkiv.v1.arkivmelding.Klasse
-import no.ks.fiks.arkiv.v1.arkivmelding.Kryssreferanse
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Gradering
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Kassasjon
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Klasse
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Kryssreferanse
 import java.time.ZonedDateTime
 
 open class KlasseBuilder {

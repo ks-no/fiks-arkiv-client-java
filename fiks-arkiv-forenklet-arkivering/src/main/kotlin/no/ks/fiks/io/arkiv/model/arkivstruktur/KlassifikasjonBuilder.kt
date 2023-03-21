@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
-import no.ks.fiks.arkiv.v1.arkivmelding.Klassifikasjon
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Klassifikasjon
 
 class KlassifikasjonBuilder {
     var klassifikasjonssystemID: String? = null

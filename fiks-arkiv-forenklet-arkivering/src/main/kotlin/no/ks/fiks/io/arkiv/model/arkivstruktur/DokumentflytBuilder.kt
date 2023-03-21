@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
-import no.ks.fiks.arkiv.v1.arkivmelding.Dokumentflyt
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Dokumentflyt
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.FlytStatusType
 import java.time.ZonedDateTime
 

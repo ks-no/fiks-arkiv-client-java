@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
-import no.ks.fiks.arkiv.v1.arkivmelding.Byggident
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Byggident
 
 
 class ByggidentBuilder {

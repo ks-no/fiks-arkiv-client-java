@@ -2,7 +2,7 @@ package no.ks.fiks.io.arkiv.model
 
 import io.kotest.matchers.shouldBe
 import io.kotest.assertions.throwables.shouldNotThrowAny
-import no.ks.fiks.arkiv.v1.arkivmelding.*
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.*
 import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.*
 import org.junit.jupiter.api.Test
 import java.io.File

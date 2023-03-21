@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
-import no.ks.fiks.arkiv.v1.arkivmelding.Kryssreferanse
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Kryssreferanse
 import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.ReferanseTilMappe
 import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.ReferanseTilRegistrering
 

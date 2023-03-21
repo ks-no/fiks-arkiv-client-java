@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
-import no.ks.fiks.arkiv.v1.arkivmelding.Gradering
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Gradering
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.GradType
 import java.time.ZonedDateTime
 

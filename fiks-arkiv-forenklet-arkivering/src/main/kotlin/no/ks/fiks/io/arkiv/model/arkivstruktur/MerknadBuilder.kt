@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
-import no.ks.fiks.arkiv.v1.arkivmelding.Merknad
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Merknad
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.MerknadsType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SystemIDBuilder
 import java.time.ZonedDateTime

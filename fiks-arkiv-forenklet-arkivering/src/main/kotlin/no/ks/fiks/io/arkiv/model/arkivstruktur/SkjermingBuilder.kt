@@ -1,6 +1,6 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
-import no.ks.fiks.arkiv.v1.arkivmelding.Skjerming
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Skjerming
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SkjermingOpphoererAksjonType
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.TilgangrestriksjonType
 import java.time.LocalDate
@@ -17,7 +17,7 @@ open class SkjermingBuilder {
     fun tilgangsrestriksjon(tilgangsrestriksjon: TilgangrestriksjonType) = apply { this.tilgangsrestriksjon = tilgangsrestriksjon }
     fun skjermingshjemmel(skjermingshjemmel: String) = apply { this.skjermingshjemmel = skjermingshjemmel }
     fun skjermingOpphoererDato(skjermingOpphoererDato: LocalDate) = apply { this.skjermingOpphoererDato = skjermingOpphoererDato }
-    fun skjermingOpphoererAksjon(skjermingOpphoererAksjonType: SkjermingOpphoererAksjonType) = apply { this.skjermingOpphoererAksjon = skjermingOpphoererAksjon }
+    fun skjermingOpphoererAksjon(skjermingOpphoererAksjonType: SkjermingOpphoererAksjonType) = apply { this.skjermingOpphoererAksjon = skjermingOpphoererAksjonType }
 
     open fun build() : Skjerming {
         return Skjerming().also {
