@@ -54,6 +54,16 @@
             <jaxb:package name="no.ks.fiks.arkiv.v1.dokumentobjekt.opprett.kvittering" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.avskrivning.opprett.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.arkiv.v1.avskrivning.opprett" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.avskrivning.slett.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.arkiv.v1.avskrivning.slett" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.innsyn.dokumentfil.hent.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="no.ks.fiks.arkiv.v1.innsyn.dokument" />
