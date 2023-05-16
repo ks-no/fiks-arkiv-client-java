@@ -9,7 +9,7 @@ import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.DokumentmediumType
 import java.time.ZonedDateTime
 
 /**
- * Mappe er det overordnede objektet for å samle saker i. Det er mulig å ha mapper i mapper.
+ * Mappe er det overordnede objektet for å samle saker i. Det er mulig å ha mapper i mapper men ikke i en arkivmelding.
  */
 open class MappeBuilder {
     var systemID: SystemID? = null
@@ -54,10 +54,6 @@ open class MappeBuilder {
         private set
     var referanseEksternNoekkel: EksternNoekkel? = null
         private set
-    var registreringer: List<IRegistrering> = emptyList()
-        private set
-    var mapper: List<Mappe> = emptyList()
-        private set
     var mappetype: Kode? = null
         private set
 
@@ -82,8 +78,6 @@ open class MappeBuilder {
     fun gradering(gradering: Gradering) = apply { this.gradering = gradering }
     fun klassifikasjoner(klassifikasjoner: List<Klassifikasjon>) = apply { this.klassifikasjoner = klassifikasjoner }
     fun referanseEksternNoekkel(referanseEksternNoekkel: EksternNoekkel) = apply { this.referanseEksternNoekkel = referanseEksternNoekkel }
-    fun registreringer(registreringer: List<IRegistrering>) = apply { if(mapper.isEmpty()) this.registreringer = registreringer else throw IllegalArgumentException("Det er ikke mulig å registrere både undermapper og registreringer til samme mappe") }
-    fun mapper(mapper: List<Mappe>) = apply { if(mapper.isEmpty()) this.mapper = mapper else throw IllegalArgumentException("Det er ikke mulig å registrere både undermapper og registreringer til samme mappe") }
     fun mappetype(mappetype: Kode) = apply { this.mappetype = mappetype }
 
     open fun build(): Mappe {
@@ -109,8 +103,6 @@ open class MappeBuilder {
             it.gradering = gradering
             it.klassifikasjons.addAll(klassifikasjoner)
             it.referanseEksternNoekkel = referanseEksternNoekkel
-            it.registrerings.addAll(registreringer.map { r -> r.build() }.toList())
-            it.mappes.addAll(mapper)
             it.mappetype = mappetype
         }
     }
