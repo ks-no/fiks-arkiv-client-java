@@ -95,13 +95,13 @@ class ArkivmeldingForenkletUtgaaende {
             val saksMappeBuilder = opprettSaksmappe(saksmappe, journalpost)
 
             val arkivmelding = MappeArkivmeldingBuilder()
-                .mapper(listOf(saksMappeBuilder.build()))
+                .mappe(saksMappeBuilder.build())
                 .antallFiler(journalpost.dokumentbeskrivelser.size)
             journalpost.referanseEksternNoekkel?.fagsystem?.let { fs -> arkivmelding.system(fs) }
             return arkivmelding
         } ?: run {
             val arkivmelding = RegistreringArkivmeldingBuilder()
-                .registrering(listOf(journalpost))
+                .registrering(journalpost)
                 .antallFiler(journalpost.dokumentbeskrivelser.size)
             journalpost.referanseEksternNoekkel?.fagsystem?.let { fs -> arkivmelding.system(fs) }
             return arkivmelding
@@ -135,7 +135,6 @@ class ArkivmeldingForenkletUtgaaende {
             mappeBuilder(noekkel, saksMappeBuilder)
         }
 
-        saksMappeBuilder.registreringer(listOf(journalpost))
         return saksMappeBuilder
     }
 
