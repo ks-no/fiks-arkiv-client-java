@@ -71,7 +71,7 @@ class ArkivmeldingTest {
                 ))
 
         val arkivmelding = RegistreringArkivmeldingBuilder()
-            .registrering(listOf(registrering))
+            .registrering(registrering)
             .system("systemA")
             .tidspunkt(ZonedDateTime.now())
             .antallFiler(2)
@@ -126,7 +126,7 @@ class ArkivmeldingTest {
                 ))
 
         val arkivmelding = RegistreringArkivmeldingBuilder()
-            .registrering(listOf(registrering))
+            .registrering(registrering)
             .antallFiler(1)
             .tidspunkt(ZonedDateTime.now())
 

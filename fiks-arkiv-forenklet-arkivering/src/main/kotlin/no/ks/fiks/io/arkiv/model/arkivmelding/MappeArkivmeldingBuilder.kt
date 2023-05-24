@@ -5,14 +5,14 @@ import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Mappe
 
 class MappeArkivmeldingBuilder: ArkivmeldingBuilder() {
 
-    var mapper: List<Mappe> = emptyList()
+    var mappe: Mappe = Mappe()
         private set
 
-    fun mapper(mapper: List<Mappe>) = apply { this.mapper = mapper }
+    fun mappe(mappe: Mappe) = apply { this.mappe = mappe }
 
     override fun build(): Arkivmelding {
         return super.build().also {
-            it.mappes.addAll(mapper)
+            it.mappe = mappe
         }
     }
 

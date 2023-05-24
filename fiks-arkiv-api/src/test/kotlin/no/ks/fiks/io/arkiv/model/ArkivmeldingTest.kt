@@ -27,7 +27,7 @@ class ArkivmeldingTest {
         val arkivertDato = ZonedDateTime.now()
 
         val arkivmelding = Arkivmelding().also {
-            it.registrerings.addAll(listOf(Journalpost().also {
+            it.registrering = Journalpost().also {
                 it.dokumentetsDato = journalDate
                 it.mottattDato = arkivertDato
                 it.sendtDato = arkivertDato
@@ -85,7 +85,7 @@ class ArkivmeldingTest {
                     it.kode = "S"
                     it.beskrivelse = "Beskrivelse"
                 }
-            }))
+            }
             it.system = "System"
             it.tidspunkt = ZonedDateTime.now()
             it.antallFiler = 2
@@ -111,7 +111,7 @@ class ArkivmeldingTest {
         val unmarshaller = jaxbContext.createUnmarshaller()
         val parsedArkivmelding: Arkivmelding = unmarshaller.unmarshal(sw.toString().byteInputStream()) as Arkivmelding
 
-        (parsedArkivmelding.registrerings[0] as Journalpost).journaldato.format(java.time.format.DateTimeFormatter.ISO_LOCAL_DATE) shouldBe journalDate.format(java.time.format.DateTimeFormatter.ISO_LOCAL_DATE)
-        (parsedArkivmelding.registrerings[0] as Journalpost).arkivertDato.format(java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME) shouldBe arkivertDato.format(java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+        (parsedArkivmelding.registrering as Journalpost).journaldato.format(java.time.format.DateTimeFormatter.ISO_LOCAL_DATE) shouldBe journalDate.format(java.time.format.DateTimeFormatter.ISO_LOCAL_DATE)
+        (parsedArkivmelding.registrering as Journalpost).arkivertDato.format(java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME) shouldBe arkivertDato.format(java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME)
     }
 }

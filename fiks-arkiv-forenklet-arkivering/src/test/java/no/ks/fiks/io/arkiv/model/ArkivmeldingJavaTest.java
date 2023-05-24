@@ -45,7 +45,7 @@ public class ArkivmeldingJavaTest {
                         .tittel("Mappe tittel");
 
         ArkivmeldingBuilder arkivmeldingBuilder = new MappeArkivmeldingBuilder()
-                .mapper(Collections.singletonList(mappe.build()))
+                .mappe(mappe.build())
                 .system("System A")
                 .tidspunkt(ZonedDateTime.now())
                 .antallFiler(0);
@@ -82,7 +82,7 @@ public class ArkivmeldingJavaTest {
                 .journalpostnummer(222);
 
         ArkivmeldingBuilder arkivmeldingBuilder = new RegistreringArkivmeldingBuilder()
-                .registrering(Collections.singletonList(journalPostBuilder))
+                .registrering(journalPostBuilder)
                 .system("System A")
                 .tidspunkt(ZonedDateTime.now())
                 .antallFiler(1);
@@ -119,8 +119,7 @@ public class ArkivmeldingJavaTest {
                 .poststed("Bø").build());
 
 
-        final List<JournalpostBuilder> journalposter = Collections.singletonList(
-                new JournalpostBuilder()
+        final JournalpostBuilder journalpost = new JournalpostBuilder()
                         .avskrivningsdato(LocalDate.now())
                         .journalposttype(JournalpostType.UTGAENDE_DOKUMENT)
                         .journalstatus(JournalStatus.JOURNALFORT)
@@ -159,9 +158,9 @@ public class ArkivmeldingJavaTest {
                                                                     .sjekksumAlgoritme("hash")
                                                                     .filstoerrelse(12345)
                                                                     .referanseDokumentfil("/en/path")
-                                                                    .format(FormatType.PDF_A_ISO_19005_1_2005).build())).build())));
+                                                                    .format(FormatType.PDF_A_ISO_19005_1_2005).build())).build()));
         ArkivmeldingBuilder arkivmeldingBuilder = new RegistreringArkivmeldingBuilder()
-                .registrering(journalposter)
+                .registrering(journalpost)
                 .system("Fagsystem X")
                 .antallFiler(1);
 

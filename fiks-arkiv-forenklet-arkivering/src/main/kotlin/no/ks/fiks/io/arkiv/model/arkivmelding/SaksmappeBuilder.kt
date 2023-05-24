@@ -7,7 +7,7 @@ import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.SaksstatusType
 import java.time.LocalDate
 
 /**
- * Mappe er det overordnede objektet for å samle saker i. Det er mulig å ha mapper i mapper.
+ * Mappe er det overordnede objektet for å samle saker i. Det er mulig å ha mapper i mapper men ikke i en arkivmelding.
  */
 open class SaksmappeBuilder : MappeBuilder() {
     var saksaar: Int? = null
@@ -80,10 +80,7 @@ open class SaksmappeBuilder : MappeBuilder() {
             it.gradering = gradering
             it.klassifikasjons.addAll(klassifikasjoner)
             it.referanseEksternNoekkel = referanseEksternNoekkel
-            it.registrerings.addAll(registreringer.map { r -> r.build() }.toList())
-            it.mappes.addAll(mapper)
             it.mappetype = mappetype
-
             it.saksaar = saksaar
             it.sakssekvensnummer = sakssekvensnummer
             it.saksdato = saksdato
