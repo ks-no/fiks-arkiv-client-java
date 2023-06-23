@@ -21,19 +21,16 @@ open class ArkivmeldingBuilder {
         private set
     var antallFiler: Int? = null
         private set
-    var tidspunkt: ZonedDateTime = ZonedDateTime.now()
-        private set
 
     open fun build(): Arkivmelding {
         return Arkivmelding().also {
             it.system = checkNotNull(system) {"System er påkrevd felt for Arkivmelding"}
-            it.tidspunkt = tidspunkt
             it.antallFiler = checkNotNull(antallFiler) {"Antall filer er påkrevd felt for Arkivmelding"}
         }
     }
 
     fun system(system: String) = apply { this.system = system }
-    fun tidspunkt(tidspunkt: ZonedDateTime) = apply { this.tidspunkt = tidspunkt }
+
     fun antallFiler(antallFiler: Int) = apply { this.antallFiler = antallFiler }
 
     fun marshal(stringWriter: StringWriter) =

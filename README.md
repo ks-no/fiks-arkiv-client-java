@@ -58,7 +58,6 @@ Resultat fra oppbygging av arkivmelding:
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <arkivmelding xmlns="https://ks-no.github.io/standarder/fiks-protokoll/fiks-arkiv/arkivmelding/v1" xmlns:ns2="https://ks-no.github.io/standarder/fiks-protokoll/fiks-arkiv/metadatakatalog/v1">
   <system>Fagsystem X</system>
-  <tidspunkt>2022-12-12T13:03:31.979299317+01:00</tidspunkt>
   <antallFiler>1</antallFiler>
   <mappe xsi:type="saksmappe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <tittel>Tilsyn eiendom 21/400</tittel>

@@ -47,7 +47,6 @@ public class ArkivmeldingJavaTest {
         ArkivmeldingBuilder arkivmeldingBuilder = new MappeArkivmeldingBuilder()
                 .mappe(mappe.build())
                 .system("System A")
-                .tidspunkt(ZonedDateTime.now())
                 .antallFiler(0);
 
         StringWriter sw = new StringWriter();
@@ -84,7 +83,6 @@ public class ArkivmeldingJavaTest {
         ArkivmeldingBuilder arkivmeldingBuilder = new RegistreringArkivmeldingBuilder()
                 .registrering(journalPostBuilder)
                 .system("System A")
-                .tidspunkt(ZonedDateTime.now())
                 .antallFiler(1);
 
         StringWriter sw = new StringWriter();

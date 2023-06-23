@@ -73,7 +73,6 @@ class ArkivmeldingTest {
         val arkivmelding = RegistreringArkivmeldingBuilder()
             .registrering(registrering)
             .system("systemA")
-            .tidspunkt(ZonedDateTime.now())
             .antallFiler(2)
 
         val sw = StringWriter()
@@ -128,7 +127,6 @@ class ArkivmeldingTest {
         val arkivmelding = RegistreringArkivmeldingBuilder()
             .registrering(registrering)
             .antallFiler(1)
-            .tidspunkt(ZonedDateTime.now())
 
         val exception = assertThrows<IllegalStateException> { arkivmelding.build() }
         exception.message shouldBe "System er påkrevd felt for Arkivmelding"
