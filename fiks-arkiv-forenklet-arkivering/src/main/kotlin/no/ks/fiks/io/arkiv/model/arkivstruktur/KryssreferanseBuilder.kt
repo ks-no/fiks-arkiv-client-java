@@ -1,6 +1,7 @@
 package no.ks.fiks.io.arkiv.model.arkivstruktur
 
 import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Kryssreferanse
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.ReferanseTilDokumentbeskrivelse
 import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.ReferanseTilMappe
 import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.ReferanseTilRegistrering
 
@@ -11,14 +12,14 @@ class KryssreferanseBuilder {
         private set
     var referanseTilRegistrering: ReferanseTilRegistrering? = null
         private set
-    var referanseTilDokumentbeskrivelse: String? = null
+    var referanseTilDokumentbeskrivelse: ReferanseTilDokumentbeskrivelse? = null
         private set
 
 
     fun referanseTilKlasse(referanseTilKlasse: String) = apply { this.referanseTilKlasse = referanseTilKlasse }
     fun referanseTilMappe(referanseTilMappe: ReferanseTilMappe) = apply { this.referanseTilMappe = referanseTilMappe }
     fun referanseTilRegistrering(referanseTilRegistrering: ReferanseTilRegistrering) = apply { this.referanseTilRegistrering = referanseTilRegistrering }
-    fun referanseTilDokumentbeskrivelse(referanseTilDokumentbeskrivelse: String) = apply { this.referanseTilDokumentbeskrivelse = referanseTilDokumentbeskrivelse }
+    fun referanseTilDokumentbeskrivelse(referanseTilDokumentbeskrivelse: ReferanseTilDokumentbeskrivelse) = apply { this.referanseTilDokumentbeskrivelse = referanseTilDokumentbeskrivelse }
 
     fun build() : Kryssreferanse {
         return Kryssreferanse().also {
