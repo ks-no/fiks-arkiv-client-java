@@ -146,11 +146,6 @@ Resultat fra oppbygging av arkivmelding:
 ```
 
 
-
-
-
-
-
 Før bygg må submodul hentes:
 ```shell
 git submodule  update --init --recursive --remote

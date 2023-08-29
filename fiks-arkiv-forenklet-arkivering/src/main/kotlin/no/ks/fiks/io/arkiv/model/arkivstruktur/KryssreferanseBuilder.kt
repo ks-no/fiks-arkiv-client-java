@@ -15,15 +15,12 @@ class KryssreferanseBuilder {
     var referanseTilDokumentbeskrivelse: ReferanseTilDokumentbeskrivelse? = null
         private set
 
-
-    fun referanseTilKlasse(referanseTilKlasse: String) = apply { this.referanseTilKlasse = referanseTilKlasse }
     fun referanseTilMappe(referanseTilMappe: ReferanseTilMappe) = apply { this.referanseTilMappe = referanseTilMappe }
     fun referanseTilRegistrering(referanseTilRegistrering: ReferanseTilRegistrering) = apply { this.referanseTilRegistrering = referanseTilRegistrering }
     fun referanseTilDokumentbeskrivelse(referanseTilDokumentbeskrivelse: ReferanseTilDokumentbeskrivelse) = apply { this.referanseTilDokumentbeskrivelse = referanseTilDokumentbeskrivelse }
 
     fun build() : Kryssreferanse {
         return Kryssreferanse().also {
-            it.referanseTilKlasse = referanseTilKlasse
             it.referanseTilMappe = referanseTilMappe
             it.referanseTilRegistrering = referanseTilRegistrering
             it.referanseTilDokumentbeskrivelse = checkNotNull(referanseTilDokumentbeskrivelse) {"ReferanseTilDokumentbeskrivelse er påkrevd for Kryssreferanse"}
