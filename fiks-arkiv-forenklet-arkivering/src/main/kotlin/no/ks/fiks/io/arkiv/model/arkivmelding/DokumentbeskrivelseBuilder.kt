@@ -95,8 +95,6 @@ open class DokumentbeskrivelseBuilder {
             it.opprettetDato = opprettetDato
             it.opprettetAv = opprettetAv
             it.dokumentmedium = dokumentmedium?.value
-            it.oppbevaringssted = oppbevaringssted
-            it.arkivdel = arkivdel
             it.tilknyttetRegistreringSom = tilknyttetRegistreringSom?.value
             it.dokumentnummer = dokumentnummer
             it.tilknyttetDato = tilknyttetDato

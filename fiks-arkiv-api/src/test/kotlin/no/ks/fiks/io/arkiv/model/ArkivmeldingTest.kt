@@ -34,7 +34,6 @@ class ArkivmeldingTest {
                 it.forfallsdato = journalDate
                 it.offentlighetsvurdertDato = journalDate
                 it.journaldato = journalDate
-                it.utlaantDato = journalDate
                 it.journalenhet = "JournalEnhet"
                 it.avskrivningsdato = journalDate
                 it.dokumentflyts.addAll(listOf(Dokumentflyt().also {
