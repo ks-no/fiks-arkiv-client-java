@@ -67,7 +67,6 @@ open class SaksmappeBuilder : MappeBuilder() {
             it.beskrivelse = beskrivelse
             it.noekkelords.addAll(noekkelord)
             it.dokumentmedium = dokumentmedium?.value
-            it.oppbevaringssteds.addAll(oppbevaringssteder)
             it.opprettetDato = opprettetDato
             it.opprettetAv = opprettetAv
             it.avsluttetDato = avsluttetDato
@@ -88,8 +87,6 @@ open class SaksmappeBuilder : MappeBuilder() {
             it.saksansvarlig = saksansvarlig
             it.journalenhet = journalenhet
             it.saksstatus = saksstatus?.value
-            it.utlaantDato = utlaantDato
-            it.utlaantTil = utlaantTil
             it.presedens.addAll(presedens)
             it.matrikkelnummers.addAll(matrikkelnumre)
             it.byggidents.addAll(byggindenter)

@@ -137,7 +137,6 @@ class ArkivnotatBuilder : IRegistrering {
             it.noekkelords.addAll(nokkelord)
             it.forfatters.addAll(forfattere)
             it.dokumentmedium = dokumentmedium?.value
-            it.oppbevaringssteds.addAll(oppbevaringssteder)
             it.merknads.addAll(merknader)
             it.kryssreferanses.addAll(kryssreferanser)
             it.korrespondanseparts.addAll(korrespondanseparts)
@@ -151,8 +150,6 @@ class ArkivnotatBuilder : IRegistrering {
             it.forfallsdato = forfallsdato
             it.offentlighetsvurdertDato = offentlighetsvurdertDato
             it.antallVedlegg = antallVedlegg
-            it.utlaantDato = utlaantDato
-            it.utlaantTil = utlaantTil
             it.dokumentflyts.addAll( dokumentflyt )
         }
     }

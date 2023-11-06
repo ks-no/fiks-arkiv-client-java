@@ -90,7 +90,6 @@ open class MappeBuilder {
             it.beskrivelse = beskrivelse
             it.noekkelords.addAll(noekkelord)
             it.dokumentmedium = dokumentmedium?.value
-            it.oppbevaringssteds.addAll(oppbevaringssteder)
             it.opprettetDato = opprettetDato
             it.opprettetAv = opprettetAv
             it.avsluttetDato = avsluttetDato

@@ -1,9 +1,10 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
 import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Punkt
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Koordinatsystem
 
 class PunktBuilder {
-    var koordinatsystem: String? = null
+    var koordinatsystem: Koordinatsystem? = null
         private set
     var x: Double? = null
         private set
@@ -12,7 +13,7 @@ class PunktBuilder {
     var z: Double? = null
         private set
 
-    fun koordinatsystem(koordinatsystem: String) = apply { this.koordinatsystem = koordinatsystem }
+    fun koordinatsystem(koordinatsystem: Koordinatsystem) = apply { this.koordinatsystem = koordinatsystem }
     fun x(x: Double) = apply { this.x = x }
     fun y(y: Double) = apply { this.y = y }
     fun z(y: Double) = apply { this.z = z }

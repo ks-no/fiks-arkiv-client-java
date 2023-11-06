@@ -172,7 +172,6 @@ open class JournalpostBuilder : IRegistrering {
             it.noekkelords.addAll(nokkelord)
             it.forfatters.addAll(forfattere)
             it.dokumentmedium = dokumentmedium?.value
-            it.oppbevaringssteds.addAll(oppbevaringssteder)
             it.merknads.addAll(merknader)
             it.kryssreferanses.addAll(kryssreferanser)
             it.korrespondanseparts.addAll(korrespondanseparts )
@@ -190,8 +189,6 @@ open class JournalpostBuilder : IRegistrering {
             it.forfallsdato = forfallsdato
             it.offentlighetsvurdertDato = offentlighetsvurdertDato
             it.antallVedlegg = antallVedlegg
-            it.utlaantDato = utlaantDato
-            it.utlaantTil = utlaantTil
             it.journalenhet = journalenhet
             it.dokumentflyts.addAll(dokumentflyt)
             it.presedens.addAll(presedens)
