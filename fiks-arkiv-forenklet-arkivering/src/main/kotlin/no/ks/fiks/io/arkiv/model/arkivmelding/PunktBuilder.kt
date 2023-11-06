@@ -20,7 +20,7 @@ class PunktBuilder {
 
     fun build() : Punkt {
         return Punkt().also {
-            it.koordinatsystem = koordinatsystem
+            it.koordinatsystem = checkNotNull(koordinatsystem) {"Koordinatsystem er påkrevd for Punkt"}
             it.x = checkNotNull(x) {"X er påkrevd for Punkt"}
             it.y = checkNotNull(y) {"Y er påkrevd for Punkt"}
             it.z = z
