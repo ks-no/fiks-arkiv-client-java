@@ -42,10 +42,11 @@ pipeline {
                     env.PROFILE_EXTRA = ""
                     env.API_VERSION = "${params.apiVersion}"
                 }
-                sh '''
-                 echo "PATH = ${PATH}"
-                 echo "M2_HOME = ${M2_HOME}"
-                '''
+                echo "PATH = ${env.PATH}"
+                echo "M2_HOME = ${env.M2_HOME}"
+                echo "POM_VERSION = ${env.POM_VERSION}"
+                echo "ARTIFACT_ID = ${env.ARTIFACT_ID}"
+
                 sh 'git submodule  update --init --recursive --remote'
 
                 dir("fiks-arkiv-specification") {
@@ -174,16 +175,23 @@ pipeline {
                 branch 'main'
             }
 
+            environment {
+                GPG_OSS_SECRETS = credentials('gpg-oss-secrets')
+                GNUPGHOME = "${env.WORKSPACE}/.gnupg"
+            }
+
             steps {
-                configFileProvider([configFile(fileId: 'oss-settings.xml', variable: 'SETTINGS_XML')]) {
+                untar(file: "$GPG_OSS_SECRETS")
                     script {
                         def profile = ""
                         if (params.isRelease) {
                             profile = "-P release"
                         }
-                        sh(script: "mvn -s $SETTINGS_XML ${profile} -Dmaven.install.skip=true -DskipTests -Dmaven.test.skip=true -Duse-nexus-staging-maven-plugin=true -DautoReleaseAfterClose=${params.autoReleaseAfterClose} deploy")
-                    }
+                        withMaven(mavenSettingsConfig: 'oss-settings.xml') {
+                            sh(script: "mvn -e ${profile} -Dmaven.install.skip=true -DskipTests -Dmaven.test.skip=true -Duse-nexus-staging-maven-plugin=true -DautoReleaseAfterClose=${params.autoReleaseAfterClose} deploy")
+                        }
 
+                    }
                 }
             }
         }
