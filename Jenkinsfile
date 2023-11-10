@@ -182,15 +182,13 @@ pipeline {
 
             steps {
                 untar(file: "$GPG_OSS_SECRETS")
-                    script {
-                        def profile = ""
-                        if (params.isRelease) {
-                            profile = "-P release"
-                        }
-                        withMaven(mavenSettingsConfig: 'oss-settings.xml') {
-                            sh(script: "mvn -e ${profile} -Dmaven.install.skip=true -DskipTests -Dmaven.test.skip=true -Duse-nexus-staging-maven-plugin=true -DautoReleaseAfterClose=${params.autoReleaseAfterClose} deploy")
-                        }
-
+                script {
+                    def profile = ""
+                    if (params.isRelease) {
+                        profile = "-P release"
+                    }
+                    withMaven(mavenSettingsConfig: 'oss-settings.xml') {
+                        sh(script: "mvn -e ${profile} -Dmaven.install.skip=true -DskipTests -Dmaven.test.skip=true -Duse-nexus-staging-maven-plugin=true -DautoReleaseAfterClose=${params.autoReleaseAfterClose} deploy")
                     }
                 }
             }
