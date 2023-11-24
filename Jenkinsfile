@@ -160,7 +160,9 @@ pipeline {
                         resolverId: "MAVEN_RESOLVER",
                         opts: "-DexcludeTestProject=true -Dcyclonedx.skipAttach=false -Dcyclonedx.projectType=application -Dcyclonedx.verbose=true"
                     )
-
+                    catchError(message: "Feilet under opplasting av bom til DependencyTrack") {
+                        publishDependencyTrack('b2240492-5648-4f5c-9e43-beb9cca676d2', env.ARTIFACT_ID, env.POM_VERSION, 'target/bom.json')
+                    }
                 }
             }
 
