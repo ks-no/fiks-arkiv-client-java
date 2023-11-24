@@ -74,34 +74,6 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                script {
-                    def pom = readMavenPom file: 'pom.xml'
-                    env.POM_VERSION = pom.version
-
-                }
-                rtMavenRun (
-                        pom: 'pom.xml',
-                        goals: "-U -B ${PROFILE_EXTRA} clean install",
-                        deployerId: "MAVEN_DEPLOYER",
-                        resolverId: "MAVEN_RESOLVER"
-                )
-            }
-            post {
-                success {
-                    recordIssues enabledForFailure: true, tool: java()
-                    rtMavenRun(
-                        pom: 'pom.xml',
-                        goals: "org.jacoco:jacoco-maven-plugin:${JACOCO_VERSION}:report",
-                        tool: 'maven',
-                        resolverId: "MAVEN_RESOLVER"
-                    )
-                    jacoco(execPattern: '**/*.exec')
-                }
-            }
-        }
-
         stage('Validate') {
             steps {
                 script {
@@ -109,15 +81,18 @@ pipeline {
                         if (params.specifiedVersion != null && !params.specifiedVersion.isEmpty() && !isValidReleaseVersion(params.specifiedVersion)) {
                             error("Invalid version: " + params.releaseVersion);
                         }
-                        sh(script: 'mvn -U -B validate')
+                        withMaven {
+                          sh(script: 'mvn -U -B validate')
+                        }
                     } else {
-                        sh(script: 'mvn -U -B -P snapshot validate')
+                        withMaven {
+                          sh(script: 'mvn -U -B -P snapshot validate')
+                        }
                     }
                 }
             }
         }
-
-        stage('Release: new version') {
+        stage('Release: set new version') {
             when {
                 allOf {
                     expression { params.isRelease }
@@ -139,49 +114,85 @@ pipeline {
                 }
 
                 gitCheckout(env.BRANCH_NAME)
-                prepareReleaseNoBuild releaseVersion
-                rtMavenRun(
-                        pom: 'pom.xml',
-                        goals: '-DskipTests -U -B clean install',
-                        resolverId: 'MAVEN_RESOLVER'
-                )
+                withMaven {
+                    prepareReleaseNoBuild releaseVersion
+                }
                 gitTag(isRelease, releaseVersion)
             }
         }
 
-        stage('Deploy to Artifactory') {
+        stage('Build') {
+            steps {
+                rtMavenRun (
+                        pom: 'pom.xml',
+                        goals: "-U -B clean install",
+                        opts: " -DinstallAtEnd=true -Dkotlin.compiler.incremental=false -Dkotlin.environment.keepalive=true",
+                        resolverId: "MAVEN_RESOLVER",
+                        deployerId: "MAVEN_DEPLOYER"
+                )
+            }
+            post {
+                success {
+                    recordIssues enabledForFailure: true, tool: java()
+                    warnError(message: "Jacoco feilet") {
+                        jacoco(execPattern: '**/*.exec')
+                    }
+                }
+                always {
+                    junit testResults:'**/surefire-reports/*.xml', allowEmptyResults: true
+                }
+            }
+        }
+
+        stage('Security check') {
             when {
-                branch 'main'
+                anyOf {
+                    branch 'master'
+                    branch 'main'
+                }
+            }
+            steps {
+                warnError(message: "Feilet under generering av bom") {
+                    rtMavenRun(
+                        pom: 'pom.xml',
+                        goals: '-B org.cyclonedx:cyclonedx-maven-plugin:2.7.10:makeAggregateBom',
+                        resolverId: "MAVEN_RESOLVER",
+                        opts: "-DexcludeTestProject=true -Dcyclonedx.skipAttach=false -Dcyclonedx.projectType=application -Dcyclonedx.verbose=true"
+                    )
+                    catchError(message: "Feilet under opplasting av bom til DependencyTrack") {
+                        publishDependencyTrack(pipelineParams.dtProjectId, env.ARTIFACT_ID, env.POM_VERSION, 'target/bom.json')
+                    }
+                }
+            }
+
+        }
+        stage('Run component tests') {
+            environment {
+                CURRENT_VERSION = readMavenPom(file: 'pom.xml').getVersion()
+            }
+            when {
+                expression { pipelineParams.componentTestProject }
             }
 
             steps {
-                configFileProvider([configFile(fileId: 'oss-settings.xml', variable: 'SETTINGS_XML')]) {
-                    script {
-                        def deployRepo = ""
-                        if (params.isRelease) {
-                            deployRepo = " -DaltReleaseDeploymentRepository=central::https://artifactory.fiks.ks.no/artifactory/ks-maven/"
-                        } else {
-                            deployRepo = " -DaltSnapshotDeploymentRepository=snapshots::https://artifactory.fiks.ks.no/artifactory/maven-all/"
-                        }
-
-                        sh(script: "mvn -Dmaven.install.skip=true -DskipTests -Duse-nexus-staging-maven-plugin=false ${deployRepo} -s $SETTINGS_XML jar:jar org.apache.maven.plugins:maven-deploy-plugin:3.0.0-M1:deploy")
-                    }
-                }
+                build job: "/KS/${pipelineParams.componentTestProject}/main", propagate: true, wait: true, parameters:[[$class: 'StringParameterValue', name: 'componentVersion', value:CURRENT_VERSION]]
             }
         }
 
         stage('Deploy to Maven Central') {
             when {
-                branch 'main'
+                anyOf {
+                    branch 'master'
+                    branch 'main'
+                }
             }
-
             environment {
                 GPG_OSS_SECRETS = credentials('gpg-oss-secrets')
                 GNUPGHOME = "${env.WORKSPACE}/.gnupg"
             }
 
             steps {
-                untar(file: "$GPG_OSS_SECRETS")
+            untar(file: "$GPG_OSS_SECRETS")
                 script {
                     def profile = ""
                     if (params.isRelease) {
@@ -221,6 +232,8 @@ pipeline {
         }
     }
 }
+
+
 
 
 @NonCPS
