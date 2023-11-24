@@ -132,16 +132,17 @@ pipeline {
                 )
             }
             post {
-                success {
-                    recordIssues enabledForFailure: true, tool: java()
-                    warnError(message: "Jacoco feilet") {
-                        jacoco(execPattern: '**/*.exec')
-                    }
-                }
-                always {
-                    junit testResults:'**/surefire-reports/*.xml', allowEmptyResults: true
-                }
-            }
+               success {
+                   recordIssues enabledForFailure: true, tool: java()
+                   rtMavenRun(
+                       pom: 'pom.xml',
+                       goals: "org.jacoco:jacoco-maven-plugin:${JACOCO_VERSION}:report",
+                       tool: 'maven',
+                       resolverId: "MAVEN_RESOLVER"
+                   )
+                   jacoco(execPattern: '**/*.exec')
+               }
+           }
         }
 
         stage('Security check') {
