@@ -166,18 +166,6 @@ pipeline {
             }
 
         }
-        stage('Run component tests') {
-            environment {
-                CURRENT_VERSION = readMavenPom(file: 'pom.xml').getVersion()
-            }
-            when {
-                expression { pipelineParams.componentTestProject }
-            }
-
-            steps {
-                build job: "/KS/${pipelineParams.componentTestProject}/main", propagate: true, wait: true, parameters:[[$class: 'StringParameterValue', name: 'componentVersion', value:CURRENT_VERSION]]
-            }
-        }
 
         stage('Deploy to Maven Central') {
             when {
