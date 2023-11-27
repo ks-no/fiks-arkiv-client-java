@@ -17,6 +17,8 @@ pipeline {
         timeout(time: 1, unit: 'HOURS')
     }
     environment {
+        POM_VERSION = readMavenPom(file: 'pom.xml').getVersion()
+        ARTIFACT_ID = readMavenPom(file: 'pom.xml').getArtifactId()
         JACOCO_VERSION = "0.8.7"
         JAVA_HOME = tool name: 'openjdk11', type: 'jdk'
     }
@@ -160,6 +162,9 @@ pipeline {
                         resolverId: "MAVEN_RESOLVER",
                         opts: "-DexcludeTestProject=true -Dcyclonedx.skipAttach=false -Dcyclonedx.projectType=application -Dcyclonedx.verbose=true"
                     )
+                    catchError(message: "Feilet under opplasting av bom til DependencyTrack") {
+                        publishDependencyTrack(pipelineParams.dtProjectId, env.ARTIFACT_ID, env.POM_VERSION, 'target/bom.json')
+                    }
                 }
             }
 
