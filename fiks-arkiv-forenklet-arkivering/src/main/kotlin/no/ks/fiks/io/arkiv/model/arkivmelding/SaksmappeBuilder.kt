@@ -36,9 +36,9 @@ open class SaksmappeBuilder : MappeBuilder() {
         private set
     var byggindenter: List<Byggident> = ArrayList()
         private set
-    var planident: Planident? = null
+    var planidenter: List<Planident> = ArrayList()
         private set
-    var punkt: Punkt? = null
+    var punkt: List<Punkt> = ArrayList()
         private set
 
     fun saksaar(saksaar: Int) = apply { this.saksaar = saksaar }
@@ -54,8 +54,8 @@ open class SaksmappeBuilder : MappeBuilder() {
     fun adresser(adresser: List<Adresse>) = apply { this.adresser = adresser }
     fun matrikkelnumre(matrikkelnumre: List<Matrikkelnummer>) = apply { this.matrikkelnumre = matrikkelnumre }
     fun byggindenter(byggindenter: List<Byggident>) = apply { this.byggindenter = byggindenter }
-    fun planident(planident: Planident) = apply { this.planident = planident }
-    fun punkt(punkt: Punkt) = apply { this.punkt = punkt }
+    fun planidenter(planidenter: List<Planident>) = apply { this.planidenter = planidenter }
+    fun punkt(punkt: List<Punkt>) = apply { this.punkt = punkt }
 
     override fun build(): Saksmappe {
         return Saksmappe().also {
@@ -90,8 +90,8 @@ open class SaksmappeBuilder : MappeBuilder() {
             it.presedens.addAll(presedens)
             it.matrikkelnummers.addAll(matrikkelnumre)
             it.byggidents.addAll(byggindenter)
-            it.planident = planident
-            it.punkt = punkt
+            it.planidents.addAll(planidenter)
+            it.punkts.addAll(punkt)
             it.adresses.addAll(adresser)
         }
     }
