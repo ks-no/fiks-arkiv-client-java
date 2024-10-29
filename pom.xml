@@ -28,7 +28,7 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jaxb2.version>3.1.0</jaxb2.version>
-        <jaxb-impl.version>4.0.0</jaxb-impl.version>
+        <jaxb-impl.version>2.3.9</jaxb-impl.version>
         <jaxb-api.version>2.3.1</jaxb-api.version>
         <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
         <junit.jupiter.version>5.8.2</junit.jupiter.version>
