@@ -1,6 +1,8 @@
 package no.ks.fiks.io.arkiv.model;
 
 import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Korrespondansepart;
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Forsendelsesmaate;
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Landkode;
 import no.ks.fiks.io.arkiv.model.arkivmelding.*;
 import no.ks.fiks.io.arkiv.model.arkivstruktur.*;
 import no.ks.fiks.io.arkiv.model.forenklet.*;
@@ -113,7 +115,7 @@ public class ArkivmeldingJavaTest {
                 .saksbehandler(saksbehandlerBuilder.build())
                 .postadresse(Collections.singletonList("Gate 1"))
                 .postnummer("3801")
-                .land("NO")
+                .landkode(Landkode.builder().withKode("NO").build())
                 .poststed("Bø").build());
 
 
@@ -195,7 +197,7 @@ public class ArkivmeldingJavaTest {
                                         .adresselinje3("Tredje adresselinje")
                                         .postnr("3801")
                                         .poststed("Bø"))
-                                .forsendelsemaate("SvarUt")))
+                                .forsendelsemaate( Forsendelsesmaate.builder().withKode("SvarUT").build())))
                         .hoveddokument(new ForenkletDokument()
                                 .tittel("Vedtak")
                                 .filnavn("vedtak.pdf")

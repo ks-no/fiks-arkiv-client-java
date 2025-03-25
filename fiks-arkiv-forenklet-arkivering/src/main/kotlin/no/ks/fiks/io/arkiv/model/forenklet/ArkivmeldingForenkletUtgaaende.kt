@@ -181,7 +181,7 @@ class ArkivmeldingForenkletUtgaaende {
             adresse.adresselinje3?.let { a ->
                 korrespondansepartBuilder.postadresse(korrespondansepartBuilder.postadresse + a)
             }
-            adresse.landkode?.let { land -> korrespondansepartBuilder.land(land) }
+            adresse.landkode?.let { land -> korrespondansepartBuilder.landkode(land) }
             adresse.postnr?.let { postnr -> korrespondansepartBuilder.postnummer(postnr) }
             adresse.poststed?.let { poststed -> korrespondansepartBuilder.poststed(poststed) }
             part.kontaktperson?.let { kontaktperson -> korrespondansepartBuilder.kontaktperson(kontaktperson) }
@@ -202,11 +202,11 @@ class ArkivmeldingForenkletUtgaaende {
         part.forsendelsemåte?.let { fm -> korrespondansepartBuilder.forsendelsesmaate(fm) }
         part.enhetsidentifikator?.organisasjonsnummer?.let { org ->
             korrespondansepartBuilder.organisasjonid(org)
-            part.enhetsidentifikator?.landkode?.let { land -> korrespondansepartBuilder.land(land) }
+            part.enhetsidentifikator?.landkode?.let { land -> korrespondansepartBuilder.landkode(land) }
         }
         part.personid?.personidentifikatorNr?.let { person ->
             korrespondansepartBuilder.organisasjonid(person)
-            part.enhetsidentifikator?.landkode?.let { land -> korrespondansepartBuilder.land(land) }
+            part.enhetsidentifikator?.landkode?.let { land -> korrespondansepartBuilder.landkode(land) }
         }
         return korrespondansepartBuilder
     }

@@ -1,5 +1,6 @@
 package no.ks.fiks.io.arkiv.model.forenklet
 
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Forsendelsesmaate
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.KorrespondansepartType
 
 class KorrespondansepartForenklet {
@@ -23,7 +24,7 @@ class KorrespondansepartForenklet {
         private set
     var deresReferanse: String? = null
         private set
-    var forsendelsemåte: String? = null
+    var forsendelsemåte: Forsendelsesmaate? = null
         private set
 
     fun systemID(systemID: String) = apply { this.systemID = systemID }
@@ -36,5 +37,5 @@ class KorrespondansepartForenklet {
     fun kontaktinformasjonForenklet(kontaktinformasjonForenklet: KontaktinformasjonForenklet) = apply { this.kontaktinformasjonForenklet = kontaktinformasjonForenklet }
     fun kontaktperson(kontaktperson: String) = apply { this.kontaktperson = kontaktperson }
     fun deresReferanse(deresReferanse: String) = apply { this.deresReferanse = deresReferanse }
-    fun forsendelsemaate(forsendelsemåte: String) = apply { this.forsendelsemåte = forsendelsemåte }
+    fun forsendelsemaate(forsendelsemåte: Forsendelsesmaate) = apply { this.forsendelsemåte = forsendelsemåte }
 }

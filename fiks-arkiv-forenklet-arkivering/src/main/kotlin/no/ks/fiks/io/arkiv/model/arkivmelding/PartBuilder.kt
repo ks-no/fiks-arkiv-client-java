@@ -3,6 +3,7 @@ package no.ks.fiks.io.arkiv.model.arkivmelding
 import no.ks.fiks.arkiv.v1.arkivmelding.opprett.OrganisasjonsID
 import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Part
 import no.ks.fiks.arkiv.v1.arkivmelding.opprett.PersonID
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Landkode
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.PartRolleType
 
 class PartBuilder {
@@ -19,7 +20,7 @@ class PartBuilder {
         private set
     var poststed: String? = null
         private set
-    var land: String? = null
+    var landkode: Landkode? = null
         private set
     var epostadresse: String? = null
         private set
@@ -40,7 +41,7 @@ class PartBuilder {
     fun postAdresser(postadresser: List<String>) = apply { this.postadresser = postadresser }
     fun postnummer(postnummer: String) = apply { this.postnummer = postnummer }
     fun poststed(poststed: String) = apply { this.poststed = poststed }
-    fun land(land: String) = apply { this.land = land }
+    fun landkode(landkode: Landkode) = apply { this.landkode = landkode }
     fun epostadresse(epostadresse: String) = apply { this.epostadresse = epostadresse }
     fun telefonnumre(telefonnumre: List<String>) = apply { this.telefonnumre = telefonnumre }
     fun kontaktperson(kontaktperson: String) = apply { this.kontaktperson = kontaktperson }
@@ -56,7 +57,7 @@ class PartBuilder {
             it.postadresses.addAll(postadresser)
             it.postnummer = postnummer
             it.poststed = poststed
-            it.land = land
+            it.landkode = landkode
             it.epostadresse = epostadresse
             it.telefonnummers.addAll(telefonnumre)
             it.kontaktperson = kontaktperson

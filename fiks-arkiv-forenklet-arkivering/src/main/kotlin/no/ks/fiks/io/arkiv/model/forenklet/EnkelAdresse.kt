@@ -1,5 +1,7 @@
 package no.ks.fiks.io.arkiv.model.forenklet
 
+import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Landkode
+
 class EnkelAdresse {
     var adresselinje1: String? = null
         private set
@@ -11,7 +13,7 @@ class EnkelAdresse {
         private set
     var poststed: String? = null
         private set
-    var landkode: String? = null
+    var landkode: Landkode? = null
         private set
 
     fun adresselinje1(adresselinje1: String) = apply { this.adresselinje1 = adresselinje1 }
@@ -19,5 +21,5 @@ class EnkelAdresse {
     fun adresselinje3(adresselinje3: String) = apply { this.adresselinje3 = adresselinje3 }
     fun postnr(postnr: String) = apply { this.postnr = postnr }
     fun poststed(poststed: String) = apply { this.poststed = poststed }
-    fun landkode(landkode: String) = apply { this.landkode = landkode }
+    fun landkode(landkode: Landkode) = apply { this.landkode = landkode }
 }
