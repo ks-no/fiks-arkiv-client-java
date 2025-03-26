@@ -175,19 +175,21 @@ pipeline {
                 }
             }
             environment {
-                GPG_OSS_SECRETS = credentials('gpg-oss-secrets')
+                MAVEN_GPG_PASSPHRASE = credentials('gpg.oss.passphrase')
                 GNUPGHOME = "${env.WORKSPACE}/.gnupg"
+                GPG_KEYS = credentials('gpg.oss.keys')
+                profile = "${params.isRelease ? '-P release' : ''}"
             }
-
             steps {
-            untar(file: "$GPG_OSS_SECRETS")
-                script {
-                    def profile = ""
-                    if (params.isRelease) {
-                        profile = "-P release"
-                    }
-                    withMaven(mavenSettingsConfig: 'oss-settings.xml') {
-                        sh(script: "mvn -e ${profile} -Dmaven.install.skip=true -DskipTests -Dmaven.test.skip=true -Duse-nexus-staging-maven-plugin=true -DautoReleaseAfterClose=${params.autoReleaseAfterClose} deploy")
+                sh(script: 'gpg --batch --with-colons --import $GPG_KEYS', label: 'Import GPG keys')
+                withMaven(mavenSettingsConfig: 'oss-settings.xml') {
+                    sh script: "mvn -B -e ${env.profile ?: ''} -Dmaven.install.skip=true -DskipTests -Dmaven.test.skip=true -Duse-nexus-staging-maven-plugin=true -DautoReleaseAfterClose=${params.autoReleaseAfterClose} deploy", label: 'Deploy to Maven Central'
+                }
+            }
+            post{
+                cleanup {
+                    dir(path: '.gnupg') {
+                        deleteDir()
                     }
                 }
             }
