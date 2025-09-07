@@ -23,7 +23,11 @@
             <jaxb:package name="no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
-
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/kodelister.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.arkiv.v1.arkivstruktur.kodelister" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../../target/schemas/v1/arkivstruktur.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="no.ks.fiks.arkiv.v1.arkivstruktur" />
@@ -74,9 +78,29 @@
             <jaxb:package name="no.ks.fiks.arkiv.v1.innsyn.registrering" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.innsyn.registrering.hent.resultat.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.arkiv.v1.innsyn.registrering.resultat" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.innsyn.mappe.hent.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="no.ks.fiks.arkiv.v1.innsyn.mappe" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.innsyn.mappe.hent.resultat.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.arkiv.v1.innsyn.mappe.resultat" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.innsyn.kodeliste.hent.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.arkiv.v1.innsyn.kodeliste" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.innsyn.kodeliste.hent.resultat.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="no.ks.fiks.arkiv.v1.innsyn.kodeliste.resultat" />
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="../../../target/schemas/v1/no.ks.fiks.arkiv.v1.innsyn.sok.xsd">
