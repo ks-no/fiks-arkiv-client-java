@@ -167,33 +167,34 @@ pipeline {
 
         }
 
-        stage('Deploy to Maven Central') {
-            when {
-                anyOf {
-                    branch 'master'
-                    branch 'main'
-                }
-            }
-            environment {
-                MAVEN_GPG_PASSPHRASE = credentials('gpg.oss.passphrase')
-                GNUPGHOME = "${env.WORKSPACE}/.gnupg"
-                GPG_KEYS = credentials('gpg.oss.keys')
-                profile = "${params.isRelease ? '-P release' : ''}"
-            }
-            steps {
-                sh(script: 'gpg --batch --with-colons --import $GPG_KEYS', label: 'Import GPG keys')
-                withMaven(mavenSettingsConfig: 'oss-settings.xml') {
-                    sh script: "mvn -B -e ${env.profile ?: ''} -Dmaven.install.skip=true -DskipTests -Dmaven.test.skip=true -Duse-nexus-staging-maven-plugin=true -DautoReleaseAfterClose=${params.autoReleaseAfterClose} deploy", label: 'Deploy to Maven Central'
-                }
-            }
-            post{
-                cleanup {
-                    dir(path: '.gnupg') {
-                        deleteDir()
+         stage('Deploy to Maven Central') {
+                        when {
+                            anyOf {
+                                branch 'master'
+                                branch 'main'
+                            }
+                        }
+                        environment {
+                            MAVEN_GPG_PASSPHRASE = credentials('gpg.oss.passphrase')
+                            GNUPGHOME = "${env.WORKSPACE}/.gnupg"
+                            GPG_KEYS = credentials('gpg.oss.keys')
+                            profile = "${params.isRelease ? '-P release' : ''}"
+                        }
+
+                        steps {
+                            sh(script: 'gpg --batch --with-colons --import $GPG_KEYS', label: 'Import GPG keys')
+                            withMaven(mavenSettingsConfig: 'oss-settings.xml') {
+                                sh script: "mvn -B -e ${env.profile ?: ''} -Dmaven.install.skip=true -DskipTests -Dmaven.test.skip=true deploy", label: 'Deploy to Maven Central'
+                            }
+                        }
+                        post{
+                            cleanup {
+                                dir(path: '.gnupg') {
+                                    deleteDir()
+                                }
+                            }
+                        }
                     }
-                }
-            }
-        }
 
         stage('Release: set snapshot') {
             when {
