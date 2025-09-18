@@ -167,28 +167,27 @@ pipeline {
 
         }
 
-        stage('Deploy to Maven Central') {
-                  when { anyOf { branch 'master'; branch 'main' } }
-                  environment {
-                    MAVEN_GPG_PASSPHRASE = credentials('gpg.oss.passphrase')
-                    GNUPGHOME            = "${env.WORKSPACE}/.gnupg"
-                    GPG_KEYS             = credentials('gpg.oss.keys')
-                    PROFILE          = "${params.isRelease ? '-P release' : ''}"
-                  }
-                  steps {
-                    sh 'gpg --batch --with-colons --import "$GPG_KEYS"'
-                    withMaven(mavenSettingsConfig: 'oss-settings.xml') {
-                      sh label: 'Deploy to Maven Central', script: """
-                        mvn -B -e ${env.PROFILE} \
-                           -Dmaven.install.skip=true \
-                           -DskipTests -Dmaven.test.skip=true \
-                           -DskipNexusStagingDeployMojo=true \
-                           deploy
-                      """
-                    }
-                  }
-                  post { cleanup { dir('.gnupg') { deleteDir() } } }
-                }
+    stage('Deploy to Maven Central') {
+      when { anyOf { branch 'master'; branch 'main' } }
+      environment {
+        MAVEN_GPG_PASSPHRASE = credentials('gpg.oss.passphrase')
+        GNUPGHOME = "${env.WORKSPACE}/.gnupg"
+        GPG_KEYS = credentials('gpg.oss.keys')
+        PROFILE  = "${params.isRelease ? '-P release' : ''}"
+      }
+      steps {
+        sh 'gpg --batch --with-colons --import "$GPG_KEYS"'
+        withMaven(mavenSettingsConfig: 'oss-settings.xml') {
+          sh label: 'Deploy to Maven Central', script: """
+            mvn -B -e ${env.PROFILE} \
+               -DskipNexusStagingDeployMojo=true \
+               -Dmaven.install.skip=true -DskipTests -Dmaven.test.skip=true \
+               deploy
+          """
+        }
+      }
+      post { cleanup { dir('.gnupg') { deleteDir() } } }
+    }
 
         stage('Release: set snapshot') {
             when {
