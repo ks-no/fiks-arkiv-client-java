@@ -7,7 +7,7 @@
     <parent>
         <groupId>no.ks.fiks.pom</groupId>
         <artifactId>fiks-ekstern-kotlin-superpom</artifactId>
-        <version>1.7.0</version>
+        <version>1.9.0</version>
     </parent>
 
     <groupId>no.ks.fiks</groupId>
@@ -34,8 +34,8 @@
         <maven-enforcer-plugin.version>3.6.2</maven-enforcer-plugin.version>
         <junit.jupiter.version>6.0.3</junit.jupiter.version>
         <kotest.version>5.0.0</kotest.version>
-        <logback.version>1.5.32</logback.version>
-        <kotlin-logging.version>3.0.5</kotlin-logging.version>
+        <logback.version>1.2.13</logback.version>
+        <kotlin-logging.version>2.1.21</kotlin-logging.version>
 
         <connection>scm:git:git@github.com:ks-no/fiks-arkiv-client-java.git</connection>
         <developerConnection>scm:git:git@github.com:ks-no/fiks-arkiv-client-java.git</developerConnection>
@@ -174,7 +174,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.10.1</version>
+                    <version>3.15.0</version>
                     <configuration>
                         <source>${maven.compiler.source}</source>
                         <target>${maven.compiler.target}</target>
