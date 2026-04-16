@@ -8,7 +8,7 @@ pipeline {
     }
     tools {
         maven 'maven'
-        jdk 'openjdk25'
+        jdk 'openjdk21'
     }
 
     options {
@@ -20,7 +20,7 @@ pipeline {
         POM_VERSION = readMavenPom(file: 'pom.xml').getVersion()
         ARTIFACT_ID = readMavenPom(file: 'pom.xml').getArtifactId()
         JACOCO_VERSION = "0.8.7"
-        JAVA_HOME = tool name: 'openjdk25', type: 'jdk'
+        JAVA_HOME = tool name: 'openjdk21', type: 'jdk'
     }
     parameters {
         booleanParam(name: 'isRelease', defaultValue: false, description: 'Skal prosjektet releases? Alle andre parametere ignoreres ved snapshot-bygg.')
