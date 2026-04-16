@@ -23,18 +23,19 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <kotlin.compiler.jvmTarget>17</kotlin.compiler.jvmTarget>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jaxb2.version>3.1.0</jaxb2.version>
-        <jaxb-impl.version>2.3.9</jaxb-impl.version>
+        <jaxb2.version>4.1.0</jaxb2.version>
+        <jaxb-impl.version>4.0.7</jaxb-impl.version>
         <jaxb-api.version>2.3.1</jaxb-api.version>
-        <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
-        <junit.jupiter.version>5.8.2</junit.jupiter.version>
+        <maven-enforcer-plugin.version>3.6.2</maven-enforcer-plugin.version>
+        <junit.jupiter.version>6.0.3</junit.jupiter.version>
         <kotest.version>5.0.0</kotest.version>
-        <logback.version>1.2.13</logback.version>
-        <kotlin-logging.version>2.1.21</kotlin-logging.version>
+        <logback.version>1.5.32</logback.version>
+        <kotlin-logging.version>3.0.5</kotlin-logging.version>
 
         <connection>scm:git:git@github.com:ks-no/fiks-arkiv-client-java.git</connection>
         <developerConnection>scm:git:git@github.com:ks-no/fiks-arkiv-client-java.git</developerConnection>
