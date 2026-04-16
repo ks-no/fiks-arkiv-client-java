@@ -8,7 +8,7 @@ pipeline {
     }
     tools {
         maven 'maven'
-        jdk 'openjdk11'
+        jdk 'openjdk25'
     }
 
     options {
