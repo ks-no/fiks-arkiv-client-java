@@ -1,8 +1,15 @@
 package no.ks.fiks.io.arkiv.model
 
-import io.kotest.matchers.shouldBe
 import io.kotest.assertions.throwables.shouldNotThrowAny
-import no.ks.fiks.arkiv.v1.arkivmelding.opprett.*
+import io.kotest.matchers.shouldBe
+import jakarta.xml.bind.JAXBContext
+import jakarta.xml.bind.JAXBElement
+import jakarta.xml.bind.Marshaller
+import jakarta.xml.bind.util.JAXBSource
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Arkivmelding
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Dokumentflyt
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Journalpost
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Korrespondansepart
 import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.*
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -11,12 +18,8 @@ import java.time.LocalDate
 import java.time.ZonedDateTime
 import java.util.*
 import javax.xml.XMLConstants
-import javax.xml.bind.util.JAXBSource
-import javax.xml.validation.SchemaFactory
-import javax.xml.bind.JAXBContext
-import javax.xml.bind.JAXBElement
-import javax.xml.bind.Marshaller
 import javax.xml.namespace.QName
+import javax.xml.validation.SchemaFactory
 
 
 class ArkivmeldingTest {
