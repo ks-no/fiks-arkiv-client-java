@@ -45,7 +45,7 @@ jobs:
     timeout-minutes: 60
 
     env:
-      API_VERSION: ${{ inputs.apiVersion }}
+      API_VERSION: ${{ inputs.apiVersion || 'main' }}
 
     steps:
 
