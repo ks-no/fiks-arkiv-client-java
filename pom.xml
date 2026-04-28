@@ -28,7 +28,7 @@
         <kotlin.compiler.jvmTarget>17</kotlin.compiler.jvmTarget>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jaxb-impl.version>4.0.6</jaxb-impl.version>
+        <jaxb-impl.version>2.3.7</jaxb-impl.version>
         <jaxb-runtime.version>4.0.7</jaxb-runtime.version>
         <jaxb-xjc.version>2.3.7</jaxb-xjc.version>
         <jakarta.bind-api.version>4.0.5</jakarta.bind-api.version>
@@ -62,12 +62,6 @@
                 <version>${kotlin.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.glassfish.jaxb</groupId>
-                <artifactId>jaxb-impl</artifactId>
-                <version>${jaxb-impl.version}</version>
             </dependency>
 
             <dependency>
