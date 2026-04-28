@@ -1,0 +1,198 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      isRelease:
+        description: 'Skal prosjektet releases? Alle andre parametere ignoreres ved snapshot-bygg.'
+        required: false
+        default: false
+        type: boolean
+      specifiedVersion:
+        description: 'Hva er det nye versjonsnummeret (X.X.X)? Som default releases snapshot-versjonen'
+        required: false
+        default: ''
+      apiVersion:
+        description: 'Hva er API versjon som skal brukes under bygg? Default er main'
+        required: false
+        default: 'main'
+      releaseNotes:
+        description: 'Hva er endret i denne releasen?'
+        required: false
+        default: 'Ingen endringer utført'
+      reviewer:
+        description: 'Hvem har gjort review?'
+        required: false
+        default: 'Endringene krever ikke review'
+      autoReleaseAfterClose:
+        description: 'Automatisk release til maven central?'
+        required: false
+        default: true
+        type: boolean
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    env:
+      API_VERSION: ${{ inputs.apiVersion }}
+
+    steps:
+
+      - name: Set up github app
+        id: setup-github-app
+        uses: ks-no/github-actions-public/setup-github-app@main
+        with:
+            ks_github_app_id: ${{ secrets.KS_RUNNER_APP_ID }}
+            ks_github_app_private_key: ${{ secrets.KS_RUNNER_PRIVATE_KEY }}
+
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          submodules: true
+          fetch-depth: 0
+          fetch-tags: true
+          token: ${{ steps.setup-github-app.outputs.app_token }}
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Update submodule fiks-arkiv-specification
+        run: |
+          cd fiks-arkiv-specification
+          git fetch
+          git checkout ${{ env.API_VERSION }}
+          git pull
+
+      - name: Read POM version
+        id: pom
+        run: |
+          echo "version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
+          echo "artifact_id=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)" >> $GITHUB_OUTPUT
+
+      - name: Validate (snapshot)
+        if: ${{ inputs.isRelease != 'true' }}
+        run: mvn -U -B -P snapshot validate
+
+      - name: Validate (release)
+        if: ${{ inputs.isRelease == 'true' }}
+        run: mvn -U -B validate
+
+      - name: Set release version
+        if: |
+          inputs.isRelease == 'true' &&
+          (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        run: |
+          if [ -z "${{ inputs.specifiedVersion }}" ]; then
+            RELEASE_VERSION=$(echo "${{ steps.pom.outputs.version }}" | sed 's/-SNAPSHOT//')
+          else
+            RELEASE_VERSION="${{ inputs.specifiedVersion }}"
+          fi
+          echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_ENV
+          mvn -B versions:set -DnewVersion=$RELEASE_VERSION -DgenerateBackupPoms=false
+
+      - name: Build
+        run: |
+          mvn -U -B clean install \
+            -DinstallAtEnd=true \
+            -Dkotlin.compiler.incremental=false \
+            -Dkotlin.environment.keepalive=true
+
+      - name: Generate JaCoCo report
+        if: success()
+        run: mvn org.jacoco:jacoco-maven-plugin:0.8.7:report
+
+      - name: Upload JaCoCo report
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-report
+          path: '**/target/site/jacoco/'
+
+      - name: Security check - Generate CycloneDX BOM
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        continue-on-error: true
+        run: |
+          mvn -B org.cyclonedx:cyclonedx-maven-plugin:2.7.10:makeAggregateBom \
+            -DexcludeTestProject=true \
+            -Dcyclonedx.skipAttach=false \
+            -Dcyclonedx.projectType=application \
+            -Dcyclonedx.verbose=true
+
+      - name: Import GPG key
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        env:
+          GPG_KEYS: ${{ secrets.GPG_OSS_KEYS }}
+        run: gpg --batch --with-colons --import "$GPG_KEYS"
+
+      - name: Write Maven settings.xml
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        run: |
+          mkdir -p ~/.m2
+          echo "${{ secrets.SONATYPE_OSSRH_SETTINGS_XML }}" > ~/.m2/settings.xml
+
+      - name: Deploy to Maven Central
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        env:
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_OSS_PASSPHRASE }}
+        run: |
+          PROFILE_FLAG=""
+          if [ "${{ inputs.isRelease }}" == "true" ]; then
+            PROFILE_FLAG="-P release"
+          fi
+          mvn -B -e $PROFILE_FLAG \
+            -s ~/.m2/settings.xml \
+            -Dmaven.install.skip=true \
+            -DskipTests \
+            -Dmaven.test.skip=true \
+            deploy
+
+      - name: Set next snapshot version
+        if: |
+          inputs.isRelease == 'true' &&
+          (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        run: |
+          NEXT_SNAPSHOT=$(echo "$RELEASE_VERSION" | awk -F. '{$NF = $NF + 1; OFS="."; print $0}')-SNAPSHOT
+          mvn -B versions:set -DnewVersion=$NEXT_SNAPSHOT -DgenerateBackupPoms=false
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pom.xml '**/pom.xml'
+          git commit -m "chore: set next development version $NEXT_SNAPSHOT [skip ci]"
+          git push
+
+      - name: Tag release
+        if: |
+          inputs.isRelease == 'true' &&
+          (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        run: |
+          git tag "$RELEASE_VERSION"
+          git push origin "$RELEASE_VERSION"
+
+      - name: Create GitHub Release
+        if: |
+          inputs.isRelease == 'true' &&
+          (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.RELEASE_VERSION }}
+          name: ${{ env.RELEASE_VERSION }}
+          body: |
+            **Release notes:**
+            ${{ inputs.releaseNotes }}
+
+            **Reviewed by:** ${{ inputs.reviewer }}
+            **Released by:** ${{ github.actor }}
