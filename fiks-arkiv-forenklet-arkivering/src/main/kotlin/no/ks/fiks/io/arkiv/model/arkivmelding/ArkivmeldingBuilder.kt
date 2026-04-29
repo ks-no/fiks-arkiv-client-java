@@ -1,5 +1,8 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
+import jakarta.xml.bind.JAXBContext
+import jakarta.xml.bind.JAXBElement
+import jakarta.xml.bind.Marshaller
 import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Arkivmelding
 import org.w3c.dom.Node
 import org.xml.sax.ContentHandler
@@ -7,10 +10,6 @@ import java.io.File
 import java.io.OutputStream
 import java.io.StringWriter
 import java.io.Writer
-import java.time.ZonedDateTime
-import javax.xml.bind.JAXBContext
-import javax.xml.bind.JAXBElement
-import javax.xml.bind.Marshaller
 import javax.xml.namespace.QName
 import javax.xml.stream.XMLEventWriter
 import javax.xml.stream.XMLStreamWriter
