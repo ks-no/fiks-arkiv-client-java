@@ -18,7 +18,7 @@
         <maven-resources-plugin.version>3.5.0</maven-resources-plugin.version>
         <jaxb2-rich-contract-plugin.version>4.1.1</jaxb2-rich-contract-plugin.version>
 
-        <basicjaxb-plugins.version>2.2.1</basicjaxb-plugins.version>
+        <basicjaxb-plugins.version>3.0.0</basicjaxb-plugins.version>
         <hyperjaxb-annox-plugin.version>2.2.1</hyperjaxb-annox-plugin.version>
     </properties>
 
