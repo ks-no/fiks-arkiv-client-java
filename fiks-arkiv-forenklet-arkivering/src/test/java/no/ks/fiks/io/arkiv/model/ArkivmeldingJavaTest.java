@@ -50,6 +50,7 @@ public class ArkivmeldingJavaTest {
 
         ArkivmeldingBuilder arkivmeldingBuilder = new MappeArkivmeldingBuilder()
                 .mappe(mappe.build())
+                .regel("Noark 5")
                 .system("System A")
                 .antallFiler(0);
 
@@ -57,6 +58,7 @@ public class ArkivmeldingJavaTest {
         arkivmeldingBuilder.marshal(sw);
         String xmlContent = sw.toString();
         System.out.println(xmlContent);
+        Assertions.assertTrue(xmlContent.contains("<regel>Noark 5</regel>"));
 
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.opprett.xsd"));
