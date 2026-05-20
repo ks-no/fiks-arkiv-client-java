@@ -1,3 +1,10 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
-class RegistreringArkivmeldingBuilder: ArkivmeldingBuilder()
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Arkivmelding
+
+class RegistreringArkivmeldingBuilder : ArkivmeldingBuilder() {
+    override fun build(): Arkivmelding =
+        super.build().also {
+            checkNotNull(registrering) { "Registrering er påkrevd felt for RegistreringArkivmeldingBuilder" }
+        }
+}

@@ -132,4 +132,24 @@ class ArkivmeldingTest {
         exception.message shouldBe "System er påkrevd felt for Arkivmelding"
 
     }
+
+    @Test
+    fun `RegistreringArkivmeldingBuilder uten registrering skal kaste exception`() {
+        val arkivmelding = RegistreringArkivmeldingBuilder()
+            .system("systemA")
+            .antallFiler(0)
+
+        val exception = assertThrows<IllegalStateException> { arkivmelding.build() }
+        exception.message shouldBe "Registrering er påkrevd felt for RegistreringArkivmeldingBuilder"
+    }
+
+    @Test
+    fun `MappeArkivmeldingBuilder uten mappe skal kaste exception`() {
+        val arkivmelding = no.ks.fiks.io.arkiv.model.arkivmelding.MappeArkivmeldingBuilder()
+            .system("systemA")
+            .antallFiler(0)
+
+        val exception = assertThrows<IllegalStateException> { arkivmelding.build() }
+        exception.message shouldBe "Mappe er påkrevd felt for MappeArkivmeldingBuilder"
+    }
 }

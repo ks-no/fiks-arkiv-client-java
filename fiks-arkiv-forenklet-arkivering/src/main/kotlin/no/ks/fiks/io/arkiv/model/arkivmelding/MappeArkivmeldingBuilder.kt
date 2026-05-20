@@ -1,3 +1,10 @@
 package no.ks.fiks.io.arkiv.model.arkivmelding
 
-class MappeArkivmeldingBuilder: ArkivmeldingBuilder()
+import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Arkivmelding
+
+class MappeArkivmeldingBuilder : ArkivmeldingBuilder() {
+    override fun build(): Arkivmelding =
+        super.build().also {
+            checkNotNull(mappe) { "Mappe er påkrevd felt for MappeArkivmeldingBuilder" }
+        }
+}
