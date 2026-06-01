@@ -28,12 +28,12 @@
         <kotlin.compiler.jvmTarget>17</kotlin.compiler.jvmTarget>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jaxb-runtime.version>4.0.8</jaxb-runtime.version>
+        <jaxb-runtime.version>4.0.9</jaxb-runtime.version>
         <jakarta.bind-api.version>4.0.5</jakarta.bind-api.version>
         <maven-enforcer-plugin.version>3.6.3</maven-enforcer-plugin.version>
         <junit.jupiter.version>6.1.0</junit.jupiter.version>
         <kotest.version>5.0.0</kotest.version>
-        <logback.version>1.5.32</logback.version>
+        <logback.version>1.5.33</logback.version>
         <kotlin-logging.version>3.0.5</kotlin-logging.version>
 
         <connection>scm:git:git@github.com:ks-no/fiks-arkiv-client-java.git</connection>
