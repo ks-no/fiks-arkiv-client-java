@@ -3,13 +3,14 @@ package no.ks.fiks.io.arkiv.model
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
+import jakarta.xml.bind.util.JAXBSource
 import mu.KotlinLogging
-import no.ks.fiks.io.arkiv.model.arkivmelding.RegistreringArkivmeldingBuilder
-import no.ks.fiks.io.arkiv.model.arkivstruktur.EksternNoekkelBuilder
 import no.ks.fiks.io.arkiv.model.arkivmelding.JournalpostBuilder
 import no.ks.fiks.io.arkiv.model.arkivmelding.KorrespondansepartBuilder
 import no.ks.fiks.io.arkiv.model.arkivmelding.ReferanseTilMappeBuilder
+import no.ks.fiks.io.arkiv.model.arkivmelding.RegistreringArkivmeldingBuilder
 import no.ks.fiks.io.arkiv.model.arkivstruktur.AdministrativEnhetBuilder
+import no.ks.fiks.io.arkiv.model.arkivstruktur.EksternNoekkelBuilder
 import no.ks.fiks.io.arkiv.model.arkivstruktur.SaksbehandlerBuilder
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.JournalStatus
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.JournalpostType
@@ -24,7 +25,6 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
 import javax.xml.XMLConstants
-import javax.xml.bind.util.JAXBSource
 import javax.xml.validation.SchemaFactory
 
 val logger = KotlinLogging.logger {  }
@@ -131,5 +131,25 @@ class ArkivmeldingTest {
         val exception = assertThrows<IllegalStateException> { arkivmelding.build() }
         exception.message shouldBe "System er påkrevd felt for Arkivmelding"
 
+    }
+
+    @Test
+    fun `RegistreringArkivmeldingBuilder uten registrering skal kaste exception`() {
+        val arkivmelding = RegistreringArkivmeldingBuilder()
+            .system("systemA")
+            .antallFiler(0)
+
+        val exception = assertThrows<IllegalStateException> { arkivmelding.build() }
+        exception.message shouldBe "Registrering er påkrevd felt for RegistreringArkivmeldingBuilder"
+    }
+
+    @Test
+    fun `MappeArkivmeldingBuilder uten mappe skal kaste exception`() {
+        val arkivmelding = no.ks.fiks.io.arkiv.model.arkivmelding.MappeArkivmeldingBuilder()
+            .system("systemA")
+            .antallFiler(0)
+
+        val exception = assertThrows<IllegalStateException> { arkivmelding.build() }
+        exception.message shouldBe "Mappe er påkrevd felt for MappeArkivmeldingBuilder"
     }
 }

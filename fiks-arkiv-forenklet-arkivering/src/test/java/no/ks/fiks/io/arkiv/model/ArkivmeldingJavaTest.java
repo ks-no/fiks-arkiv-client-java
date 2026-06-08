@@ -1,10 +1,13 @@
 package no.ks.fiks.io.arkiv.model;
 
+import jakarta.xml.bind.util.JAXBSource;
 import no.ks.fiks.arkiv.v1.arkivmelding.opprett.Korrespondansepart;
 import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Forsendelsesmaate;
 import no.ks.fiks.arkiv.v1.arkivstruktur.metadatakatalog.Landkode;
 import no.ks.fiks.io.arkiv.model.arkivmelding.*;
-import no.ks.fiks.io.arkiv.model.arkivstruktur.*;
+import no.ks.fiks.io.arkiv.model.arkivstruktur.EksternNoekkelBuilder;
+import no.ks.fiks.io.arkiv.model.arkivstruktur.ForenkletDokument;
+import no.ks.fiks.io.arkiv.model.arkivstruktur.SaksbehandlerBuilder;
 import no.ks.fiks.io.arkiv.model.forenklet.*;
 import no.ks.fiks.io.arkiv.model.metadatakatalog.v2.*;
 import org.junit.jupiter.api.Assertions;
@@ -12,7 +15,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.util.JAXBSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
@@ -48,6 +50,7 @@ public class ArkivmeldingJavaTest {
 
         ArkivmeldingBuilder arkivmeldingBuilder = new MappeArkivmeldingBuilder()
                 .mappe(mappe.build())
+                .regel("Noark 5")
                 .system("System A")
                 .antallFiler(0);
 
@@ -55,6 +58,7 @@ public class ArkivmeldingJavaTest {
         arkivmeldingBuilder.marshal(sw);
         String xmlContent = sw.toString();
         System.out.println(xmlContent);
+        Assertions.assertTrue(xmlContent.contains("<regel>Noark 5</regel>"));
 
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Schema schema = schemaFactory.newSchema(new File("target/schemas/v1/no.ks.fiks.arkiv.v1.arkivering.arkivmelding.opprett.xsd"));
