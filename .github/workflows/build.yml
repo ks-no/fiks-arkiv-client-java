@@ -5,7 +5,6 @@ on:
     branches:
       - main
       - master
-      - github-actions-fix
   pull_request:
   workflow_dispatch:
     inputs:
@@ -135,7 +134,7 @@ jobs:
             -Dcyclonedx.verbose=true
 
       - name: Import GPG key
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/github-actions-fix' 
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         env:
           GPG_KEYS: ${{ secrets.GPG_OSS_KEYS }}
         run: echo "$GPG_KEYS" | base64 --decode | gpg --batch --with-colons --import
