@@ -135,10 +135,11 @@ jobs:
             -Dcyclonedx.verbose=true
 
       - name: Import GPG key
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/github-actions-fix' 
         env:
           GPG_KEYS: ${{ secrets.GPG_OSS_KEYS }}
-        run: echo "$GPG_KEYS" | gpg --batch --with-colons --import
+        run: echo "$GPG_KEYS" | base64 --decode | gpg --batch --with-colons --import
+
       - name: Write Maven settings.xml
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         run: |
