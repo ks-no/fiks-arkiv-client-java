@@ -57,15 +57,12 @@ jobs:
             ks_github_app_private_key: ${{ secrets.KS_RUNNER_PRIVATE_KEY }}
 
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: ks-no/github-actions-public/checkout@main
         with:
-          submodules: true
-          fetch-depth: 0
-          fetch-tags: true
           token: ${{ steps.setup-github-app.outputs.app_token }}
 
       - name: Set up JDK 17
-        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        uses: ks-no/github-actions-public/setup-java@main
         with:
           java-version: '17'
           distribution: 'temurin'
@@ -118,7 +115,7 @@ jobs:
 
       - name: Upload JaCoCo report
         if: success()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a #v7.0.1
+        uses: ks-no/github-actions-public/upload-artifact@main
         with:
           name: jacoco-report
           path: '**/target/site/jacoco/'
