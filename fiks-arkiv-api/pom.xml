@@ -139,7 +139,7 @@
             <plugin>
                 <groupId>org.patrodyne.jvnet</groupId>
                 <artifactId>hisrc-higherjaxb40-maven-plugin</artifactId>
-                <version>2.2.1</version>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <id>xsd-generate</id>
@@ -159,7 +159,7 @@
                         <include>bindings.xjb</include>
                     </bindingIncludes>
                     <generateDirectory>${project.build.directory}/generated-sources</generateDirectory>
-                    <strict>true</strict>
+                    <strict>false</strict>
                     <extension>true</extension>
                     <verbose>true</verbose>
                     <removeOldOutput>true</removeOldOutput>
