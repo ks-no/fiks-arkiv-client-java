@@ -159,7 +159,7 @@
                         <include>bindings.xjb</include>
                     </bindingIncludes>
                     <generateDirectory>${project.build.directory}/generated-sources</generateDirectory>
-                    <strict>true</strict>
+                    <strict>false</strict>
                     <extension>true</extension>
                     <verbose>true</verbose>
                     <removeOldOutput>true</removeOldOutput>
