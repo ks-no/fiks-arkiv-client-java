@@ -10,7 +10,7 @@ class OrganisasjonsIDBuilder {
         private set
 
     fun identifikator(identifikator: String) = apply { this.identifikator = identifikator }
-    fun landkode(label: String) = apply { this.landkode = landkode }
+    fun landkode(landkode: String) = apply { this.landkode = landkode }
 
     fun buildApiModel(): OrganisasjonsID {
         return OrganisasjonsID().also {
