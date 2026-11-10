@@ -19,7 +19,7 @@ class ForenkletDokument{
     fun dokumenttype(dokumenttype: DokumentType) = apply { this.dokumenttype = dokumenttype }
     fun filnavn(filnavn: String) = apply { this.filnavn = filnavn }
     fun tittel(tittel: String) = apply { this.tittel = tittel }
-    fun skjermetDokument(filnavn: Boolean) = apply { this.skjermetDokument = skjermetDokument }
+    fun skjermetDokument(skjermetDokument: Boolean) = apply { this.skjermetDokument = skjermetDokument }
     fun referanseDokumentFil(referanseDokumentFil: String) = apply { this.referanseDokumentFil = referanseDokumentFil }
     fun systemID(systemID: String) = apply { this.systemID = systemID }
 }

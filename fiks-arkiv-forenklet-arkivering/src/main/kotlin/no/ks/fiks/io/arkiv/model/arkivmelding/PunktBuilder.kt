@@ -16,7 +16,7 @@ class PunktBuilder {
     fun koordinatsystem(koordinatsystem: Koordinatsystem) = apply { this.koordinatsystem = koordinatsystem }
     fun x(x: Double) = apply { this.x = x }
     fun y(y: Double) = apply { this.y = y }
-    fun z(y: Double) = apply { this.z = z }
+    fun z(z: Double) = apply { this.z = z }
 
     fun build() : Punkt {
         return Punkt().also {

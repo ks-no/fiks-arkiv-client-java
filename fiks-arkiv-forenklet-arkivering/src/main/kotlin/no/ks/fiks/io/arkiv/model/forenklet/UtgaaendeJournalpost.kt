@@ -36,7 +36,7 @@ class UtgaaendeJournalpost {
     fun offentlighetsvurdertDato(offentlighetsvurdertDato: LocalDate) = apply { this.offentlighetsvurdertDato = offentlighetsvurdertDato }
     fun referanseEksternNoekkelForenklet(referanseEksternNoekkelForenklet: EksternNoekkelForenklet) = apply { this.referanseEksternNoekkelForenklet = referanseEksternNoekkelForenklet }
     fun tittel(tittel: String) = apply { this.tittel = tittel }
-    fun vedlegg(skjermetTittel: List<ForenkletDokument>) = apply { this.vedlegg = vedlegg }
+    fun vedlegg(vedlegg: List<ForenkletDokument>) = apply { this.vedlegg = vedlegg }
     fun mottakere(mottakere: List<KorrespondansepartForenklet>) = apply { this.mottakere = mottakere }
     fun avsender(avsender: List<KorrespondansepartForenklet>) = apply { this.avsender = avsender }
     fun internAvsender(internAvsender: List<KorrespondansepartIntern>) = apply { this.internAvsender = internAvsender }
