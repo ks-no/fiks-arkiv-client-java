@@ -82,16 +82,16 @@ jobs:
           echo "artifact_id=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)" >> $GITHUB_OUTPUT
 
       - name: Validate (snapshot)
-        if: ${{ inputs.isRelease != 'true' }}
+        if: ${{ !inputs.isRelease }}
         run: mvn -U -B -P snapshot validate
 
       - name: Validate (release)
-        if: ${{ inputs.isRelease == 'true' }}
+        if: ${{ inputs.isRelease }}
         run: mvn -U -B validate
 
       - name: Set release version
         if: |
-          inputs.isRelease == 'true' &&
+          inputs.isRelease &&
           (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         run: |
           if [ -z "${{ inputs.specifiedVersion }}" ]; then
@@ -160,7 +160,7 @@ jobs:
 
       - name: Set next snapshot version
         if: |
-          inputs.isRelease == 'true' &&
+          inputs.isRelease &&
           (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         run: |
           NEXT_SNAPSHOT=$(echo "$RELEASE_VERSION" | awk -F. '{$NF = $NF + 1; OFS="."; print $0}')-SNAPSHOT
@@ -173,7 +173,7 @@ jobs:
 
       - name: Tag release
         if: |
-          inputs.isRelease == 'true' &&
+          inputs.isRelease &&
           (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         run: |
           git tag "$RELEASE_VERSION"
@@ -181,7 +181,7 @@ jobs:
 
       - name: Create GitHub Release
         if: |
-          inputs.isRelease == 'true' &&
+          inputs.isRelease &&
           (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3.0.0
         with:
