@@ -100,7 +100,7 @@ jobs:
             RELEASE_VERSION="${{ inputs.specifiedVersion }}"
           fi
           echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_ENV
-          mvn -B versions:set -DnewVersion=$RELEASE_VERSION -DgenerateBackupPoms=false
+          mvn -B versions:set -DnewVersion="$RELEASE_VERSION" -DgenerateBackupPoms=false
 
       - name: Build
         run: |
@@ -163,8 +163,8 @@ jobs:
           inputs.isRelease &&
           (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         run: |
-          NEXT_SNAPSHOT=$(echo "$RELEASE_VERSION" | awk -F. '{$NF = $NF + 1; OFS="."; print $0}')-SNAPSHOT
-          mvn -B versions:set -DnewVersion=$NEXT_SNAPSHOT -DgenerateBackupPoms=false
+          NEXT_SNAPSHOT=$(echo "$RELEASE_VERSION" | awk -F. -v OFS=. '{$NF = $NF + 1; print}')-SNAPSHOT
+          mvn -B versions:set -DnewVersion="$NEXT_SNAPSHOT" -DgenerateBackupPoms=false
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add pom.xml '**/pom.xml'
